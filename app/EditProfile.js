@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Alert, ScrollView, TouchableOpacity } from 'react-native';
-import Pencil from './Images/pencil.png'
+import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Alert, Image, ScrollView, TouchableOpacity } from 'react-native';
+import Pencil from './Images/pencil.png';
 class EditProfile extends React.Component{
     
     state={
@@ -27,8 +27,10 @@ class EditProfile extends React.Component{
                 condition:'Depression'
             },
         ],
-        triggers:'',
-        comforts:'',
+        triggers:'Fireworks',
+        triggers_edit:'',
+        comforts:'eggs',
+        comforts_edit:'',
     };
    
     handleChange(e){
@@ -92,43 +94,53 @@ class EditProfile extends React.Component{
                 </SafeAreaView>
                 <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
-                    Triggers:
+                    Triggers: {this.state.triggers}
                 </Text>
                 <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_triggers:true})}>
-                     <Image style={styles.image} source={Search}></Image>
+                     <Image style={styles.image} source={Pencil}></Image>
                 </TouchableOpacity>
                 </View>
+                <View style={{"display": this.state.edit_comforts ? "block":"none",}}>
                 <TextInput 
                 placeholder={this.state.triggers} 
                 style={{
-                    "display": this.state.edit_comforts ? "block":"none",
+                    //"display": this.state.edit_comforts ? "block":"none",
                     fontSize: 20,
                     fontFamily:'Cochin',
                     borderWidth:2,
                     borderColor:'#859a9b',
                     borderRadius:10,}}
-                onChangeText={text => this.setState({triggers:text})}
+                onChangeText={text => this.setState({triggers_edit:text})}
                 >
                 </TextInput>
-                <View style={styles.bar}> 
-                <Text style={styles.textStyle}>
-                    Comforts:
-                </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:true})}>
-                     <Image style={styles.image} source={Search}></Image>
+                <TouchableOpacity onPress={()=>this.setState({triggers:this.state.triggers_edit})}>
+                    <Text style={styles.appButtonText}>Submit</Text>
                 </TouchableOpacity>
                 </View>
+                <View style={styles.bar}> 
+                <Text style={styles.textStyle}>
+                    Comforts: {this.state.comforts}
+                </Text>
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:true})}>
+                <Image style={styles.image} source={Pencil}></Image>
+                </TouchableOpacity>
+                </View>
+                <View style={{"display": this.state.edit_comforts ? "block":"none",}}>
                 <TextInput 
                 placeholder={this.state.comforts} 
                 style={{
-                    "display": this.state.edit_comforts ? "block":"none",
+                    //"display": this.state.edit_comforts ? "block":"none",
                     fontSize: 20,
                     fontFamily:'Cochin',
                     borderWidth:2,
                     borderColor:'#859a9b',
                     borderRadius:10,}}
-                onChangeText={text => this.setState({comforts:text})}
+                onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
+                <TouchableOpacity onPress={()=>this.setState({comforts:this.state.comforts_edit})}>
+                    <Text style={styles.appButtonText}>Submit</Text>
+                </TouchableOpacity>
+                </View>
             </View>
         );_
     }
@@ -170,13 +182,19 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
     },
 
+    image:{
+        marginHorizontal:20,
+        width:30,
+        height:30,
+    },
+
     inputStyle:{
         fontSize: 20,
       fontFamily:'Cochin',
       borderWidth:2,
       borderColor:'#859a9b',
       borderRadius:10,
-    //backgroundColor:"rgba(255, 255, 255, 0.53)",
+    background:"#f7021a",
     marginHorizontal:60,
     padding:2,
 

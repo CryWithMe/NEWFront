@@ -4,6 +4,7 @@ import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, 
 class Friends extends React.Component{
 
     state = {
+        friend_account:true, 
         textMessage:'',
         // will be part of a list
         array:[
@@ -54,7 +55,7 @@ class Friends extends React.Component{
                   {"display": element.alreadyFriend ? "none":"block",
                   fontSize: 18,
                   fontFamily:'Cochin',
-                  color: "#fff",}}>
+                  color: "#859a9b",}}>
                   <Text style={styles.textStyle}>Add Friend</Text>
                   </View>
                   </TouchableOpacity>
@@ -72,10 +73,11 @@ class Friends extends React.Component{
                      "display": element.alreadyFriend ? "block":"none",
                      fontSize: 18,
                      fontFamily:'Cochin',
-                     color: "#fff",}}>
+                     color: "#859a9b",}}>
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() => this.props.navigation.navigate('Profile')}
+                        onPress= {() => this.props.navigation.navigate('FriendProfile', {
+                          friend_account:this.state.friend_account})}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
                 </TouchableOpacity>  

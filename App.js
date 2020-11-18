@@ -3,7 +3,7 @@ import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform } from 'react-native';
 
-import {registerRootComponent, Notifications } from 'expo';
+import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
 import Landing from './app/Landing.js';
 import Login from './app/Login.js';
@@ -13,7 +13,7 @@ import Friends from './app/Friends.js';
 import FriendSearch from './app/FriendSearch.js';
 import Settings from './app/Settings.js';
 import EditProfile from './app/EditProfile.js';
-
+import FriendProfile from './app/FriendProfile.js'
 
 const Stack = createStackNavigator(); 
 
@@ -31,26 +31,26 @@ class App extends React.Component{
     notification: {},
   };
 
-  componentDidMount() {
-    this._notificationSubscription = Notifications.addListener(this._handleNotification)
-  }
+  // componentDidMount() {
+  //   this._notificationSubscription = Notifications.addListener(this._handleNotification)
+  // }
 
-  registerForPushNotificationsAsync = async () => {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-    let finalStatus = existingStatus
-    if (existingStatus !== 'granted') {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
-      finalStatus = status
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!')
-      return
-    }
-  }
+  // registerForPushNotificationsAsync = async () => {
+  //   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+  //   let finalStatus = existingStatus
+  //   if (existingStatus !== 'granted') {
+  //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  //     finalStatus = status
+  //   }
+  //   if (finalStatus !== 'granted') {
+  //     alert('Failed to get push token for push notification!')
+  //     return
+  //   }
+  // }
 
-  _handleNotification = notification => {
-    this.setState({ notification })
-  }
+  // _handleNotification = notification => {
+  //   this.setState({ notification })
+  // }
 
   render(){
     return(
@@ -66,6 +66,7 @@ class App extends React.Component{
 <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
 <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
 <Stack.Screen name="Edit-Profile" component={EditProfile} options={{ headerShown: false }}/>
+<Stack.Screen name="FriendProfile" component={FriendProfile} options={{ headerShown: false }}/>
 </Stack.Navigator>
       </NavigationContainer>
 	  
