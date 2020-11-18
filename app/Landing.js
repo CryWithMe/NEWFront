@@ -89,7 +89,7 @@ class Landing extends React.Component{
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile')}
                 >
-                <Text style={styles.fontStyle}>Profile of {username}</Text>
+                <Text style={styles.fontStyle}>Profile of {password}</Text>
                 </TouchableOpacity>  
 
                 <TouchableOpacity
