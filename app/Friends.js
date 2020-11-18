@@ -64,7 +64,7 @@ class Friends extends React.Component{
               
               style={
                 {"display": element.alreadyFriend ? "block":"none",
-                'backgroundColor-color':element.alreadyFriend ? "gray":"#859a9b" , 
+                'backgroundColor':element.alreadyFriend ? "gray":"#859a9b" , 
                 "border-radius":10,
                  padding:2,
                  margin:4,

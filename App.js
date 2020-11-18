@@ -5,6 +5,7 @@ import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform
 
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
+
 import Landing from './app/Landing.js';
 import Login from './app/Login.js';
 import Register from './app/Register.js';
@@ -31,26 +32,6 @@ class App extends React.Component{
     notification: {},
   };
 
-  // componentDidMount() {
-  //   this._notificationSubscription = Notifications.addListener(this._handleNotification)
-  // }
-
-  // registerForPushNotificationsAsync = async () => {
-  //   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-  //   let finalStatus = existingStatus
-  //   if (existingStatus !== 'granted') {
-  //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
-  //     finalStatus = status
-  //   }
-  //   if (finalStatus !== 'granted') {
-  //     alert('Failed to get push token for push notification!')
-  //     return
-  //   }
-  // }
-
-  // _handleNotification = notification => {
-  //   this.setState({ notification })
-  // }
 
   render(){
     return(

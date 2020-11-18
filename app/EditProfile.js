@@ -1,66 +1,57 @@
 import * as React from "react";
 import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Alert, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Pencil from './Images/pencil.png';
+//import MultiSelect from 'react-native-multiple-select';
+import SelectMultiple from 'react-native-select-multiple';
+
+const conditions = [
+        { label: 'Anxiety Disorders', value: '1' },
+        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2' },
+        { label: 'Bipolar Disorder', value: '3' },
+        { label: 'Borderline Personality Disorder (BPD)', value: '4' },
+        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5' },
+        { label: 'Early Psychosis and Psychosis', value: '6' },
+        { label: 'Eating Disorders', value: '7' },
+        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8' },
+        { label: 'Panic Disorder', value: '9' },
+        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10' },
+        { label: 'Schizoaffective Disorder', value: '11' },
+        { label: 'Schizophrenia', value: '12' },
+        { label: 'Seasonal Affective Disorder (SAD)', value: '13' },
+    ]
+
+    const renderLabel = (label, style) => {
+        return (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{marginLeft: 10,borderRadius:10,}}>
+              <Text style={styles.textStyle}>{label}</Text>
+            </View>
+          </View>
+        )
+      }
+
 class EditProfile extends React.Component{
     
     state={
+        selectedItems:[],
+        isShownPicker:false,
         checked:false,
         edit_triggers:false,
         edit_comforts:false,
         screen_name:'',
         username:'',
-        conditions_info:[
-            {
-                has:true,
-                condition:'ADHD'
-            },
-            {
-                has:false,
-                condition:'Anxiety'
-            },
-            {
-                has:false,
-                condition:'Bipolar Disorder'
-            },
-            {
-                has:true,
-                condition:'Depression'
-            },
-        ],
         triggers:'Fireworks',
         triggers_edit:'',
         comforts:'eggs',
         comforts_edit:'',
+        index:0,
     };
    
-    handleChange(e){
-        const item= e.target.name;
-        const isChecked = e.target.checked;
-    }
+    onSelectionsChange = (selectedItems) => {
+        // selectedFruits is array of { label, value }
+        this.setState({ selectedItems })
+      }
 
-    list = () => {
-
-        return this.state.conditions_info.map(element => {
-          return (
-            <View>
-                <CheckBox 
-                    value={element.has}
-                    style={styles.checkbox}
-                    onChange={this.handleChange}
-                    ></CheckBox>
-              <Text style={{
-                    textAlign:"center",
-                    fontSize: 20,
-                    fontFamily:'Cochin',
-                    flexDirection:"row"
-                    }}>
-                        {element.condition}</Text>
-
-              {/* <Button onClick={ () => this.changeColor()} title = "Add Friend" style= {{"display": element.alreadyFriend ? "none" : "inline"}} color = {element.alreadyFriend ? "#859a9b": "gray"} ></Button>*/}  
-              </View> 
-          );
-        });
-      };
 
     render() {
         return (
@@ -88,9 +79,23 @@ class EditProfile extends React.Component{
                     Conditions Info:
                 </Text>
                 <SafeAreaView style={styles.container_3}>
+                
+                
+
+
                 <ScrollView>
-                    {this.list()}
-                </ScrollView>
+                
+            <SelectMultiple style={{fontFamily:"Cochin"}}
+          items={conditions}
+          renderLabel={renderLabel}
+          selectedItems={this.state.selectedItems}
+          onSelectionsChange={this.onSelectionsChange} />
+
+            </ScrollView>
+
+
+
+
                 </SafeAreaView>
                 <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
       borderWidth:2,
       borderColor:'#859a9b',
       borderRadius:10,
-    background:"#f7021a",
+    backgroundColor:"#f7021a",
     marginHorizontal:60,
     padding:2,
 
