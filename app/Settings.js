@@ -12,7 +12,7 @@ class Settings extends React.Component{
         var r=confirm("Press a button!\nEither OK or Cancel.");
         if(r==true){
            //send api request to delete from table
-           alert("You selected delete!");
+           Alert.alert("Confirmation","You selected delete!");
         }
        }
 
@@ -22,11 +22,11 @@ class Settings extends React.Component{
         if(num!=this.state.password && num!=null){
             if(regex.test(num)){
             this.setState({phone_num:num});
-            alert("phone num succesfully changed!");
+            Alert.alert("Confirmation","phone num succesfully changed!");
             }
         }
         else{
-            alert("phone num rejected");
+            Alert.alert("Invalid Number","phone number rejected");
             
         }
         return false;
@@ -37,11 +37,11 @@ class Settings extends React.Component{
         if(pass!=this.state.password && pass!=null){
             if(pass.length>=7){
             this.setState({password:pass});
-            alert("password succesfully changed!");
+            Alert.alert("Confirmation","password succesfully changed!");
             }
         }
         else{
-            alert("password rejected");
+            Alert.alert("Invalid Password","password rejected");
             
         }
         return false;

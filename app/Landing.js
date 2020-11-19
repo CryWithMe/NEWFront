@@ -25,36 +25,7 @@ class Landing extends React.Component{
                 condition:'is crying',
                 date: Date().toLocaleString(),
             },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
+           
         ],
         currentUser:'',
         action:'',
@@ -65,10 +36,12 @@ class Landing extends React.Component{
     list = () => {
         return this.state.array.map(element => {
           return (
+            <TouchableOpacity onPress={confirm(`Send Message to ${element.name}?`)}>
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
               <Text>{element.date}</Text> 
               </View> 
+              </TouchableOpacity>
           );
         });
       };
@@ -100,7 +73,7 @@ class Landing extends React.Component{
                 </TouchableOpacity>
                 </View>
            <View style={styles.container_2}>  
-        <TouchableOpacity style={styles.button} onPress={()=>{alert(`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{Alert.alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
            </View>       

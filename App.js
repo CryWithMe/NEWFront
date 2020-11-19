@@ -1,10 +1,14 @@
-import * as React from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform } from 'react-native';
 
+
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import * as firebase from 'firebase';
+//import ApiKeys from './constants/ApiKeys';
 
 import Landing from './app/Landing.js';
 import Login from './app/Login.js';
@@ -26,14 +30,68 @@ const myTheme = {
 	},
   };
 
+  //if(!firebase.apps.length){firebase.initializeApp(ApiKeys.FirebaseConfig);}
+
+  // Notifications.setNotificationHandler({
+  //   handleNotification: async () => ({
+  //     shouldShowAlert: true,
+  //     shouldPlaySound: false,
+  //     shouldSetBadge: false,
+  //   }),
+  // });
+
+ 
 class App extends React.Component{
 
   state = {
     notification: {},
   };
 
+  componentDidMount(){
+    this.registerForPushNotifications();
+  }
+
+//useEffect(() => {
+    //   (()=> registerForPushNotificationsAsync())();
+    // }, [] );
+
+  registerForPushNotifications = async() => {
+    //check for existing permissions
+
+    let token;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+    console.log(token);
+    return token;
+  }
 
   render(){
+     
+
+   
     return(
 		
       <NavigationContainer theme={myTheme}>
@@ -50,10 +108,15 @@ class App extends React.Component{
 <Stack.Screen name="FriendProfile" component={FriendProfile} options={{ headerShown: false }}/>
 </Stack.Navigator>
       </NavigationContainer>
-	  
-    )
+    
+    
+    );
   }
+
+  
+
 }export default App;
+
 
 
 // import React, { Component } from 'react';

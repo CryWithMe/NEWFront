@@ -56,7 +56,7 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
-                <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor-color':"#859a9b" ,'display':this.state.found ? "inline": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
+                <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
             </View>
         );_
     }
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     appButtonText: {
         fontSize: 18,
         fontFamily:'Cochin',
-        color: "#fff",
+        color: "white",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"

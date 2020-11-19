@@ -55,7 +55,10 @@ class Friends extends React.Component{
                   {"display": element.alreadyFriend ? "none":"block",
                   fontSize: 18,
                   fontFamily:'Cochin',
-                  color: "#859a9b",}}>
+                  backgroundColor: "#859a9b",
+                  borderRadius:10,
+                  padding:2,
+                  }}>
                   <Text style={styles.textStyle}>Add Friend</Text>
                   </View>
                   </TouchableOpacity>
