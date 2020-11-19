@@ -36,10 +36,10 @@ class Landing extends React.Component{
     list = () => {
         return this.state.array.map(element => {
           return (
-            <TouchableOpacity onPress={confirm(`Send Message to ${element.name}?`)}>
+            <TouchableOpacity onPress={()=>{confirm(`Send Message to ${element.name}?`)}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
-              <Text>{element.date}</Text> 
+              <Text>{element.date}</Text>
               </View> 
               </TouchableOpacity>
           );
@@ -49,7 +49,7 @@ class Landing extends React.Component{
     render() {
         const params = this.props.route.params;
         var username = params.username;
-        var password = params.password;
+        
         console.log(params);
 
         const { navigation } = this.props;

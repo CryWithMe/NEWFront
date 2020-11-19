@@ -2,10 +2,10 @@ import * as React from "react";
 import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
 
 
-class Profile extends React.Component{
+class FriendProfile extends React.Component{
     state={
         screen_name:'',
-        username:'',
+        //username:'',
         conditions_info:['ADHD','Depression'],
         triggers:'',
         comforts:'',
@@ -44,6 +44,10 @@ class Profile extends React.Component{
     //  }
 
     render() {
+      const params = this.props.route.params;
+        var username = params.username;
+        
+
       const { modalVisible } = this.state;
         return (
           
@@ -70,7 +74,7 @@ class Profile extends React.Component{
                     Welcome back,{this.state.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
-                    @{this.state.username}
+                    @{username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
@@ -197,4 +201,4 @@ const styles = StyleSheet.create({
         textAlign: "center"
       },
   });
-export default Profile; 
+export default FriendProfile; 

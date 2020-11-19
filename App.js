@@ -30,7 +30,8 @@ const myTheme = {
 	},
   };
 
-  //if(!firebase.apps.length){firebase.initializeApp(ApiKeys.FirebaseConfig);}
+  
+  //if(!firebase.apps.length){firebase.initializeApp();}
 
   // Notifications.setNotificationHandler({
   //   handleNotification: async () => ({
@@ -85,6 +86,11 @@ class App extends React.Component{
       });
     }
     console.log(token);
+    
+    let uid = firebase.auth().currentUser.uid;
+    firebase.database().ref("users").child(uid).update({
+        expoPushToken:token
+    });
     return token;
   }
 

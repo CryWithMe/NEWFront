@@ -6,6 +6,7 @@ class Friends extends React.Component{
     state = {
         friend_account:true, 
         textMessage:'',
+        username:'',
         // will be part of a list
         array:[
           {
@@ -28,6 +29,8 @@ class Friends extends React.Component{
         ]
 
     };
+
+
     goToProfile(){
         return <Redirect to={`/Profile/${this.state.profileName}`}/>
     }
@@ -63,7 +66,7 @@ class Friends extends React.Component{
                   </View>
                   </TouchableOpacity>
               <TouchableOpacity 
-              onPress={()=>this.setState({profileName:element.name})}
+              onPress={() =>this.setState({profileName:element.name})}
               
               style={
                 {"display": element.alreadyFriend ? "block":"none",
@@ -79,8 +82,8 @@ class Friends extends React.Component{
                      color: "#859a9b",}}>
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() => this.props.navigation.navigate('FriendProfile', {
-                          friend_account:this.state.friend_account})}
+                        onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
+                          username:element.name})}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
                 </TouchableOpacity>  
