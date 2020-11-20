@@ -88,7 +88,7 @@ class Register extends React.Component{
                     onChange={ e => this.setState({ lname: e.target.value })}
                 />
 
-                 <TouchableOpacity title="Register" style={styles.buttonStyle} onClick={()=>this.onSubmit()}>
+                 <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={ ()=> this.onSubmit() }>
 
                  <Text style={styles.appButtonText}>Register</Text>
                 </TouchableOpacity>
