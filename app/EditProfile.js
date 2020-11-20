@@ -72,8 +72,9 @@ class EditProfile extends React.Component{
 
     render() {
         return (
-            <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+            <SafeAreaView style={styles.container}>
+            <LinearGradient  colors={['#859a9b', 'white',]}>
+         <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
@@ -169,7 +170,9 @@ class EditProfile extends React.Component{
                 </TouchableOpacity>
                 </View>
             </View>
+            </ScrollView>
             </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }

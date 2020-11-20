@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class FriendProfile extends React.Component{
@@ -50,8 +50,9 @@ class FriendProfile extends React.Component{
 
       const { modalVisible } = this.state;
         return (
-          <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+          <SafeAreaView style={styles.container}>
+          <LinearGradient  colors={['#859a9b', 'white',]}>
+       <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 
 
@@ -91,7 +92,9 @@ class FriendProfile extends React.Component{
                     {this.state.comforts}
                 </Text>
             </View>
-           </LinearGradient>
+            </ScrollView>
+            </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -200,6 +203,22 @@ const styles = StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: "center"
+      },
+      router:{
+        //marginHorizontal:150,
+        flex:6,
+        textAlign:"center",
+        fontSize: 30,
+        fontFamily:'Cochin',
+        color:"white",
+
+    },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
       },
   });
 export default FriendProfile; 

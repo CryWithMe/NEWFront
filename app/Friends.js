@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Friends extends React.Component{
@@ -99,8 +99,9 @@ class Friends extends React.Component{
       
     render() {
         return (
-          <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+          <SafeAreaView style={styles.container}>
+          <LinearGradient  colors={['#859a9b', 'white',]}>
+       <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                <TouchableOpacity
                     style={styles.backStyle}
@@ -129,7 +130,9 @@ class Friends extends React.Component{
                 </View>
             </View>
             </View>
+            </ScrollView>
             </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -219,7 +222,14 @@ nonbar:{
       //justifyContent: 'center',
       //backgroundColor: "#859a9b",
       //backgroundColor: 'linear-gradient(#95afb4,white)',
-    }
+    },
+    container: {
+      flex: 1,
+     // marginTop: Constants.statusBarHeight,
+    },
+    scrollView: {
+      marginHorizontal: 20,
+    },
   });
 export default Friends; 
 

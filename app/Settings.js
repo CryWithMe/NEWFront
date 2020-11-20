@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, Modal} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, Modal,ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Settings extends React.Component{
@@ -49,9 +49,9 @@ class Settings extends React.Component{
     }
     render() {
         return (
-            // Make Modules that link, utilize state
-            <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+            <SafeAreaView style={styles.container_4}>
+               <LinearGradient  colors={['#859a9b', 'white',]}>
+            <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 <TouchableOpacity style={styles.backStyle}
                     onPress = {() => this.props.navigation.navigate('Profile')}>
@@ -96,7 +96,9 @@ class Settings extends React.Component{
                 </Text>
                 </View>
             </View>
+            </ScrollView>
             </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -140,6 +142,13 @@ const styles = StyleSheet.create({
     otherStyle: {
       //justifyContent: 'center',
       //backgroundColor: 'linear-gradient(#95afb4,white)',
-    }
+    },
+    container_4: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
   });
 export default Settings; 
