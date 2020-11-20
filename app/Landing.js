@@ -6,6 +6,8 @@ import { StyleSheet, TouchableOpacity, Image, Button, View, SafeAreaView, Scroll
 import Logo from './Images/Logo.png';
 import Friends from "./Friends";
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 class Landing extends React.Component{
@@ -33,10 +35,26 @@ class Landing extends React.Component{
 
     }
 
+    threeOptionAlertHandler = () => {
+        //function to make three option alert
+        Alert.alert(
+          //title
+          'Hello',
+          //body
+          `Send a Response ?`,
+          [
+            { text: 'Call Me', onPress: () => console.log('Call Me Was Pressed') },
+            { text: 'I love you.', onPress: () => console.log('I love you Was Pressed') },
+            { text: 'Can I get you anything?', onPress: () => console.log('Can I get you anything Was Pressed') },
+          ],
+          { cancelable: true }
+        );
+      };
+
     list = () => {
         return this.state.array.map(element => {
           return (
-            <TouchableOpacity onPress={()=>{confirm(`Send Message to ${element.name}?`)}}>  
+            <TouchableOpacity onPress={()=>{this.threeOptionAlertHandler()}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
               <Text>{element.date}</Text>
@@ -46,6 +64,8 @@ class Landing extends React.Component{
         });
       };
 
+      
+
     render() {
         const params = this.props.route.params;
         var username = params.username;
@@ -54,6 +74,8 @@ class Landing extends React.Component{
 
         const { navigation } = this.props;
         return (
+            <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                  
                 <View style={styles.container}>
@@ -83,6 +105,7 @@ class Landing extends React.Component{
                 </ScrollView>
                 </SafeAreaView>
             </View>
+            </LinearGradient>
         );_
     }
     componentDidMount() {

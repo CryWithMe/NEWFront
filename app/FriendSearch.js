@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Alert, Image, TextInput } from 'react-native';
 import Search from './Images/icons8-search-48.png';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class FriendSearch extends React.Component{
     
@@ -33,6 +34,8 @@ class FriendSearch extends React.Component{
 
     render() {
         return (
+            <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                  <TouchableOpacity style={styles.backStyle} title="back"
                     onPress= {() => this.props.navigation.navigate('Friends')}>
@@ -58,6 +61,7 @@ class FriendSearch extends React.Component{
                 </Text>
                 <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
             </View>
+            </LinearGradient>
         );_
     }
 }

@@ -3,6 +3,8 @@ import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, TextInp
 import { apiRepository} from '../api/apiRepository';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { LinearGradient } from 'expo-linear-gradient';
+
 class Register extends React.Component{
 
     apiRepository = new apiRepository();
@@ -41,6 +43,8 @@ class Register extends React.Component{
     }
     render() {
         return (
+            <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                 <Text style={styles.textStyle}>
                     Register
@@ -98,6 +102,7 @@ class Register extends React.Component{
                     <Text style={styles.router}>Login</Text>
                     </TouchableOpacity>
             </View>
+            </LinearGradient>
         );_
     }
 }

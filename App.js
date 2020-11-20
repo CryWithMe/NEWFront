@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform } from 'react-native';
-
-
+import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
@@ -26,7 +25,7 @@ const myTheme = {
 	...DefaultTheme,
 	colors: {
 	  ...DefaultTheme.colors,
-	  background: '#95afb4',
+	  background: 'white',
 	},
   };
 
@@ -99,7 +98,7 @@ class App extends React.Component{
 
    
     return(
-		
+      
       <NavigationContainer theme={myTheme}>
 		  
  <Stack.Navigator initialRouteName="Login">
@@ -114,7 +113,6 @@ class App extends React.Component{
 <Stack.Screen name="FriendProfile" component={FriendProfile} options={{ headerShown: false }}/>
 </Stack.Navigator>
       </NavigationContainer>
-    
     
     );
   }

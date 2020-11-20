@@ -3,6 +3,7 @@ import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Aler
 import Pencil from './Images/pencil.png';
 //import MultiSelect from 'react-native-multiple-select';
 import SelectMultiple from 'react-native-select-multiple';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const conditions = [
         { label: 'Anxiety Disorders', value: '1' },
@@ -52,9 +53,27 @@ class EditProfile extends React.Component{
         this.setState({ selectedItems })
       }
 
+      triggersOutput(props) {
+        this.setState({triggers_edit:true})
+        return (
+            <TextInput 
+            placeholder={this.state.triggers} 
+            style={{
+                fontSize: 20,
+                fontFamily:'Cochin',
+                borderWidth:2,
+                borderColor:'#859a9b',
+                borderRadius:10,}}
+            onChangeText={text => this.setState({triggers_edit:text})}
+            >
+            </TextInput>
+        );
+      }
 
     render() {
         return (
+            <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                 <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
@@ -97,6 +116,9 @@ class EditProfile extends React.Component{
 
 
                 </SafeAreaView>
+
+
+                
                 <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
                     Triggers: {this.state.triggers}
@@ -147,6 +169,7 @@ class EditProfile extends React.Component{
                 </TouchableOpacity>
                 </View>
             </View>
+            </LinearGradient>
         );_
     }
 }

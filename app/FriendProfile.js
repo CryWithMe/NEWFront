@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 class FriendProfile extends React.Component{
     state={
@@ -50,7 +50,8 @@ class FriendProfile extends React.Component{
 
       const { modalVisible } = this.state;
         return (
-          
+          <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                 
 
@@ -59,7 +60,7 @@ class FriendProfile extends React.Component{
                 <TouchableOpacity style={styles.backStyle}>
                 <TouchableOpacity
                     title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home')}
+                    onPress= {() => this.props.navigation.navigate('Friends')}
                 ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
                 </TouchableOpacity>
                 
@@ -90,7 +91,7 @@ class FriendProfile extends React.Component{
                     {this.state.comforts}
                 </Text>
             </View>
-           
+           </LinearGradient>
         );_
     }
 }

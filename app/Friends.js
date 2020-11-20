@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class Friends extends React.Component{
 
@@ -98,6 +99,8 @@ class Friends extends React.Component{
       
     render() {
         return (
+          <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                <TouchableOpacity
                     style={styles.backStyle}
@@ -126,6 +129,7 @@ class Friends extends React.Component{
                 </View>
             </View>
             </View>
+            </LinearGradient>
         );_
     }
 }
