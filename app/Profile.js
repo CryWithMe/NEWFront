@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 class Profile extends React.Component{
     state={
@@ -41,7 +41,8 @@ class Profile extends React.Component{
     render() {
       const { modalVisible } = this.state;
         return (
-          
+          <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                 
 
@@ -106,7 +107,7 @@ class Profile extends React.Component{
                     ><Text style={styles.linkStyle}>Delete Account</Text></TouchableOpacity> */}
                 </View>
             </View>
-           
+           </LinearGradient>
         );_
     }
 }

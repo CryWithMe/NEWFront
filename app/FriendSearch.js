@@ -1,6 +1,7 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Alert, Image, TextInput } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Alert, Image, TextInput, ScrollView } from 'react-native';
 import Search from './Images/icons8-search-48.png';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class FriendSearch extends React.Component{
     
@@ -33,6 +34,9 @@ class FriendSearch extends React.Component{
 
     render() {
         return (
+            <SafeAreaView style={styles.container}>
+            <LinearGradient  colors={['#859a9b', 'white',]}>
+         <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                  <TouchableOpacity style={styles.backStyle} title="back"
                     onPress= {() => this.props.navigation.navigate('Friends')}>
@@ -56,8 +60,11 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
-                <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor-color':"#859a9b" ,'display':this.state.found ? "inline": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
+                <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
             </View>
+            </ScrollView>
+            </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -79,7 +86,7 @@ const styles = StyleSheet.create({
     appButtonText: {
         fontSize: 18,
         fontFamily:'Cochin',
-        color: "#fff",
+        color: "white",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
@@ -123,5 +130,12 @@ const styles = StyleSheet.create({
   //backgroundColor: "#859a9b",
       //backgroundColor: 'linear-gradient(#95afb4,white)',
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
   });
 export default FriendSearch; 

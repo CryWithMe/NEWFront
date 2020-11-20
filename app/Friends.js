@@ -1,10 +1,13 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class Friends extends React.Component{
 
     state = {
+        friend_account:true, 
         textMessage:'',
+        username:'',
         // will be part of a list
         array:[
           {
@@ -27,6 +30,8 @@ class Friends extends React.Component{
         ]
 
     };
+
+
     goToProfile(){
         return <Redirect to={`/Profile/${this.state.profileName}`}/>
     }
@@ -54,16 +59,19 @@ class Friends extends React.Component{
                   {"display": element.alreadyFriend ? "none":"block",
                   fontSize: 18,
                   fontFamily:'Cochin',
-                  color: "#fff",}}>
+                  backgroundColor: "#859a9b",
+                  borderRadius:10,
+                  padding:2,
+                  }}>
                   <Text style={styles.textStyle}>Add Friend</Text>
                   </View>
                   </TouchableOpacity>
               <TouchableOpacity 
-              onPress={()=>this.setState({profileName:element.name})}
+              onPress={() =>this.setState({profileName:element.name})}
               
               style={
                 {"display": element.alreadyFriend ? "block":"none",
-                'backgroundColor-color':element.alreadyFriend ? "gray":"#859a9b" , 
+                'backgroundColor':element.alreadyFriend ? "gray":"#859a9b" , 
                 "border-radius":10,
                  padding:2,
                  margin:4,
@@ -72,10 +80,11 @@ class Friends extends React.Component{
                      "display": element.alreadyFriend ? "block":"none",
                      fontSize: 18,
                      fontFamily:'Cochin',
-                     color: "#fff",}}>
+                     color: "#859a9b",}}>
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() => this.props.navigation.navigate('Profile')}
+                        onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
+                          username:element.name})}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
                 </TouchableOpacity>  
@@ -90,6 +99,9 @@ class Friends extends React.Component{
       
     render() {
         return (
+          <SafeAreaView style={styles.container}>
+          <LinearGradient  colors={['#859a9b', 'white',]}>
+       <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                <TouchableOpacity
                     style={styles.backStyle}
@@ -118,6 +130,9 @@ class Friends extends React.Component{
                 </View>
             </View>
             </View>
+            </ScrollView>
+            </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -207,7 +222,14 @@ nonbar:{
       //justifyContent: 'center',
       //backgroundColor: "#859a9b",
       //backgroundColor: 'linear-gradient(#95afb4,white)',
-    }
+    },
+    container: {
+      flex: 1,
+     // marginTop: Constants.statusBarHeight,
+    },
+    scrollView: {
+      marginHorizontal: 20,
+    },
   });
 export default Friends; 
 
