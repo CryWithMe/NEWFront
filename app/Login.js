@@ -1,9 +1,10 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
+import Constants from 'expo-constants';
 
 class Login extends React.Component{
 
@@ -34,8 +35,12 @@ class Login extends React.Component{
 
     render() {
         return (
-            <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+            
+            
+           <SafeAreaView style={styles.container}>
+               <LinearGradient  colors={['#859a9b', 'white',]}>
+            <ScrollView style={styles.scrollView}> 
+            
             <View style={styles.otherStyle}>
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
@@ -60,7 +65,11 @@ class Login extends React.Component{
                     <Text style={styles.router}>Register</Text>
                     </TouchableOpacity>
             </View>
+            </ScrollView>
             </LinearGradient>
+            </SafeAreaView>
+            
+            
         );_
     }
 }
@@ -97,17 +106,27 @@ const styles = StyleSheet.create({
       fontFamily:'Cochin',
     },
     otherStyle: {
-        marginVertical:80,
+        marginVertical:180,
         flex:3,
       //backgroundColor: "#859a9b",
     },
     router:{
-        marginHorizontal:150,
+        //marginHorizontal:150,
+        flex:6,
+        textAlign:"center",
         fontSize: 30,
         fontFamily:'Cochin',
         color:"white",
 
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
+
   }
   );
 export default Login; 
