@@ -1,67 +1,80 @@
 import * as React from "react";
-import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Alert, ScrollView, TouchableOpacity } from 'react-native';
-import Pencil from './Images/pencil.png'
+import { StyleSheet, CheckBox, TextInput, Button, View, SafeAreaView, Text, Alert, Image, ScrollView, TouchableOpacity } from 'react-native';
+import Pencil from './Images/pencil.png';
+//import MultiSelect from 'react-native-multiple-select';
+import SelectMultiple from 'react-native-select-multiple';
+import { LinearGradient } from 'expo-linear-gradient';
+
+const conditions = [
+        { label: 'Anxiety Disorders', value: '1' },
+        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2' },
+        { label: 'Bipolar Disorder', value: '3' },
+        { label: 'Borderline Personality Disorder (BPD)', value: '4' },
+        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5' },
+        { label: 'Early Psychosis and Psychosis', value: '6' },
+        { label: 'Eating Disorders', value: '7' },
+        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8' },
+        { label: 'Panic Disorder', value: '9' },
+        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10' },
+        { label: 'Schizoaffective Disorder', value: '11' },
+        { label: 'Schizophrenia', value: '12' },
+        { label: 'Seasonal Affective Disorder (SAD)', value: '13' },
+    ]
+
+    const renderLabel = (label, style) => {
+        return (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{marginLeft: 10,borderRadius:10,}}>
+              <Text style={styles.textStyle}>{label}</Text>
+            </View>
+          </View>
+        )
+      }
+
 class EditProfile extends React.Component{
     
     state={
+        selectedItems:[],
+        isShownPicker:false,
         checked:false,
         edit_triggers:false,
         edit_comforts:false,
         screen_name:'',
         username:'',
-        conditions_info:[
-            {
-                has:true,
-                condition:'ADHD'
-            },
-            {
-                has:false,
-                condition:'Anxiety'
-            },
-            {
-                has:false,
-                condition:'Bipolar Disorder'
-            },
-            {
-                has:true,
-                condition:'Depression'
-            },
-        ],
-        triggers:'',
-        comforts:'',
+        triggers:'Fireworks',
+        triggers_edit:'',
+        comforts:'eggs',
+        comforts_edit:'',
+        index:0,
     };
    
-    handleChange(e){
-        const item= e.target.name;
-        const isChecked = e.target.checked;
-    }
+    onSelectionsChange = (selectedItems) => {
+        // selectedFruits is array of { label, value }
+        this.setState({ selectedItems })
+      }
 
-    list = () => {
-
-        return this.state.conditions_info.map(element => {
-          return (
-            <View>
-                <CheckBox 
-                    value={element.has}
-                    style={styles.checkbox}
-                    onChange={this.handleChange}
-                    ></CheckBox>
-              <Text style={{
-                    textAlign:"center",
-                    fontSize: 20,
-                    fontFamily:'Cochin',
-                    flexDirection:"row"
-                    }}>
-                        {element.condition}</Text>
-
-              {/* <Button onClick={ () => this.changeColor()} title = "Add Friend" style= {{"display": element.alreadyFriend ? "none" : "inline"}} color = {element.alreadyFriend ? "#859a9b": "gray"} ></Button>*/}  
-              </View> 
-          );
-        });
-      };
+      triggersOutput(props) {
+        this.setState({triggers_edit:true})
+        return (
+            <TextInput 
+            placeholder={this.state.triggers} 
+            style={{
+                fontSize: 20,
+                fontFamily:'Cochin',
+                borderWidth:2,
+                borderColor:'#859a9b',
+                borderRadius:10,}}
+            onChangeText={text => this.setState({triggers_edit:text})}
+            >
+            </TextInput>
+        );
+      }
 
     render() {
         return (
+            <SafeAreaView style={styles.container}>
+            <LinearGradient  colors={['#859a9b', 'white',]}>
+         <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
@@ -86,50 +99,80 @@ class EditProfile extends React.Component{
                     Conditions Info:
                 </Text>
                 <SafeAreaView style={styles.container_3}>
+                
+                
+
+
                 <ScrollView>
-                    {this.list()}
-                </ScrollView>
+                
+            <SelectMultiple style={{fontFamily:"Cochin"}}
+          items={conditions}
+          renderLabel={renderLabel}
+          selectedItems={this.state.selectedItems}
+          onSelectionsChange={this.onSelectionsChange} />
+
+            </ScrollView>
+
+
+
+
                 </SafeAreaView>
+
+
+                
                 <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
-                    Triggers:
+                    Triggers: {this.state.triggers}
                 </Text>
                 <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_triggers:true})}>
-                     <Image style={styles.image} source={Search}></Image>
+                     <Image style={styles.image} source={Pencil}></Image>
                 </TouchableOpacity>
                 </View>
+                <View style={{"display": this.state.edit_comforts ? "block":"none",}}>
                 <TextInput 
                 placeholder={this.state.triggers} 
                 style={{
-                    "display": this.state.edit_comforts ? "block":"none",
+                    //"display": this.state.edit_comforts ? "block":"none",
                     fontSize: 20,
                     fontFamily:'Cochin',
                     borderWidth:2,
                     borderColor:'#859a9b',
                     borderRadius:10,}}
-                onChangeText={text => this.setState({triggers:text})}
+                onChangeText={text => this.setState({triggers_edit:text})}
                 >
                 </TextInput>
-                <View style={styles.bar}> 
-                <Text style={styles.textStyle}>
-                    Comforts:
-                </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:true})}>
-                     <Image style={styles.image} source={Search}></Image>
+                <TouchableOpacity onPress={()=>this.setState({triggers:this.state.triggers_edit})}>
+                    <Text style={styles.appButtonText}>Submit</Text>
                 </TouchableOpacity>
                 </View>
+                <View style={styles.bar}> 
+                <Text style={styles.textStyle}>
+                    Comforts: {this.state.comforts}
+                </Text>
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:true})}>
+                <Image style={styles.image} source={Pencil}></Image>
+                </TouchableOpacity>
+                </View>
+                <View style={{"display": this.state.edit_comforts ? "block":"none",}}>
                 <TextInput 
                 placeholder={this.state.comforts} 
                 style={{
-                    "display": this.state.edit_comforts ? "block":"none",
+                    //"display": this.state.edit_comforts ? "block":"none",
                     fontSize: 20,
                     fontFamily:'Cochin',
                     borderWidth:2,
                     borderColor:'#859a9b',
                     borderRadius:10,}}
-                onChangeText={text => this.setState({comforts:text})}
+                onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
+                <TouchableOpacity onPress={()=>this.setState({comforts:this.state.comforts_edit})}>
+                    <Text style={styles.appButtonText}>Submit</Text>
+                </TouchableOpacity>
+                </View>
             </View>
+            </ScrollView>
+            </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -170,13 +213,19 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
     },
 
+    image:{
+        marginHorizontal:20,
+        width:30,
+        height:30,
+    },
+
     inputStyle:{
         fontSize: 20,
       fontFamily:'Cochin',
       borderWidth:2,
       borderColor:'#859a9b',
       borderRadius:10,
-    //backgroundColor:"rgba(255, 255, 255, 0.53)",
+    backgroundColor:"#f7021a",
     marginHorizontal:60,
     padding:2,
 

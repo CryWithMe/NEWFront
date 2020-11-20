@@ -6,6 +6,8 @@ import { StyleSheet, TouchableOpacity, Image, Button, View, SafeAreaView, Scroll
 import Logo from './Images/Logo.png';
 import Friends from "./Friends";
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 class Landing extends React.Component{
@@ -25,36 +27,7 @@ class Landing extends React.Component{
                 condition:'is crying',
                 date: Date().toLocaleString(),
             },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Travis',
-                condition:'is having a panic attack',
-                date: Date().toLocaleString(),
-            },
-            {
-                name:'Megan',
-                condition:'is crying',
-                date: Date().toLocaleString(),
-            },
+           
         ],
         currentUser:'',
         action:'',
@@ -62,25 +35,47 @@ class Landing extends React.Component{
 
     }
 
+    threeOptionAlertHandler = () => {
+        //function to make three option alert
+        Alert.alert(
+          //title
+          'Hello',
+          //body
+          `Send a Response ?`,
+          [
+            { text: 'Call Me', onPress: () => console.log('Call Me Was Pressed') },
+            { text: 'I love you.', onPress: () => console.log('I love you Was Pressed') },
+            { text: 'Can I get you anything?', onPress: () => console.log('Can I get you anything Was Pressed') },
+          ],
+          { cancelable: true }
+        );
+      };
+
     list = () => {
         return this.state.array.map(element => {
           return (
+            <TouchableOpacity onPress={()=>{this.threeOptionAlertHandler()}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
-              <Text>{element.date}</Text> 
+              <Text>{element.date}</Text>
               </View> 
+              </TouchableOpacity>
           );
         });
       };
 
+      
+
     render() {
         const params = this.props.route.params;
         var username = params.username;
-        var password = params.password;
+        
         console.log(params);
 
         const { navigation } = this.props;
         return (
+            <LinearGradient  colors={['#859a9b', 'white',]}
+            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
             <View style={styles.otherStyle}>
                  
                 <View style={styles.container}>
@@ -100,7 +95,7 @@ class Landing extends React.Component{
                 </TouchableOpacity>
                 </View>
            <View style={styles.container_2}>  
-        <TouchableOpacity style={styles.button} onPress={()=>{alert(`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{Alert.alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
            </View>       
@@ -110,6 +105,7 @@ class Landing extends React.Component{
                 </ScrollView>
                 </SafeAreaView>
             </View>
+            </LinearGradient>
         );_
     }
     componentDidMount() {

@@ -1,8 +1,10 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, TextInput, Alert } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, TextInput, ScrollView, Alert } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { LinearGradient } from 'expo-linear-gradient';
+
 class Register extends React.Component{
 
     apiRepository = new apiRepository();
@@ -41,6 +43,9 @@ class Register extends React.Component{
     }
     render() {
         return (
+            <SafeAreaView style={styles.container}>
+               <LinearGradient  colors={['#859a9b', 'white',]}>
+            <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 <Text style={styles.textStyle}>
                     Register
@@ -88,7 +93,11 @@ class Register extends React.Component{
                     onChange={ e => this.setState({ lname: e.target.value })}
                 />
 
+<<<<<<< HEAD
                  <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={ ()=> this.onSubmit() }>
+=======
+                 <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={()=>this.onSubmit()}>
+>>>>>>> d612d449a6e003fc7a0c20b41b0476a4ce857d44
 
                  <Text style={styles.appButtonText}>Register</Text>
                 </TouchableOpacity>
@@ -98,6 +107,9 @@ class Register extends React.Component{
                     <Text style={styles.router}>Login</Text>
                     </TouchableOpacity>
             </View>
+            </ScrollView>
+            </LinearGradient>
+            </SafeAreaView>
         );_
     }
 }
@@ -145,6 +157,14 @@ const styles = StyleSheet.create({
         color:"white",
 
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
+      
   });
 
 export default Register; 
