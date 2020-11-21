@@ -33,6 +33,22 @@ class Settings extends React.Component{
         return false;
     }
 
+    changeEmail(){
+        let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
+        var num= prompt("Type new email ");
+        if(num!=this.state.password && num!=null){
+            if(regex.test(num)){
+            this.setState({phone_num:num});
+            Alert.alert("Confirmation","email succesfully changed!");
+            }
+        }
+        else{
+            Alert.alert("Invalid Number","email rejected");
+            
+        }
+        return false;
+    }
+
     changePassword(){
         var pass= prompt("What would you like to change it to?");
         if(pass!=this.state.password && pass!=null){
@@ -69,6 +85,12 @@ class Settings extends React.Component{
                 onPress={()=> {this.changePhoneNum()}}>
                 <Text style={styles.textStyle}>
                     Change Phone Number
+                </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress={()=> {this.changeEmail()}}>
+                <Text style={styles.textStyle}>
+                    Change Email Address
                 </Text>
                 </TouchableOpacity>
                 </View>

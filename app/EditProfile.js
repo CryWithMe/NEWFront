@@ -71,6 +71,14 @@ class EditProfile extends React.Component{
       }
 
     render() {
+        const params = this.props.route.params;
+        this.state.username = params.username;
+        this.state.screen_name = params.screen_name;
+        
+        // this.setState({
+        //     username: params.username,
+        //     screen_name: params.screen_name,
+        // })
         return (
             <SafeAreaView style={styles.container}>
             <LinearGradient  colors={['#859a9b', 'white',]}>

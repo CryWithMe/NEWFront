@@ -105,7 +105,10 @@ class Profile extends React.Component{
                 <View style={styles.textStyle}>
                 <TouchableOpacity
                   title="Manage Profile"
-                  onPress= {() => this.props.navigation.navigate('Edit-Profile')}
+                  onPress= {() => this.props.navigation.navigate('Edit-Profile', {
+                    username: this.state.username,
+                    screen_name: this.state.screen_name,
+                  })}
                 ><Text style={styles.linkStyle}>Manage Profile</Text></TouchableOpacity>
                 <TouchableOpacity
                   title="Settings"

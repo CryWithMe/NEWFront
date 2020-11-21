@@ -167,8 +167,8 @@ class Friends extends React.Component{
         });
       
       
-      //this.apiRepository.acceptFriendRequest(this.sendRequest('b'))
-        //.then(console.log("YO"));
+        this.apiRepository.acceptFriendRequest(this.sendRequest('b'))
+          .then(console.log("YO"));
   }
 
 }
