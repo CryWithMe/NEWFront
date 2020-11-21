@@ -29,6 +29,13 @@ class Profile extends React.Component{
           );
         });
       };
+  
+  onLogout(){
+    console.log("Logging User Out");
+    this.props.navigation.navigate("Login")
+                
+  }
+
 
     //  deleteAccount(){
     //   var r=confirm("Press a button!\nEither OK or Cancel.");
@@ -96,8 +103,8 @@ class Profile extends React.Component{
                   onPress= {() => this.props.navigation.navigate('Settings')}
                   ><Text style={styles.linkStyle}>Settings</Text></TouchableOpacity>
                   <TouchableOpacity
-                  title="Settings"
-                  // onPress= {() => this.props.navigation.navigate('Settings')}
+                  title="Logout"
+                  onPress= {() => this.onLogout() }
                   ><Text style={styles.linkStyle}>Logout</Text></TouchableOpacity>
 
                 </View>
