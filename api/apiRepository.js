@@ -27,7 +27,7 @@ export class apiRepository {
         console.log("Logging in User... API Call");
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}login`, info)
-            .then(resp => resolve(resp.data))
+            .then(resp => resolve(resp))
             .catch(resp => alert(resp));
         });
     }
@@ -48,6 +48,33 @@ export class apiRepository {
             .then(resp => resolve(resp.data))
             .catch(resp => alert(resp));
         });
+    }
+
+    getFriendList(info) {
+        console.log("Getting Friends List... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}friendList/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    getFriendRequests(info) {
+        console.log("Getting Friend Requests... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}friendRequests/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    sendFriendRequest(info) {
+        console.log("Sending Friend Request... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}friendRequest`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
     }
 
 
