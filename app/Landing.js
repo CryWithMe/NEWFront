@@ -85,7 +85,7 @@ class Landing extends React.Component{
                  <TouchableOpacity
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile', {
-                        id: this.state.currentUserId
+                        currentUserId: this.state.currentUserId
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>
@@ -128,6 +128,7 @@ class Landing extends React.Component{
         // .then (ratings => {
         //     this.setState({ratings: ratings})
         // })
+
 
         
 

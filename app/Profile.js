@@ -1,15 +1,21 @@
 import * as React from "react";
+import { apiRepository} from '../api/apiRepository';
 import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Profile extends React.Component{
+
+  apiRepository = new apiRepository();
+
     state={
         screen_name:'',
         username:'',
+        email: '',
         conditions_info:['ADHD','Depression'],
         triggers:'',
         comforts:'',
         modalVisible:false,
+        currentUserId: '',
     };
 
 
@@ -32,7 +38,11 @@ class Profile extends React.Component{
   
   onLogout(){
     console.log("Logging User Out");
-    this.props.navigation.navigate("Login")
+    this.props.navigation.navigate("Login", {
+      username: '',
+      password: '',
+      id: ''
+    })
                 
   }
 
@@ -46,6 +56,9 @@ class Profile extends React.Component{
     //  }
 
     render() {
+      const params = this.props.route.params;
+      this.state.currentUserId = params.currentUserId;
+
       const { modalVisible } = this.state;
         return (
           <LinearGradient  colors={['#859a9b', 'white',]}
@@ -70,7 +83,7 @@ class Profile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back,{this.state.screen_name}
+                    Welcome back, {this.state.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
                     @{this.state.username}
@@ -116,6 +129,17 @@ class Profile extends React.Component{
             </View>
            </LinearGradient>
         );_
+    }
+    componentDidMount() {
+      this.apiRepository.getUser(this.state.currentUserId)
+            .then(rep => {
+                this.setState({
+                  screen_name: rep.rows[0].fname + ' ' + rep.rows[0].lname,
+                  username: rep.rows[0].username,
+                  email: rep.rows[0].email,
+
+                })
+            })
     }
 }
 
