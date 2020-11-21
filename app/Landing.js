@@ -29,9 +29,11 @@ class Landing extends React.Component{
             },
            
         ],
-        currentUser:'',
+        currentUserId:'',
+        username: '',
         action:'',
         cause:'',
+
 
     }
 
@@ -68,9 +70,9 @@ class Landing extends React.Component{
 
     render() {
         const params = this.props.route.params;
-        var username = params.username;
-        
-        console.log(params);
+        this.state.currentUserId = params.id;
+        this.state.username = params.username;
+        //console.log(this.state.currentUser);
 
         const { navigation } = this.props;
         return (
@@ -82,14 +84,18 @@ class Landing extends React.Component{
                   
                  <TouchableOpacity
                     style={styles.profileButton}
-                    onPress= {() => this.props.navigation.navigate('Profile')}
+                    onPress= {() => this.props.navigation.navigate('Profile', {
+                        id: this.state.currentUserId
+                    })}
                 >
-                <Text style={styles.fontStyle}>Profile of {username}</Text>
+                <Text style={styles.fontStyle}>Profile</Text>
                 </TouchableOpacity>  
 
                 <TouchableOpacity
                     style={styles.friendButton}
-                    onPress ={() => this.props.navigation.navigate('Friends')}
+                    onPress ={() => this.props.navigation.navigate('Friends', {
+                        id: this.state.currentUserId
+                    })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>
                 </TouchableOpacity>
@@ -124,8 +130,8 @@ class Landing extends React.Component{
         // })
 
         
-        this.apiRepository.getTest()
-            .then(console.log("YO"));
+
+        
 
 
     }

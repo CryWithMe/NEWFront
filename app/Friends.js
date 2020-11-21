@@ -1,8 +1,12 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { apiRepository} from '../api/apiRepository';
+import { CurrentRenderContext } from "@react-navigation/native";
 
 class Friends extends React.Component{
+
+  apiRepository = new apiRepository();
 
     state = {
         friend_account:true, 
@@ -27,9 +31,21 @@ class Friends extends React.Component{
           alreadyFriend:true,
       },
 
-        ]
+        ],
+      
+      accountId: '',
+      
 
     };
+
+    sendRequest(u) {
+      var reqInfo = {
+        username: u,
+        accountId: this.state.accountId,
+      }
+      return reqInfo;
+    
+    }
 
 
     goToProfile(){
@@ -98,6 +114,10 @@ class Friends extends React.Component{
       };
       
     render() {
+
+      const params = this.props.route.params;
+        this.state.accountId = params.id;
+
         return (
           <SafeAreaView style={styles.container}>
           <LinearGradient  colors={['#859a9b', 'white',]}>
@@ -135,7 +155,23 @@ class Friends extends React.Component{
             </SafeAreaView>
         );_
     }
+    componentDidMount(){
+      
+      //console.log(this.state.info);
+      this.apiRepository.getFriendList(this.state.accountId)
+          .then(console.log("YO"));
+      
+      this.apiRepository.getFriendRequests(this.state.accountId)
+        .then(console.log("YO"));
+      
+      
+      this.apiRepository.sendFriendRequest(this.sendRequest('b'))
+        .then(console.log("YO"));
+  }
+
 }
+
+
 const styles = StyleSheet.create({
 
   backStyle:{

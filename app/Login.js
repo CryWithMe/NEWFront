@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 
+
 class Login extends React.Component{
 
     apiRepository = new apiRepository();
@@ -13,24 +14,24 @@ class Login extends React.Component{
     state={
         username: '',
         password:'',
+        id: '',
     };
 
     onSubmit(){
 
+        console.log(this.state);
         this.apiRepository.login(this.state)
             .then(rep => {
                 console.log(rep);
-                if(rep === 'OK') {
+                if(rep.statusText === 'OK') {
                     this.props.navigation.navigate("Home", {
                         username: this.state.username,
-                        password: this.state.password},
-                    )}
+                        password: this.state.password,
+                        id: rep.data
+            })}
 
             });
                 
-
-
-
     }
 
     render() {
@@ -71,6 +72,11 @@ class Login extends React.Component{
             
             
         );_
+    }
+
+    componentDidMount() {
+        this.apiRepository.getTest()
+            .then(console.log("YO"));
     }
 }
 
