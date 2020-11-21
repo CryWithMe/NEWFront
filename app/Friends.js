@@ -103,12 +103,13 @@ class Friends extends React.Component{
           <LinearGradient  colors={['#859a9b', 'white',]}>
        <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
-               <TouchableOpacity
-                    style={styles.backStyle}
+
+            <TouchableOpacity style={styles.backStyle}>
+            <TouchableOpacity
+                    title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
-                >
-                 <Text style={styles.textStyle}>Back</Text>   
-                </TouchableOpacity>  
+                ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
+               </TouchableOpacity>
 
                 <Text style={styles.titleStyle}>
                     Friends
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.35,
         marginRight:450,
-        //justifyContent:"left",
         textAlign:"center",
   },
 

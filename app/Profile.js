@@ -1,11 +1,11 @@
 import * as React from "react";
-import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView,ScrollView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Profile extends React.Component{
     state={
         screen_name:'',
-        username:'',
+        //username:'',
         conditions_info:['ADHD','Depression'],
         triggers:'',
         comforts:'',
@@ -39,6 +39,10 @@ class Profile extends React.Component{
     //  }
 
     render() {
+
+      const params = this.props.route.params;
+        var username = params.username;
+
       const { modalVisible } = this.state;
         return (
           <LinearGradient  colors={['#859a9b', 'white',]}
@@ -66,7 +70,7 @@ class Profile extends React.Component{
                     Welcome back,{this.state.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
-                    @{this.state.username}
+                    @{username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
@@ -95,16 +99,7 @@ class Profile extends React.Component{
                   title="Settings"
                   // onPress= {() => this.props.navigation.navigate('Settings')}
                   ><Text style={styles.linkStyle}>Logout</Text></TouchableOpacity>
-                { //<Link  style={{"padding":10}}to='/'>Logout</Link>
-                }
-                
-                {
-                    // Need to add Modal
-                }
-                {/* <TouchableOpacity
-                    title="Delete Account"
-                    onPress= {() => {this.deleteAccount()}}
-                    ><Text style={styles.linkStyle}>Delete Account</Text></TouchableOpacity> */}
+
                 </View>
             </View>
            </LinearGradient>

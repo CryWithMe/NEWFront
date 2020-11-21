@@ -82,7 +82,8 @@ class Landing extends React.Component{
                   
                  <TouchableOpacity
                     style={styles.profileButton}
-                    onPress= {() => this.props.navigation.navigate('Profile')}
+                    onPress= {() => this.props.navigation.navigate('Profile', {
+                        username:params.username})}
                 >
                 <Text style={styles.fontStyle}>Profile of {username}</Text>
                 </TouchableOpacity>  
@@ -94,11 +95,15 @@ class Landing extends React.Component{
                 <Text style={styles.fontStyle}>Friends</Text>
                 </TouchableOpacity>
                 </View>
+
+
            <View style={styles.container_2}>  
         <TouchableOpacity style={styles.button} onPress={()=>{Alert.alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
-           </View>       
+           </View>      
+
+
                 <SafeAreaView style={styles.container_3}>
                 <ScrollView style={styles.scroll}>
                     {this.list()}
@@ -145,16 +150,19 @@ const styles = StyleSheet.create({
         fontFamily:'Cochin',
         backgroundColor: '#859a9b',
         borderRadius: 100,
-        padding: 0,
-        marginBottom: 20,
+        //padding: 0,
+        //marginBottom: 20,
         shadowColor: '#303838',
         shadowOffset: { width: 0, height: 5 },
         shadowRadius: 10,
         shadowOpacity: 0.35,
-
+        flex:6,
+        margin:30,
+        alignItems:"center", 
     },
 
     profileButton:{
+        margin:10,
         fontFamily:'Cochin',
         backgroundColor: '#859a9b',
         borderRadius: 60,
@@ -163,13 +171,14 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowRadius: 10,
         shadowOpacity: 0.35,    
-
+        flex:3,
         alignItems:'center',
         //justifyContent:'center',
 
     },
 
     friendButton:{
+        margin:10,
         fontFamily:'Cochin',
         backgroundColor: '#859a9b',
         borderRadius: 60,
@@ -178,11 +187,13 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowRadius: 10,
         shadowOpacity: 0.35,
-    },
+        flex:3,
+        textAlign:"center",
+    }, 
 
     logo: {
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 300,
       },
       
     container:{
@@ -195,13 +206,14 @@ const styles = StyleSheet.create({
     container_2:{
         //justifyContent:'space-evenly',
         flexDirection: 'row', 
+        flex:6,
     },
     container_3:{
-        marginHorizontal:60,
+        //marginHorizontal:60,
         borderRadius:10,
         borderWidth:4,
         borderColor:"#859a9b",
-        flex:1,
+        //flex:1,
         marginTop: Constants.statusBarHeight,
     },
     textStyle: {

@@ -112,10 +112,6 @@ class EditProfile extends React.Component{
           onSelectionsChange={this.onSelectionsChange} />
 
             </ScrollView>
-
-
-
-
                 </SafeAreaView>
 
 
