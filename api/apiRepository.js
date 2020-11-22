@@ -113,6 +113,14 @@ export class apiRepository {
             });
     }
 
+    doesExist(info) {
+        console.log("Checking if they exist... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}doesExist/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
     
 //     getUser(userId) {
 //         return new Promise((resolve, reject) => {
