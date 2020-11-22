@@ -107,7 +107,7 @@ class Landing extends React.Component{
 
 
            <View style={styles.container_2}>  
-        <TouchableOpacity style={styles.button} onPress={()=>{Alert.alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
            </View>      
