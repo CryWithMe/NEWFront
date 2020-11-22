@@ -97,10 +97,12 @@ class Settings extends React.Component{
                 <Text style={styles.titleStyle}>
                     Settings
                 </Text>
-                <View style={styles.container}>
+                
                 <Text style={styles.textStyle}>
                     Contact Info
                 </Text>
+                <View style={styles.container}>
+                
                 <TouchableOpacity
                 onPress={()=> {this.changePhoneNum()}}>
                 <Text style={styles.textStyle}>
@@ -114,10 +116,11 @@ class Settings extends React.Component{
                 </Text>
                 </TouchableOpacity>
                 </View>
-                <View style={styles.container}>
+                
                 <Text style={styles.textStyle}>
                     Account Controls
                 </Text>
+                <View style={styles.container}>
                 <TouchableOpacity
                 onPress={()=> {this.changePassword()}}>
                 <Text style={styles.textStyle}>
@@ -129,10 +132,12 @@ class Settings extends React.Component{
                     onPress= {() => {this.deleteAccount()}}
                     ><Text style={styles.textStyle}>Delete Account</Text></TouchableOpacity>
                 </View>
-                <View style={styles.container}>
+                
                 <Text style={styles.textStyle}>
                     Notifications
                 </Text>
+                <View style={styles.container}>
+                
                 <Text style={styles.textStyle}>
                     Send/Receive Alerts
                 </Text>
@@ -170,6 +175,7 @@ const styles = StyleSheet.create({
             textAlign:"center",
       },
     container:{
+        padding:10,
         borderWidth:2,
       margin:4,
       marginHorizontal:60,
@@ -180,6 +186,7 @@ const styles = StyleSheet.create({
         //backgroundColor:"rgba(255, 255, 255, 0.53)",
     },
     titleStyle:{
+        padding:20,
         fontSize:20,
         fontFamily:'Cochin',
         textAlign:'center',

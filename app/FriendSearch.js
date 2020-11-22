@@ -2,9 +2,12 @@ import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Alert, Image, TextInput, ScrollView } from 'react-native';
 import Search from './Images/icons8-search-48.png';
 import { LinearGradient } from 'expo-linear-gradient';
+import { apiRepository} from '../api/apiRepository';
 
 class FriendSearch extends React.Component{
     
+    apiRepository = new apiRepository();
+
     state={
         friend_name:'',
         namelist:['@amy123','@tyler123'],
@@ -22,14 +25,30 @@ class FriendSearch extends React.Component{
     }
     }
 
+    friendRequest(){
+        this.apiRepository.sendFriendRequest(this.state.friend_name)
+        .then(rep => {
+            console.log(rep.statusText);
+            if(rep.statusText == this.state.friend_name){
+              console.log("Friend fround");
+            }
+        });
+    }
+
     showNames(){
         if(this.state.value!=-1){
             return this.state.namelist[this.state.value];
         }
     }
 
-    addFriend(){
-
+    searchAFriend(){
+        this.apiRepository.searchAccount(this.state.friend_name)
+        .then(rep => {
+            console.log(rep.statusText);
+            if(rep.statusText == "OK"){
+              console.log("Friend fround");
+            }
+          });
     }
 
     render() {
@@ -52,7 +71,7 @@ class FriendSearch extends React.Component{
                 onChange={e=>this.setState({friend_name: e.target.value})}
                 style={styles.inputStyle}
                 />
-                <TouchableOpacity style={styles.button} onPress={()=>this.findFriends()}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.searchAFriend()}>
                      <Image style={styles.image} source={Search}></Image>
                 </TouchableOpacity>
             

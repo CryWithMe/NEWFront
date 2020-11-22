@@ -113,7 +113,36 @@ export class apiRepository {
             });
     }
 
+
+    searchAccount(info) {
+        console.log("Search for an account... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}searchAccount/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
     
+    postToken(info){
+        console.log("Sending token... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}token`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    postCondition(info){
+        console.log("Sending conditions... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}condition`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
 //     getUser(userId) {
 //         return new Promise((resolve, reject) => {
 //             axios.get(`${this.url}/user-profile/${userId}`, this.config)

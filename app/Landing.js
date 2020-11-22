@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, TouchableOpacity, Image, Button, View, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
 import Logo from './Images/Logo.png';
 import Friends from "./Friends";
+import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -37,6 +38,7 @@ class Landing extends React.Component{
 
 
     }
+
 
     threeOptionAlertHandler = () => {
         //function to make three option alert
@@ -75,7 +77,7 @@ class Landing extends React.Component{
         this.state.username = params.username;
         this.state.password = params.password;
         //console.log(this.state.currentUser);
-
+        //{this.getToken()}
         const { navigation } = this.props;
         return (
             <LinearGradient  colors={['#859a9b', 'white',]}
@@ -135,7 +137,7 @@ class Landing extends React.Component{
         //     this.setState({ratings: ratings})
         // })
 
-
+        
         
 
         

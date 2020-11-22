@@ -110,6 +110,7 @@ class Profile extends React.Component{
                   onPress= {() => this.props.navigation.navigate('Edit-Profile', {
                     username: this.state.username,
                     screen_name: this.state.screen_name,
+                    currentAccountId:this.state.currentAccountId,
                   })}
                 ><Text style={styles.linkStyle}>Manage Profile</Text></TouchableOpacity>
                 <TouchableOpacity

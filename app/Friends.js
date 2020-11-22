@@ -53,9 +53,8 @@ class Friends extends React.Component{
             console.log("Friend Request Sent");
           }
         })
-     
-    
     }
+
     delFriend(u) {
       var reqInfo = {
         username: u,
@@ -114,10 +113,19 @@ class Friends extends React.Component{
 };
 
 
-      list = () => {
+      friendlist = () => {
         console.log('Friends is', this.state.frows[0]);
         console.log('Pending is', this.state.prows);
-
+        if(this.state.frows.length==0){
+          return(
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>
+                No friend's currently added. Add some friends above!
+              </Text>
+            </View>
+          );
+        }//end of if statement
+        else{
         for (var i = 0; i < this.state.frows.length; i++) {
           return(
             <View style={styles.bar}>
@@ -130,7 +138,7 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
+                        onPress= {() =>this.setState({username:this.state.frows[i].fname}),()=>this.props.navigation.navigate('FriendProfile', {
                           username:this.state.frows[i].fname})}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
@@ -143,73 +151,50 @@ class Friends extends React.Component{
             </View>
           );
         }
-        // this.state.rows.forEach((row)=>{
-        //   console.log(row);
-        //   return (
-        //     <View style={styles.nonbar}>
-        //    {/* <Text style={styles.textStyle}>Hello</Text> */}
-        //   <Text style={styles.textStyle}>{row}</Text>
-        //   </View>
-        // );
-         // });
-        // for(var key in this.state.rows){
-        // return(
-        
-          
-        // <Text>{this.state.rows[key]}</Text>
-        //   );
-       // }
-        
-        // return this.state.rows.map(element => {
-        //   return (
-        //     <View style={styles.bar}>
-        //        <Text style={styles.textStyle}>{fname[element]}</Text> 
-        //       <TouchableOpacity style={
-        //         //{"display": element.alreadyFriend ? "none":"block",
-        //         //'backgroundColor-color':element.alreadyFriend ? "gray":"#859a9b" , 
-        //         {"border-radius":10, padding:2,margin:4,
-        //       }}>
-        //         {/* <View style={
-        //           {"display": element.alreadyFriend ? "none":"block",
-        //           fontSize: 18,
-        //           fontFamily:'Cochin',
-        //           backgroundColor: "#859a9b",
-        //           borderRadius:10,
-        //           padding:2,
-        //           }}>
-        //           <Text style={styles.textStyle}>Add Friend</Text>
-        //           </View>
-        //           </TouchableOpacity>
-        //       <TouchableOpacity 
-        //       onPress={() =>this.setState({profileName:element.name})}
-              
-        //       style={
-        //         {"display": element.alreadyFriend ? "block":"none",
-        //         'backgroundColor':element.alreadyFriend ? "gray":"#859a9b" , 
-        //         "border-radius":10,
-        //          padding:2,
-        //          margin:4,
-        //          }}>
-        //            <View style={{
-        //              "display": element.alreadyFriend ? "block":"none",
-        //              fontSize: 18,
-        //              fontFamily:'Cochin',
-        //              color: "#859a9b",}}>
-        //               <TouchableOpacity
-        //                 style={styles.profileButton}
-        //                 onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
-        //                   username:element.name})}
-        //               >
-        //         <Text style={styles.textStyle}>Profile</Text>
-        //         </TouchableOpacity>   
-
-        //                </View>*/}
-        //                </TouchableOpacity>
-        //       </View> 
-        //   );
-        // });
+      }//end of else statement 
       };
       
+      requestlist = () => {
+        console.log('Friends is', this.state.frows[0]);
+        console.log('Pending is', this.state.prows[0]);
+        if(this.state.prows.length==0){
+          return(
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>
+                No new friend requests
+              </Text>
+            </View>
+          );
+        }//end of if statement
+        else{
+        for (var i = 0; i < this.state.prows.length; i++) {
+          return(
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>{this.state.prows[i].fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{this.state.prows[i].username.toString()})</Text>
+                   <View style={{
+                     fontSize: 18,
+                     fontFamily:'Cochin',
+                     color: "#859a9b",}}>
+                       
+                      <TouchableOpacity
+                        style={styles.profileButton}
+                        onPress= {() =>this.setState({username:this.state.prows[i].fname}),()=>this.props.navigation.navigate('FriendProfile', {
+                          username:this.state.prows[i].fname})}
+                      >
+                <Text style={styles.textStyle}>Add Friend</Text>
+                </TouchableOpacity>
+                 
+                </View>
+                <TouchableOpacity style={styles.removeButton} onPress={()=>this.denyFriend(this.state.prows[i].username)}>
+                   <Text style={styles.textStyle}>Deny</Text>
+                 </TouchableOpacity>
+            </View>
+          );
+        }
+      }//end of else statement 
+      };
+
     render() {
 
       const params = this.props.route.params;
@@ -245,7 +230,8 @@ class Friends extends React.Component{
 
                 <View style={styles.nonbar}>
 
-               {this.list()}
+               {this.friendlist()}
+               {this.requestlist()}
 
                 </View>
             </View>
