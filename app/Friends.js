@@ -227,6 +227,7 @@ class Friends extends React.Component{
           });
       
       this.apiRepository.getFriendRequests(this.state.accountId)
+
       .then( rep => {
             
         console.log(rep.rows);
@@ -235,6 +236,7 @@ class Friends extends React.Component{
         })
         console.log(this.state.rows);
       });
+
       
       //this.apiRepository.denyFriendRequest(this.state.accountId,this.state.username);
       // .then( rep => {
@@ -251,11 +253,13 @@ class Friends extends React.Component{
           console.log("goodbye!");
         })
       
+
       // this.apiRepository.sendFriendRequest(this.sendRequest('b'))
       // .then( rep => {
             
       //   console.log(rep);
       // });
+
   }
 
 }

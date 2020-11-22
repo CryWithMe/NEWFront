@@ -41,10 +41,10 @@ export class apiRepository {
         });
     }
 
-    delete() {
+    delete(info) {
         console.log("Deleting Account... API Call");
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}deleteAccount`, this.config)
+            axios.post(`${this.url}deleteAccount`, info)
             .then(resp => resolve(resp.data))
             .catch(resp => alert(resp));
         });
@@ -77,8 +77,35 @@ export class apiRepository {
             });
     }
 
-    deleteFriend(info) {
+    acceptFriendRequest(info) {
+        console.log("Accepting Friend Request... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}acceptFriendRequest`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    denyFriendRequest(info) {
         console.log("Denying Friend Request... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}denyFriendRequest`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    getUser(info) {
+        console.log("Getting User... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}accountInfo/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    deleteFriend(info) {
+        console.log("Getting User... API Call");
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}deleteFriend`, info)
                 .then(resp => resolve(resp.data))
