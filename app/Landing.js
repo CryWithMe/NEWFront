@@ -2,12 +2,13 @@ import * as React from "react";
 import { apiRepository} from '../api/apiRepository';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, TouchableOpacity, Image, Button, View, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, Button, View, SafeAreaView, ScrollView, Text,TouchableHighlight, Alert } from 'react-native';
 import Logo from './Images/Logo.png';
 import Friends from "./Friends";
 import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 
@@ -30,13 +31,16 @@ class Landing extends React.Component{
             },
            
         ],
+
+
         currentAccountId:'',
         username: '',
         action:'',
         cause:'',
         password:'',
-
-
+        modalVisible:false, 
+        response:'',
+        erows:[],
     }
 
 
@@ -49,17 +53,72 @@ class Landing extends React.Component{
           `Send a Response ?`,
           [
             { text: 'Call Me', onPress: () => console.log('Call Me Was Pressed') },
-            { text: 'I love you.', onPress: () => console.log('I love you Was Pressed') },
-            { text: 'Can I get you anything?', onPress: () => console.log('Can I get you anything Was Pressed') },
+            { text: "I'm here for you", onPress: () => console.log('I love you Was Pressed') },
+            { text: 'I care about you. Lunch this week?', onPress: () => console.log('Can I get you anything Was Pressed') },
           ],
           { cancelable: true }
         );
       };
 
+      setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
+
+      setResponse(){
+        //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
+        var new_response= prompt("Draft your response ");
+       
+            this.setState({response:new_response});
+            Alert.alert("Confirmation","Response succesfully sent!");
+            console.log("Responding in landing...");
+
+            var reqInfo = {
+                accountId: this.state.currentAccountId,
+                eventId:'',
+                type:'',
+              }
+
+            // this.apiRepository.postResponse(reqInfo)
+            // .then(rep => {
+            //     if(rep.statusText == "OK"){
+            //       console.log("Event response succesfully sent");
+            //     }
+            //   })
+        return false;
+    }
+
+    eventlist = () => {
+        //console.log('Friends is', this.state.erows[0]);
+    
+        if(this.state.erows == undefined){
+          return(
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>
+                No events in the past 48 hours.
+              </Text>
+            </View>
+          );
+        }//end of if statement
+        else{
+        for (var i = 0; i < this.state.erows.length; i++) {
+          return(
+            <View style={styles.bar}>
+                <TouchableOpacity onPress={()=>{this.setResponse()}}>  
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>{this.state.erows[i].username} is {this.state.erows[i].type}</Text>
+              <Text>{this.state.erows[i].date}</Text>
+              </View> 
+              </TouchableOpacity>
+            </View>
+          );
+        }
+      }//end of else statement 
+      };
+
     list = () => {
         return this.state.array.map(element => {
           return (
-            <TouchableOpacity onPress={()=>{this.threeOptionAlertHandler()}}>  
+            <TouchableOpacity onPress={()=>{this.setResponse()}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
               <Text>{element.date}</Text>
@@ -68,6 +127,7 @@ class Landing extends React.Component{
           );
         });
       };
+
 
       
 
@@ -115,7 +175,7 @@ class Landing extends React.Component{
 
                 <SafeAreaView style={styles.container_3}>
                 <ScrollView style={styles.scroll}>
-                    {this.list()}
+                    {this.eventlist()}
                 </ScrollView>
                 </SafeAreaView>
             </View>
@@ -123,6 +183,22 @@ class Landing extends React.Component{
         );_
     }
     componentDidMount() {
+
+
+        this.apiRepository.getEventList(this.state.currentAccountId)
+        .then( rep => {
+          this.setState({
+            erows: rep.rows
+          })
+          console.log(rep);
+        });
+
+        
+        
+
+        
+
+
 
  
     }

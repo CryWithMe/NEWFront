@@ -102,13 +102,7 @@ class Settings extends React.Component{
                     Contact Info
                 </Text>
                 <View style={styles.container}>
-                
-                <TouchableOpacity
-                onPress={()=> {this.changePhoneNum()}}>
-                <Text style={styles.textStyle}>
-                    Change Phone Number
-                </Text>
-                </TouchableOpacity>
+            
                 <TouchableOpacity
                 onPress={()=> {this.changeEmail()}}>
                 <Text style={styles.textStyle}>

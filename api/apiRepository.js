@@ -154,6 +154,25 @@ export class apiRepository {
                 .catch(resp => alert(resp));    
             });
     }
+
+    postResponse(){
+        console.log("Checking if they exist... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}eventResponse/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    getEventList(info){
+        console.log("Search for eventlist... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}eventList/${info}`, this.config)
+                .then(resp => resolve(resp))
+                .catch(resp => alert(resp));    
+            });
+    }
     
 
 }
