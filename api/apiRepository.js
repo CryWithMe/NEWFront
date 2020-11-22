@@ -119,7 +119,7 @@ export class apiRepository {
         console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}searchAccount/${info}`, this.config)
-                .then(resp => resolve(resp.data))
+                .then(resp => resolve(resp))
                 .catch(resp => alert(resp));    
             });
     }
@@ -138,7 +138,9 @@ export class apiRepository {
         console.log("Sending conditions... API Call");
         console.log(info);
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}condition`, info)
+            axios.post(`${this.url}condition`, info);
+        });
+    }
 
     doesExist(info) {
         console.log("Checking if they exist... API Call");
@@ -146,6 +148,25 @@ export class apiRepository {
             axios.post(`${this.url}doesExist/${info}`, this.config)
 
                 .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    postResponse(){
+        console.log("Checking if they exist... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}eventResponse/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
+
+    getEventList(info){
+        console.log("Search for an account... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}eventList/${info}`, this.config)
+                .then(resp => resolve(resp))
                 .catch(resp => alert(resp));    
             });
     }

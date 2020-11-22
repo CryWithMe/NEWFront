@@ -41,16 +41,21 @@ class EditProfile extends React.Component{
         checked:false,
         edit_triggers:false,
         edit_comforts:false,
+        edit_username:false,
+        edit_screenname:false,
         screen_name:'',
         username:'',
         triggers:'Add triggers',
         triggers_edit:'',
         comforts:'Add comforts',
         comforts_edit:'',
+        screenname_edit:'',
+        username_edit:'',
         index:0,
         new_username:'',
         new_screen_name:'', 
         currentAccountId:'',
+        
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -146,19 +151,75 @@ class EditProfile extends React.Component{
                 </Text>
                 <Text>        </Text>
                 </View>
+                
                 <Text style={styles.textStyle}>
                     Screen Name: {this.state.screen_name}
                 </Text>
-                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeScreenName()}><Text style={styles.appButtonText}>Change Screen Name</Text></TouchableOpacity>
+
+
+
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_screenname:!this.state.edit_screenname})}>
+                <Image style={styles.image} source={Pencil}></Image>
+                </TouchableOpacity>
+                
+                <View style={{"display": this.state.edit_screenname? "block":"none",}}>
+                <TextInput 
+                placeholder={this.state.screen_name} 
+                style={{
+                    //"display": this.state.edit_comforts ? "block":"none",
+                    fontSize: 20,
+                    fontFamily:'Cochin',
+                    borderWidth:2,
+                    borderColor:'#859a9b',
+                    borderRadius:10,}}
+                onChangeText={text => this.setState({screenname_edit:text})}
+                ></TextInput>
+
+                <TouchableOpacity onPress={()=>this.setState({screen_name:this.state.screenname_edit})}>
+                    <Text style={styles.submitStyle}>Submit</Text>
+                </TouchableOpacity>
+            </View>
+
+
+
+                {/* <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeScreenName()}><Text style={styles.appButtonText}>Change Screen Name</Text></TouchableOpacity> */}
+                
+                
                 <Text style={styles.textStyle}>
                     Username: {this.state.username}
                 </Text>
-                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeUsername()}><Text style={styles.appButtonText}>Change Username</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_username:!this.state.edit_username})}>
+                <Image style={styles.image} source={Pencil}></Image>
+                </TouchableOpacity>
+                
+                <View style={{"display": this.state.edit_username ? "block":"none",}}>
+                <TextInput 
+                placeholder={this.state.username} 
+                style={{
+                    //"display": this.state.edit_comforts ? "block":"none",
+                    fontSize: 20,
+                    fontFamily:'Cochin',
+                    borderWidth:2,
+                    borderColor:'#859a9b',
+                    borderRadius:10,}}
+                onChangeText={text => this.setState({username_edit:text})}
+                ></TextInput>
+
+                <TouchableOpacity onPress={()=>this.setState({username:this.state.username_edit})}>
+                    <Text style={styles.submitStyle}>Submit</Text>
+                </TouchableOpacity>
+            </View>
+
+                {/* <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeUsername()}><Text style={styles.appButtonText}>Change Username</Text></TouchableOpacity> */}
+
+
+
+
                 <Text style={styles.textStyle}>
                     Conditions Info:
                 </Text>
 
-                <TouchableOpacity onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems.toString())}><Text>Save Conditions</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems.toString())}><Text style={styles.textStyle}>Save Conditions</Text></TouchableOpacity>
                 <SafeAreaView style={styles.container_3}>
                 
                 
@@ -226,6 +287,7 @@ class EditProfile extends React.Component{
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
+
             </View>
             </ScrollView>
             </LinearGradient>
