@@ -4,7 +4,7 @@ import Pencil from './Images/pencil.png';
 //import MultiSelect from 'react-native-multiple-select';
 import SelectMultiple from 'react-native-select-multiple';
 import { LinearGradient } from 'expo-linear-gradient';
-import { apiRepository} from '../api/apiRepository';
+import { apiRepository} from '../api/';
 
 const conditions = [
         { label: 'Anxiety Disorders', value: '1' },
@@ -35,6 +35,7 @@ const conditions = [
 class EditProfile extends React.Component{
     
     apiRepository = new apiRepository();
+
     state={
         selectedItems:[],
         isShownPicker:false,
@@ -117,6 +118,7 @@ class EditProfile extends React.Component{
             accountId: this.props.route.params.currentAccountId,
             condition: u,
           }
+
         console.log(v);
         console.log(u);
         this.apiRepository.postCondition(reqInfo)

@@ -73,10 +73,10 @@ class FriendProfile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back,{this.state.screen_name}
+                    Welcome back, {this.props.route.params.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
-                    @{this.state.username}
+                    @{this.props.route.params.username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
@@ -97,6 +97,7 @@ class FriendProfile extends React.Component{
             </SafeAreaView>
         );_
     }
+
 }
 
 const styles = StyleSheet.create({
