@@ -46,6 +46,8 @@ class EditProfile extends React.Component{
         comforts:'eggs',
         comforts_edit:'',
         index:0,
+        new_username:'',
+        new_screen_name:'', 
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -70,6 +72,37 @@ class EditProfile extends React.Component{
         );
       }
 
+    changeUsername(){
+        //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
+        var new_user= prompt("Type new username ");
+        if(new_user!=this.state.username && new_user!=null){
+            //if(regex.test(num)){
+            this.setState({new_username:new_user});
+            Alert.alert("Confirmation","username succesfully changed!");
+            //}
+        }
+        else{
+            Alert.alert("Invalid Username","username rejected");
+            
+        }
+        return false;
+    }
+
+    changeScreenName(){
+        //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
+        var new_screen= prompt("Type a new screen name ");
+        if(new_screen!=this.state.screen_name && new_screen!=null){
+            //if(regex.test(num)){
+            this.setState({new_screen_name:new_screen});
+            Alert.alert("Confirmation","Screen Name succesfully changed!");
+            //}
+        }
+        else{
+            Alert.alert("Invalid Screen Name","username rejected");
+            
+        }
+        return false;
+    }
     render() {
         const params = this.props.route.params;
         this.state.username = params.username;
@@ -98,11 +131,11 @@ class EditProfile extends React.Component{
                 <Text style={styles.textStyle}>
                     Screen Name: {this.state.screen_name}
                 </Text>
-                <TouchableOpacity style={styles.opacityStyle} ><Text style={styles.appButtonText}>Change Screen Name</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeScreenName()}><Text style={styles.appButtonText}>Change Screen Name</Text></TouchableOpacity>
                 <Text style={styles.textStyle}>
                     Username: {this.state.username}
                 </Text>
-                <TouchableOpacity style={styles.opacityStyle}><Text style={styles.appButtonText}>Change Username</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.changeUsername()}><Text style={styles.appButtonText}>Change Username</Text></TouchableOpacity>
                 <Text style={styles.textStyle}>
                     Conditions Info:
                 </Text>
