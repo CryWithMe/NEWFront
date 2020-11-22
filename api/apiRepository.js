@@ -139,7 +139,12 @@ export class apiRepository {
         console.log(info);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}condition`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
 
+    }
+    
     doesExist(info) {
         console.log("Checking if they exist... API Call");
         return new Promise((resolve, reject) => {
