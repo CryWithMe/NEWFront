@@ -29,10 +29,11 @@ class Landing extends React.Component{
             },
            
         ],
-        currentUserId:'',
+        currentAccountId:'',
         username: '',
         action:'',
         cause:'',
+        password:'',
 
 
     }
@@ -70,8 +71,9 @@ class Landing extends React.Component{
 
     render() {
         const params = this.props.route.params;
-        this.state.currentUserId = params.id;
+        this.state.currentAccountId = params.id;
         this.state.username = params.username;
+        this.state.password = params.password;
         //console.log(this.state.currentUser);
 
         const { navigation } = this.props;
@@ -85,7 +87,7 @@ class Landing extends React.Component{
                  <TouchableOpacity
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile', {
-                        currentUserId: this.state.currentUserId
+                        currentAccountId: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>
@@ -94,7 +96,7 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        id: this.state.currentUserId
+                        id: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>

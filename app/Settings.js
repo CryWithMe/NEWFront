@@ -1,17 +1,30 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, Modal,ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import {apiRepository} from '../api';
 
 class Settings extends React.Component{
+    apiRepository = new apiRepository();
+
     state={
         password:'',
+        email: '',
         phone_num:0,
         send_alerts:true,
         receive_alerts:true,
+        currentAccountId: '',
+        
     };
     deleteAccount(){
+        console.log(this.state.currentAccountId);
         var r=confirm("Press a button!\nEither OK or Cancel.");
         if(r==true){
+            var body = {
+                accountId: this.state.currentAccountId
+            }
+            this.apiRepository.delete(body)
+                .then()
+
            //send api request to delete from table
            Alert.alert("Confirmation","You selected delete!");
         }
@@ -64,6 +77,13 @@ class Settings extends React.Component{
         return false;
     }
     render() {
+        const params = this.props.route.params;
+        console.log(params);
+        this.state.currentAccountId = params.currentAccountId;
+        this.state.password = params.password;
+        this.state.email = params.email;
+        console.log(this.state);
+        
         return (
             <SafeAreaView style={styles.container_4}>
                <LinearGradient  colors={['#859a9b', 'white',]}>
@@ -122,6 +142,16 @@ class Settings extends React.Component{
             </LinearGradient>
             </SafeAreaView>
         );_
+    }
+    componentDidMount() {
+        const params = this.props.route.params;
+        console.log(params);
+        this.setState({
+            currentAccountId: params.currentAccountId,
+            password: params.password,
+            email: params.email,
+        })
+        console.log(this.state);
     }
 }
 

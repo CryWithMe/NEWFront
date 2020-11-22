@@ -11,11 +11,12 @@ class Profile extends React.Component{
         screen_name:'',
         username:'',
         email: '',
+        password:'',
         conditions_info:['ADHD','Depression'],
         triggers:'',
         comforts:'',
         modalVisible:false,
-        currentUserId: '',
+        currentAccountId: '',
     };
 
 
@@ -57,7 +58,8 @@ class Profile extends React.Component{
 
     render() {
       const params = this.props.route.params;
-      this.state.currentUserId = params.currentUserId;
+      this.state.currentAccountId = params.currentAccountId;
+
 
       const { modalVisible } = this.state;
         return (
@@ -112,7 +114,11 @@ class Profile extends React.Component{
                 ><Text style={styles.linkStyle}>Manage Profile</Text></TouchableOpacity>
                 <TouchableOpacity
                   title="Settings"
-                  onPress= {() => this.props.navigation.navigate('Settings')}
+                  onPress= {() => this.props.navigation.navigate('Settings', {
+                    username: this.state.username,
+                    password: this.state.password,
+                    currentAccountId: this.state.currentAccountId,
+                  })}
                   ><Text style={styles.linkStyle}>Settings</Text></TouchableOpacity>
                   <TouchableOpacity
                   title="Logout"
@@ -134,12 +140,13 @@ class Profile extends React.Component{
         );_
     }
     componentDidMount() {
-      this.apiRepository.getUser(this.state.currentUserId)
+      this.apiRepository.getUser(this.state.currentAccountId)
             .then(rep => {
                 this.setState({
                   screen_name: rep.rows[0].fname + ' ' + rep.rows[0].lname,
                   username: rep.rows[0].username,
                   email: rep.rows[0].email,
+                  password: rep.rows[0].password,
 
                 })
             })
