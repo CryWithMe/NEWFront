@@ -107,9 +107,14 @@ class EditProfile extends React.Component{
         return false;
     }
 
-    selectConditions(u){
+    selectConditions(v,u){
+        var reqInfo = {
+            accountId: this.props.route.params.currentAccountId,
+            condition: u,
+          }
+        console.log(v);
         console.log(u);
-        this.apiRepository.postCondition(u)
+        this.apiRepository.postCondition(reqInfo)
         .then(rep => {
             console.log(rep.statusText);
             if(rep.statusText == "OK"){
@@ -119,10 +124,7 @@ class EditProfile extends React.Component{
     }
 
     render() {
-        const params = this.props.route.params;
-        this.state.username = params.username;
-        this.state.screen_name = params.screen_name;
-        this.state.currentAccountId = params.id;
+        
 
         // this.setState({
         //     username: params.username,
@@ -156,7 +158,7 @@ class EditProfile extends React.Component{
                     Conditions Info:
                 </Text>
 
-                <TouchableOpacity onPress={()=>this.selectConditions(this.state.accountId, this.state.selectedItems.toString())}><Text>Save Conditions</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems.toString())}><Text>Save Conditions</Text></TouchableOpacity>
                 <SafeAreaView style={styles.container_3}>
                 
                 
@@ -229,6 +231,17 @@ class EditProfile extends React.Component{
             </LinearGradient>
             </SafeAreaView>
         );_
+    }
+    componentDidMount() {
+        const params = this.props.route.params;
+        console.log(this.props);
+        console.log(params.currentAccountId);
+        this.setState({
+        username: params.username,
+        screen_name : params.screen_name,
+        currentAccountId : params.currentAccountId,
+        })
+        console.log(this.state);
     }
 }
 const styles = StyleSheet.create({

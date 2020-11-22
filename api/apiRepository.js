@@ -143,6 +143,7 @@ export class apiRepository {
                 .catch(resp => alert(resp));    
             });
     }
+    
 //     getUser(userId) {
 //         return new Promise((resolve, reject) => {
 //             axios.get(`${this.url}/user-profile/${userId}`, this.config)
