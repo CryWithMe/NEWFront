@@ -46,7 +46,14 @@ class Friends extends React.Component{
         username: u,
         accountId: this.state.accountId,
       }
-      return reqInfo;
+
+      this.apiRepository.friendRequest(reqInfo)
+        .then(rep => {
+          if(rep.statusText == "OK"){
+            console.log("Friend Request Sent");
+          }
+        })
+     
     
     }
     delFriend(u) {
@@ -54,8 +61,41 @@ class Friends extends React.Component{
         username: u,
         accountId: this.state.accountId,
       }
-      return reqInfo;
-    
+
+      this.apiRepository.deleteFriend(reqInfo)
+        .then(rep => {
+          if(rep.statusText == "OK"){
+            console.log("Friend Deleted");
+          }
+        })
+    }
+
+    acceptFriend(u) {
+      var reqInfo = {
+        username: u,
+        accountId: this.state.accountId,
+      }
+
+      this.apiRepository.acceptFriendRequest(reqInfo)
+        .then(rep => {
+          if(rep.statusText == "OK"){
+            console.log("Friend Accepted");
+          }
+        })
+    }
+
+    denyFriend(u) {
+      var reqInfo = {
+        username: u,
+        accountId: this.state.accountId,
+      }
+
+      this.apiRepository.denyFriendRequest(reqInfo)
+        .then(rep => {
+          if(rep.statusText == "OK"){
+            console.log("Friend Denied");
+          }
+        })
     }
 
 
@@ -248,10 +288,10 @@ class Friends extends React.Component{
       //   console.log(this.state.rows);
       // });
 
-      this.apiRepository.deleteFriend(this.delFriend('b'))
-        .then(rep => {
-          console.log("goodbye!");
-        })
+      // this.apiRepository.deleteFriend(this.delFriend('b'))
+      //   .then(rep => {
+      //     console.log("goodbye!");
+      //   })
       
 
       // this.apiRepository.sendFriendRequest(this.sendRequest('b'))
