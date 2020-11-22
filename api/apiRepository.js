@@ -162,7 +162,7 @@ export class apiRepository {
     }
 
     getEventList(info){
-        console.log("Search for an account... API Call");
+        console.log("Search for eventlist... API Call");
         console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}eventList/${info}`, this.config)
