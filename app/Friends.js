@@ -95,9 +95,10 @@ class Friends extends React.Component{
             console.log("Friend Denied");
           }
         })
-    }
+      
+      this.props.navigation.navigate('Friends')
 
-
+  }
 
     goToProfile(){
         return <Redirect to={`/Profile/${this.state.profileName}`}/>
@@ -198,8 +199,8 @@ class Friends extends React.Component{
                 <TouchableOpacity
                   style={styles.removeButton}
                   onPress={
-                      ()=>this.denyFriend(this.state.prows[i].username),
-                      ()=>this.props.navigation.navigate('Friends')}>
+                      ()=>this.denyFriend(this.state.prows[i].username.toString())
+                      }>
                    <Text style={styles.textStyle}>Deny</Text>
                  </TouchableOpacity>
             </View>

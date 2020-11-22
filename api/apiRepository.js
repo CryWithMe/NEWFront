@@ -119,7 +119,7 @@ export class apiRepository {
         console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}searchAccount/${info}`, this.config)
-                .then(resp => resolve(resp.data))
+                .then(resp => resolve(resp))
                 .catch(resp => alert(resp));    
             });
     }

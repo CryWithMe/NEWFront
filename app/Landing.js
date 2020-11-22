@@ -123,26 +123,8 @@ class Landing extends React.Component{
         );_
     }
     componentDidMount() {
-        //this.state.profile.userId = +this.props.match.params.userId; // + in front of string number makes it an actual number
 
-        // if (this.state.profile.userId) {
-        //     this.apiRepository.getUser(this.state.profile.userId)
-        //     .then(user => {
-        //         this.setState({profile: user});
-        //     });
-        // }
-
-        // this.apiRepository.getRatings(this.state.profile.userId)
-        // .then (ratings => {
-        //     this.setState({ratings: ratings})
-        // })
-
-        
-        
-
-        
-
-
+ 
     }
 
 }
