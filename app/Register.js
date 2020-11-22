@@ -1,9 +1,10 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, TextInput, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Image, TextInput, ScrollView, Alert } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
+import Logo from './Images/login_logo.png';
 
 class Register extends React.Component{
 
@@ -47,6 +48,7 @@ class Register extends React.Component{
                <LinearGradient  colors={['#859a9b', 'white',]}>
             <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
+                <Image style={styles.logo} source={Logo}></Image>
                 <Text style={styles.textStyle}>
                     Register
                 </Text>
@@ -160,6 +162,12 @@ const styles = StyleSheet.create({
       scrollView: {
         marginHorizontal: 20,
       },
+      logo: {
+        width: 300,
+        height: 300,
+        
+      },
+      
       
   });
 

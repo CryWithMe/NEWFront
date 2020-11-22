@@ -13,32 +13,43 @@ class Friends extends React.Component{
         textMessage:'',
         username:'',
         // will be part of a list
-        array:[
-          {
-          name:'Melissa',
-          alreadyFriend:true,
-          },
-        {
-          name:'Tyler',
-          alreadyFriend:false,
-        },
-      {
-          name:'Chris',
-          alreadyFriend:false,
-      },
-      {
-          name:'Hannah',
-          alreadyFriend:true,
-      },
+      //   array:[
+      //     {
+      //     name:'Melissa',
+      //     alreadyFriend:true,
+      //     },
+      //   {
+      //     name:'Tyler',
+      //     alreadyFriend:false,
+      //   },
+      // {
+      //     name:'Chris',
+      //     alreadyFriend:false,
+      // },
+      // {
+      //     name:'Hannah',
+      //     alreadyFriend:true,
+      // },
 
-        ],
+      //   ],
       
       accountId: '',
+      frows: [],
+      prows: [],
+
       
 
     };
 
     sendRequest(u) {
+      var reqInfo = {
+        username: u,
+        accountId: this.state.accountId,
+      }
+      return reqInfo;
+    
+    }
+    delFriend(u) {
       var reqInfo = {
         username: u,
         accountId: this.state.accountId,
@@ -61,62 +72,109 @@ class Friends extends React.Component{
 }))
 };
 
+
       list = () => {
-        return this.state.array.map(element => {
-          return (
+        console.log('Friends is', this.state.frows[0]);
+        console.log('Pending is', this.state.prows);
+
+        for (var i = 0; i < this.state.frows.length; i++) {
+          return(
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{element.name}</Text>
-              <TouchableOpacity style={
-                {"display": element.alreadyFriend ? "none":"block",
-                'backgroundColor-color':element.alreadyFriend ? "gray":"#859a9b" , 
-                "border-radius":10, padding:2,margin:4,
-              }}>
-                <View style={
-                  {"display": element.alreadyFriend ? "none":"block",
-                  fontSize: 18,
-                  fontFamily:'Cochin',
-                  backgroundColor: "#859a9b",
-                  borderRadius:10,
-                  padding:2,
-                  }}>
-                  <Text style={styles.textStyle}>Add Friend</Text>
-                  </View>
-                  </TouchableOpacity>
-              <TouchableOpacity 
-              onPress={() =>this.setState({profileName:element.name})}
-              
-              style={
-                {"display": element.alreadyFriend ? "block":"none",
-                'backgroundColor':element.alreadyFriend ? "gray":"#859a9b" , 
-                "border-radius":10,
-                 padding:2,
-                 margin:4,
-                 }}>
+              <Text style={styles.textStyle}>{this.state.frows[i].fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{this.state.frows[i].username.toString()})</Text>
                    <View style={{
-                     "display": element.alreadyFriend ? "block":"none",
                      fontSize: 18,
                      fontFamily:'Cochin',
                      color: "#859a9b",}}>
+                       
                       <TouchableOpacity
                         style={styles.profileButton}
                         onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
-                          username:element.name})}
+                          username:this.state.frows[i].fname})}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
-                </TouchableOpacity>  
-
-                       </View>
-                       </TouchableOpacity>
-              {/* <Button onClick={ () => this.changeColor()} title = "Add Friend" style= {{"display": element.alreadyFriend ? "none" : "inline"}} color = {element.alreadyFriend ? "#859a9b": "gray"} ></Button>*/}  
-              </View> 
+                </TouchableOpacity>
+                 
+                </View>
+                <TouchableOpacity style={styles.removeButton}>
+                   <Text style={styles.removeTextStyle}>X</Text>
+                 </TouchableOpacity>
+            </View>
           );
-        });
+        }
+        // this.state.rows.forEach((row)=>{
+        //   console.log(row);
+        //   return (
+        //     <View style={styles.nonbar}>
+        //    {/* <Text style={styles.textStyle}>Hello</Text> */}
+        //   <Text style={styles.textStyle}>{row}</Text>
+        //   </View>
+        // );
+         // });
+        // for(var key in this.state.rows){
+        // return(
+        
+          
+        // <Text>{this.state.rows[key]}</Text>
+        //   );
+       // }
+        
+        // return this.state.rows.map(element => {
+        //   return (
+        //     <View style={styles.bar}>
+        //        <Text style={styles.textStyle}>{fname[element]}</Text> 
+        //       <TouchableOpacity style={
+        //         //{"display": element.alreadyFriend ? "none":"block",
+        //         //'backgroundColor-color':element.alreadyFriend ? "gray":"#859a9b" , 
+        //         {"border-radius":10, padding:2,margin:4,
+        //       }}>
+        //         {/* <View style={
+        //           {"display": element.alreadyFriend ? "none":"block",
+        //           fontSize: 18,
+        //           fontFamily:'Cochin',
+        //           backgroundColor: "#859a9b",
+        //           borderRadius:10,
+        //           padding:2,
+        //           }}>
+        //           <Text style={styles.textStyle}>Add Friend</Text>
+        //           </View>
+        //           </TouchableOpacity>
+        //       <TouchableOpacity 
+        //       onPress={() =>this.setState({profileName:element.name})}
+              
+        //       style={
+        //         {"display": element.alreadyFriend ? "block":"none",
+        //         'backgroundColor':element.alreadyFriend ? "gray":"#859a9b" , 
+        //         "border-radius":10,
+        //          padding:2,
+        //          margin:4,
+        //          }}>
+        //            <View style={{
+        //              "display": element.alreadyFriend ? "block":"none",
+        //              fontSize: 18,
+        //              fontFamily:'Cochin',
+        //              color: "#859a9b",}}>
+        //               <TouchableOpacity
+        //                 style={styles.profileButton}
+        //                 onPress= {() =>this.setState({username:element.name}),()=>this.props.navigation.navigate('FriendProfile', {
+        //                   username:element.name})}
+        //               >
+        //         <Text style={styles.textStyle}>Profile</Text>
+        //         </TouchableOpacity>   
+
+        //                </View>*/}
+        //                </TouchableOpacity>
+        //       </View> 
+        //   );
+        // });
       };
       
     render() {
 
       const params = this.props.route.params;
         this.state.accountId = params.id;
+
+        console.log('Object is', this.state.frows[0]);
 
         return (
           <SafeAreaView style={styles.container}>
@@ -160,16 +218,48 @@ class Friends extends React.Component{
       
       //console.log(this.state.info);
       this.apiRepository.getFriendList(this.state.accountId)
-          .then(console.log("YO"));
+          .then( rep => {
+            
+            this.setState({
+              frows: rep.rows
+            })
+            console.log(rep);
+          });
       
       this.apiRepository.getFriendRequests(this.state.accountId)
+
+      .then( rep => {
+            
+        console.log(rep.rows);
+        this.setState({
+          prows: rep.rows
+        })
+        console.log(this.state.rows);
+      });
+
+      
+      //this.apiRepository.denyFriendRequest(this.state.accountId,this.state.username);
+      // .then( rep => {
+            
+      //   console.log(rep.rows);
+      //   this.setState({
+      //     prows: rep.rows
+      //   })
+      //   console.log(this.state.rows);
+      // });
+
+      this.apiRepository.deleteFriend(this.delFriend('b'))
         .then(rep => {
-          console.log(rep);
-        });
+          console.log("goodbye!");
+        })
       
-      
-        this.apiRepository.acceptFriendRequest(this.sendRequest('b'))
-          .then(console.log("YO"));
+
+      // this.apiRepository.sendFriendRequest(this.sendRequest('b'))
+      // .then( rep => {
+            
+      //   console.log(rep);
+      // });
+
   }
 
 }
@@ -190,6 +280,38 @@ const styles = StyleSheet.create({
         textAlign:"center",
   },
 
+  profileButton:{
+    display:"inline",
+    fontSize: 18,
+    fontFamily:'Cochin',
+    backgroundColor: "#859a9b",
+    borderRadius:10,
+  },
+
+  removeButton:{
+    display:"inline",
+    fontSize: 18,
+    //fontFamily:'Cochin',
+    backgroundColor: "#859a9b",
+    borderRadius:10,
+    color:"white",
+    textAlign:"center",
+    padding:2,
+  },
+  removeTextStyle: {
+   // padding:6,
+    fontSize: 20,
+    fontWeight:"bold",
+    color:"white",
+  },
+  subtitleStyle:{
+      display:"inline",
+      padding:6,
+      fontSize: 20,
+      fontFamily:'Cochin',
+      fontStyle:"italic",
+      color:"gray",
+  },
   linkStyle:{
     fontFamily:'Cochin',
         backgroundColor: '#859a9b',

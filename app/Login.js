@@ -1,11 +1,12 @@
 import * as React from "react";
+
+import { StyleSheet, Button, View, SafeAreaView, Text, Image, TextInput, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
-import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
-
+import Logo from './Images/login_logo.png';
 
 class Login extends React.Component{
 
@@ -43,6 +44,7 @@ class Login extends React.Component{
             <ScrollView style={styles.scrollView}> 
             
             <View style={styles.otherStyle}>
+            <Image style={styles.logo} source={Logo}></Image>
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
@@ -132,7 +134,11 @@ const styles = StyleSheet.create({
       scrollView: {
         marginHorizontal: 20,
       },
-
+      logo: {
+        width: 300,
+        height: 300,
+      },
+      
   }
   );
 export default Login; 
