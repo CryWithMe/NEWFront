@@ -77,6 +77,14 @@ export class apiRepository {
             });
     }
 
+    deleteFriend(info) {
+        console.log("Denying Friend Request... API Call");
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}deleteFriend`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
 
     
 //     getUser(userId) {
