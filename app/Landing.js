@@ -88,13 +88,13 @@ class Landing extends React.Component{
     }
 
     eventlist = () => {
-        console.log('Friends is', this.state.erows[0]);
+        //console.log('Friends is', this.state.erows[0]);
     
-        if(this.state.erows.length==0){
+        if(this.state.erows == undefined){
           return(
             <View style={styles.bar}>
               <Text style={styles.textStyle}>
-                No friend's currently added. Add some friends above!
+                No events in the past 48 hours.
               </Text>
             </View>
           );
@@ -104,10 +104,10 @@ class Landing extends React.Component{
           return(
             <View style={styles.bar}>
                 <TouchableOpacity onPress={()=>{this.setResponse()}}>  
-            {/* <View style={styles.bar}>
-              <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
-              <Text>{element.date}</Text>
-              </View>  */}
+            <View style={styles.bar}>
+              <Text style={styles.textStyle}>{this.state.erows[i].username} is {this.state.erows[i].type}</Text>
+              <Text>{this.state.erows[i].date}</Text>
+              </View> 
               </TouchableOpacity>
             </View>
           );
@@ -118,8 +118,6 @@ class Landing extends React.Component{
     list = () => {
         return this.state.array.map(element => {
           return (
-              
-
             <TouchableOpacity onPress={()=>{this.setResponse()}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.name} {element.condition}</Text>
@@ -177,7 +175,7 @@ class Landing extends React.Component{
 
                 <SafeAreaView style={styles.container_3}>
                 <ScrollView style={styles.scroll}>
-                    {this.list()}
+                    {this.eventlist()}
                 </ScrollView>
                 </SafeAreaView>
             </View>
@@ -185,7 +183,7 @@ class Landing extends React.Component{
         );_
     }
     componentDidMount() {
-        
+
         this.apiRepository.getEventList(this.state.currentAccountId)
         .then( rep => {
           this.setState({
