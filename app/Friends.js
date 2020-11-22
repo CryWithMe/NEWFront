@@ -99,6 +99,7 @@ class Friends extends React.Component{
     }
 
 
+
     goToProfile(){
         return <Redirect to={`/Profile/${this.state.profileName}`}/>
     }
@@ -136,7 +137,7 @@ class Friends extends React.Component{
                 </TouchableOpacity>
                  
                 </View>
-                <TouchableOpacity style={styles.removeButton}>
+                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(this.state.frows[i].username)}>
                    <Text style={styles.removeTextStyle}>X</Text>
                  </TouchableOpacity>
             </View>
@@ -321,7 +322,7 @@ const styles = StyleSheet.create({
   },
 
   profileButton:{
-    display:"inline",
+   
     fontSize: 18,
     fontFamily:'Cochin',
     backgroundColor: "#859a9b",
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
   },
 
   removeButton:{
-    display:"inline",
+
     fontSize: 18,
     //fontFamily:'Cochin',
     backgroundColor: "#859a9b",
@@ -345,7 +346,7 @@ const styles = StyleSheet.create({
     color:"white",
   },
   subtitleStyle:{
-      display:"inline",
+ 
       padding:6,
       fontSize: 20,
       fontFamily:'Cochin',

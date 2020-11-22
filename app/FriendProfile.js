@@ -76,7 +76,7 @@ class FriendProfile extends React.Component{
                     Welcome back,{this.state.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
-                    @{username}
+                    @{this.state.username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
