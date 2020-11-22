@@ -163,11 +163,13 @@ class Friends extends React.Component{
           .then(console.log("YO"));
       
       this.apiRepository.getFriendRequests(this.state.accountId)
-        .then(console.log("YO"));
+        .then(rep => {
+          console.log(rep);
+        });
       
       
-      this.apiRepository.sendFriendRequest(this.sendRequest('b'))
-        .then(console.log("YO"));
+        this.apiRepository.acceptFriendRequest(this.sendRequest('b'))
+          .then(console.log("YO"));
   }
 
 }

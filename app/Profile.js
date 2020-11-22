@@ -1,15 +1,22 @@
 import * as React from "react";
-import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView,ScrollView, Text, Alert } from 'react-native';
+import { apiRepository} from '../api/apiRepository';
+import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Profile extends React.Component{
+
+  apiRepository = new apiRepository();
+
     state={
         screen_name:'',
-        //username:'',
+        username:'',
+        email: '',
+        password:'',
         conditions_info:['ADHD','Depression'],
         triggers:'',
         comforts:'',
         modalVisible:false,
+        currentAccountId: '',
     };
 
 
@@ -32,7 +39,11 @@ class Profile extends React.Component{
   
   onLogout(){
     console.log("Logging User Out");
-    this.props.navigation.navigate("Login")
+    this.props.navigation.navigate("Login", {
+      username: '',
+      password: '',
+      id: ''
+    })
                 
   }
 
@@ -46,9 +57,15 @@ class Profile extends React.Component{
     //  }
 
     render() {
+<<<<<<< HEAD
 
       const params = this.props.route.params;
         var username = params.username;
+=======
+      const params = this.props.route.params;
+      this.state.currentAccountId = params.currentAccountId;
+
+>>>>>>> d282a0b29e96087181a41ffbe9f9ca0e880db81c
 
       const { modalVisible } = this.state;
         return (
@@ -74,7 +91,7 @@ class Profile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back,{this.state.screen_name}
+                    Welcome back, {this.state.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
                     @{username}
@@ -96,11 +113,18 @@ class Profile extends React.Component{
                 <View style={styles.textStyle}>
                 <TouchableOpacity
                   title="Manage Profile"
-                  onPress= {() => this.props.navigation.navigate('Edit-Profile')}
+                  onPress= {() => this.props.navigation.navigate('Edit-Profile', {
+                    username: this.state.username,
+                    screen_name: this.state.screen_name,
+                  })}
                 ><Text style={styles.linkStyle}>Manage Profile</Text></TouchableOpacity>
                 <TouchableOpacity
                   title="Settings"
-                  onPress= {() => this.props.navigation.navigate('Settings')}
+                  onPress= {() => this.props.navigation.navigate('Settings', {
+                    username: this.state.username,
+                    password: this.state.password,
+                    currentAccountId: this.state.currentAccountId,
+                  })}
                   ><Text style={styles.linkStyle}>Settings</Text></TouchableOpacity>
                   <TouchableOpacity
                   title="Logout"
@@ -111,6 +135,18 @@ class Profile extends React.Component{
             </View>
            </LinearGradient>
         );_
+    }
+    componentDidMount() {
+      this.apiRepository.getUser(this.state.currentAccountId)
+            .then(rep => {
+                this.setState({
+                  screen_name: rep.rows[0].fname + ' ' + rep.rows[0].lname,
+                  username: rep.rows[0].username,
+                  email: rep.rows[0].email,
+                  password: rep.rows[0].password,
+
+                })
+            })
     }
 }
 
