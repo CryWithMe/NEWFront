@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         marginHorizontal:170,
         fontSize: 30,
         fontFamily:'Cochin',
-        color:"white",
+        color:"#859a9b",
 
     },
     container: {

@@ -4,6 +4,7 @@ import Pencil from './Images/pencil.png';
 //import MultiSelect from 'react-native-multiple-select';
 import SelectMultiple from 'react-native-select-multiple';
 import { LinearGradient } from 'expo-linear-gradient';
+import { apiRepository} from '../api/apiRepository';
 
 const conditions = [
         { label: 'Anxiety Disorders', value: '1' },
@@ -33,6 +34,7 @@ const conditions = [
 
 class EditProfile extends React.Component{
     
+    apiRepository = new apiRepository();
     state={
         selectedItems:[],
         isShownPicker:false,
@@ -41,13 +43,14 @@ class EditProfile extends React.Component{
         edit_comforts:false,
         screen_name:'',
         username:'',
-        triggers:'Fireworks',
+        triggers:'Add triggers',
         triggers_edit:'',
-        comforts:'eggs',
+        comforts:'Add comforts',
         comforts_edit:'',
         index:0,
         new_username:'',
         new_screen_name:'', 
+        currentAccountId:'',
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -103,11 +106,26 @@ class EditProfile extends React.Component{
         }
         return false;
     }
+
+    selectConditions(v,u){
+        var reqInfo = {
+            accountId: this.props.route.params.currentAccountId,
+            condition: u,
+          }
+        console.log(v);
+        console.log(u);
+        this.apiRepository.postCondition(reqInfo)
+        .then(rep => {
+            console.log(rep.statusText);
+            if(rep.statusText == "OK"){
+              console.log("Conditions loaded");
+            }
+          });
+    }
+
     render() {
-        const params = this.props.route.params;
-        this.state.username = params.username;
-        this.state.screen_name = params.screen_name;
         
+
         // this.setState({
         //     username: params.username,
         //     screen_name: params.screen_name,
@@ -139,6 +157,8 @@ class EditProfile extends React.Component{
                 <Text style={styles.textStyle}>
                     Conditions Info:
                 </Text>
+
+                <TouchableOpacity onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems.toString())}><Text>Save Conditions</Text></TouchableOpacity>
                 <SafeAreaView style={styles.container_3}>
                 
                 
@@ -157,15 +177,15 @@ class EditProfile extends React.Component{
 
 
                 
-                <View style={styles.bar}> 
+            <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
                     Triggers: {this.state.triggers}
                 </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_triggers:true})}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_triggers:!this.state.edit_triggers})}>
                      <Image style={styles.image} source={Pencil}></Image>
                 </TouchableOpacity>
                 </View>
-                <View style={{"display": this.state.edit_comforts ? "block":"none",}}>
+                <View style={{"display": this.state.edit_triggers ? "block":"none",}}>
                 <TextInput 
                 placeholder={this.state.triggers} 
                 style={{
@@ -179,14 +199,14 @@ class EditProfile extends React.Component{
                 >
                 </TextInput>
                 <TouchableOpacity onPress={()=>this.setState({triggers:this.state.triggers_edit})}>
-                    <Text style={styles.appButtonText}>Submit</Text>
+                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
                 <View style={styles.bar}> 
                 <Text style={styles.textStyle}>
                     Comforts: {this.state.comforts}
                 </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:true})}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_comforts:!this.state.edit_comforts})}>
                 <Image style={styles.image} source={Pencil}></Image>
                 </TouchableOpacity>
                 </View>
@@ -203,7 +223,7 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
                 <TouchableOpacity onPress={()=>this.setState({comforts:this.state.comforts_edit})}>
-                    <Text style={styles.appButtonText}>Submit</Text>
+                    <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
             </View>
@@ -211,6 +231,17 @@ class EditProfile extends React.Component{
             </LinearGradient>
             </SafeAreaView>
         );_
+    }
+    componentDidMount() {
+        const params = this.props.route.params;
+        console.log(this.props);
+        console.log(params.currentAccountId);
+        this.setState({
+        username: params.username,
+        screen_name : params.screen_name,
+        currentAccountId : params.currentAccountId,
+        })
+        console.log(this.state);
     }
 }
 const styles = StyleSheet.create({
@@ -294,6 +325,14 @@ const styles = StyleSheet.create({
       fontFamily:'Cochin',
     textAlign:'center',
       //backgroundColor: 'linear-gradient(#95afb4,white)',
+    },
+    submitStyle:{
+        fontSize: 18,
+        fontFamily:'Cochin',
+        color: "#859a9b",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase" 
     },
 
   });

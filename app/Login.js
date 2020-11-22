@@ -19,7 +19,16 @@ class Login extends React.Component{
     };
 
     onSubmit(){
-
+    
+    try{
+        let token;
+        token = (Notifications.getExpoPushTokenAsync()).data;
+        this.apiRepository.postToken(this.state.currentAccountId, token);
+    
+    }catch(err){
+        console.log("Cannot get push token/api key, likely in web" );
+    }
+    
         console.log(this.state);
         this.apiRepository.login(this.state)
             .then(rep => {
@@ -32,8 +41,12 @@ class Login extends React.Component{
             })}
 
             });
-                
+      
+      
     }
+
+
+    
 
     render() {
         return (
@@ -124,7 +137,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         fontSize: 30,
         fontFamily:'Cochin',
-        color:"white",
+        color:"#859a9b",
 
     },
     container: {

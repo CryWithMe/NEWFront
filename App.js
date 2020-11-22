@@ -9,6 +9,7 @@ import Constants from 'expo-constants';
 import * as firebase from 'firebase';
 //import ApiKeys from './constants/ApiKeys';
 
+import { apiRepository} from './api/apiRepository';
 import Landing from './app/Landing.js';
 import Login from './app/Login.js';
 import Register from './app/Register.js';
@@ -43,6 +44,9 @@ const myTheme = {
  
 class App extends React.Component{
 
+
+  apiRepository = new apiRepository();
+
   state = {
     notification: {},
   };
@@ -54,6 +58,10 @@ class App extends React.Component{
 //useEffect(() => {
     //   (()=> registerForPushNotificationsAsync())();
     // }, [] );
+
+  // giveMeTheToken(){
+  //   this.apiRepository.postToken({accountId, token});
+  // }
 
   registerForPushNotifications = async() => {
     //check for existing permissions
@@ -85,6 +93,7 @@ class App extends React.Component{
       });
     }
     console.log(token);
+
     
     let uid = firebase.auth().currentUser.uid;
     firebase.database().ref("users").child(uid).update({
