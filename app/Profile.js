@@ -57,15 +57,9 @@ class Profile extends React.Component{
     //  }
 
     render() {
-<<<<<<< HEAD
-
-      const params = this.props.route.params;
-        var username = params.username;
-=======
       const params = this.props.route.params;
       this.state.currentAccountId = params.currentAccountId;
 
->>>>>>> d282a0b29e96087181a41ffbe9f9ca0e880db81c
 
       const { modalVisible } = this.state;
         return (
