@@ -47,7 +47,7 @@ class Friends extends React.Component{
         accountId: this.state.accountId,
       }
 
-      this.apiRepository.friendRequest(reqInfo)
+      this.apiRepository.sendFriendRequest(reqInfo)
         .then(rep => {
           if(rep.statusText == "OK"){
             console.log("Friend Request Sent");
@@ -138,8 +138,15 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() =>this.setState({username:this.state.frows[i].fname}),()=>this.props.navigation.navigate('FriendProfile', {
-                          username:this.state.frows[i].fname})}
+                        onPress= {
+                          ()=> this.setState({username:this.state.frows[i].fname}),
+                          ()=>this.props.navigation.navigate('FriendProfile', {
+                            username: this.state.frows[i].username.toString(),
+                            screen_name: this.state.frows[i].fname.toString()
+                          
+                          
+                        },  
+                        )}
                       >
                 <Text style={styles.textStyle}>Profile</Text>
                 </TouchableOpacity>
@@ -179,14 +186,20 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {() =>this.setState({username:this.state.prows[i].fname}),()=>this.props.navigation.navigate('FriendProfile', {
-                          username:this.state.prows[i].fname})}
+                        onPress= {
+                          () =>this.setState({username:this.state.prows[i].fname}),
+                          () => this.acceptFriend(this.state.prows[i].username.toString())
+                          }
                       >
                 <Text style={styles.textStyle}>Add Friend</Text>
                 </TouchableOpacity>
                  
                 </View>
-                <TouchableOpacity style={styles.removeButton} onPress={()=>this.denyFriend(this.state.prows[i].username)}>
+                <TouchableOpacity
+                  style={styles.removeButton}
+                  onPress={
+                      ()=>this.denyFriend(this.state.prows[i].username),
+                      ()=>this.props.navigation.navigate('Friends')}>
                    <Text style={styles.textStyle}>Deny</Text>
                  </TouchableOpacity>
             </View>
@@ -281,13 +294,12 @@ class Friends extends React.Component{
       //   })
       
 
-      // this.apiRepository.sendFriendRequest(this.sendRequest('b'))
-      // .then( rep => {
-            
-      //   console.log(rep);
-      // });
+  //     this.apiRepository.sendFriendRequest(this.sendRequest('b'))
+  //       .then( rep => {
+  //           console.log(rep);
+  //       });
 
-  }
+   }
 
 }
 
