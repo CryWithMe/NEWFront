@@ -174,6 +174,14 @@ export class apiRepository {
             });
     }
     
+    postEvent(info){
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}event`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));    
+            });
+    }
 //     getUser(userId) {
 //         return new Promise((resolve, reject) => {
 //             axios.get(`${this.url}/user-profile/${userId}`, this.config)

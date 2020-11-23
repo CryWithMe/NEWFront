@@ -55,7 +55,6 @@ class EditProfile extends React.Component{
         new_username:'',
         new_screen_name:'', 
         currentAccountId:'',
-        selectedValues:[],
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -113,12 +112,17 @@ class EditProfile extends React.Component{
     }
 
     selectConditions(v,u){
+        let selectedValues= [];
 
-        
+        for(var j=0;j<this.state.selectedItems.length; j++){
+            selectedValues[j]=this.state.selectedItems[j].value;
+        }
+
         var reqInfo = {
             accountId: this.props.route.params.currentAccountId,
-            condition: u,
+            condition: selectedValues.toString()
           }
+
         console.log(v);
         console.log(u);
         this.apiRepository.postCondition(reqInfo)
@@ -304,6 +308,7 @@ class EditProfile extends React.Component{
         username: params.username,
         screen_name : params.screen_name,
         currentAccountId : params.currentAccountId,
+        
         })
         console.log(this.state);
     }

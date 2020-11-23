@@ -8,8 +8,7 @@ import Friends from "./Friends";
 import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
-
-
+import {Picker} from '@react-native-picker/picker';
 
 
 class Landing extends React.Component{
@@ -41,6 +40,7 @@ class Landing extends React.Component{
         modalVisible:false, 
         response:'',
         erows:[],
+        picker_display:false, 
     }
 
 
@@ -128,7 +128,57 @@ class Landing extends React.Component{
         });
       };
 
+    //   displayPicker(){
+    //       return(
+    //         <View>
+    //             <Picker
+    //                 selectedValue={this.state.language}
+    //                 style={{height: 50, width: 100}}
+    //                 onValueChange={(itemValue, itemIndex) =>
+    //                 this.setState({action: itemValue})
+    //              }>
+    //                 <Picker.Item label="crying" value="crying" />
+    //                 <Picker.Item label="having a panic attack" value="having a panic attack" />
+    //                 <Picker.Item label="in a depressive episode" value="in a depressive episode" />
+    //                 <Picker.Item label="relapsing" value="relapsing" />
+    //                 <Picker.Item label="not taking care of myself" value="not taking care of themselves" />
+                    
+    //             </Picker>
+    //         </View>
+    //       );
+    //   }
 
+
+      onEvent(){
+
+        //let str1=this.state.username;
+        //let strhalf=" is ";
+        //let str2=this.state.action;
+
+        //console.log(str1);
+        //console.log(strhalf);
+        //console.log(str2);
+
+        //let message= str1.concat(strhalf,str2);
+        let message=this.state.action;
+    
+        console.log(message);
+        
+        var reqInfo = {
+            accountId: this.state.currentAccountId,
+            type:message,
+          }
+
+          this.apiRepository.postEvent(reqInfo)
+          .then(rep => {
+            console.log(rep);
+            if(rep.statusText === 'OK') {
+               console.log("Event posted");
+            }
+
+        });
+          
+      }
       
 
     render() {
@@ -167,9 +217,29 @@ class Landing extends React.Component{
 
 
            <View style={styles.container_2}>  
-        <TouchableOpacity style={styles.button} onPress={()=>{alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{
+            this.setState({picker_display:true})
+            // alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)
+            }}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
+
+        <Picker      
+                    selectedValue={this.state.language}
+                    style={{"display" : this.state.picker_display ? "block":"none",
+                    height: 50, 
+                    width: 100}}
+                    onValueChange={(itemValue, itemIndex) =>
+                    this.setState({action: itemValue},()=>this.onEvent())
+                 }>
+                    <Picker.Item label="crying" value="crying" />
+                    <Picker.Item label="having a panic attack" value="having a panic attack" />
+                    <Picker.Item label="in a depressive episode" value="in a depressive episode" />
+                    <Picker.Item label="relapsing" value="relapsing" />
+                    <Picker.Item label="not taking care of myself" value="not taking care of themselves" />
+                    
+                </Picker>
+
            </View>      
 
 
