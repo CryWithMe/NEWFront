@@ -155,10 +155,10 @@ export class apiRepository {
             });
     }
 
-    postResponse(){
-        console.log("Checking if they exist... API Call");
+    postResponse(info){
+        console.log("Sending an event response... API Call");
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}eventResponse/${info}`, this.config)
+            axios.post(`${this.url}eventResponse`, info)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));    
             });

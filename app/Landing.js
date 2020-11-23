@@ -40,7 +40,10 @@ class Landing extends React.Component{
         modalVisible:false, 
         response:'',
         erows:[],
-        picker_display:false, 
+        action_display:false, 
+        response_display:false,
+        long:0,
+        friend_in_need:'',
     }
 
 
@@ -66,31 +69,31 @@ class Landing extends React.Component{
 
       setResponse(){
         //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
-        var new_response= prompt("Draft your response ");
+        
        
-            this.setState({response:new_response});
+            //this.setState({response:new_response});
             Alert.alert("Confirmation","Response succesfully sent!");
             console.log("Responding in landing...");
 
             var reqInfo = {
                 accountId: this.state.currentAccountId,
-                eventId:'',
-                type:'',
+                username:this.state.friend_in_need,
+                type:this.state.response,
               }
 
-            // this.apiRepository.postResponse(reqInfo)
-            // .then(rep => {
-            //     if(rep.statusText == "OK"){
-            //       console.log("Event response succesfully sent");
-            //     }
-            //   })
+            this.apiRepository.postResponse(reqInfo)
+            .then(rep => {
+                if(rep.statusText == "OK"){
+                  console.log("Event response succesfully sent");
+                }
+              })
         return false;
     }
 
     eventlist = () => {
         //console.log('Friends is', this.state.erows[0]);
     
-        if(this.state.erows == undefined){
+        if(this.state.erows == undefined || this.state.erows.length==0){
           return(
             <View style={styles.bar}>
               <Text style={styles.textStyle}>
@@ -100,15 +103,34 @@ class Landing extends React.Component{
           );
         }//end of if statement
         else{
+            console.log(this.state.erows.length);
         for (var i = 0; i < this.state.erows.length; i++) {
           return(
             <View style={styles.bar}>
-                <TouchableOpacity onPress={()=>{this.setResponse()}}>  
+                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.erows[i].username})}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{this.state.erows[i].username} is {this.state.erows[i].type}</Text>
               <Text>{this.state.erows[i].date}</Text>
               </View> 
               </TouchableOpacity>
+              <View>
+              <Picker      
+                    selectedValue={this.state.language}
+                    style={{"display" : this.state.response_display ? "block":"none",
+                    borderRadius:10,
+                    borderColor:"#859a9b",
+                    fontFamily:"Cochin",
+                    alignContent:"center",
+                    height: 50, 
+                    width: 100}}
+                    onValueChange={(itemValue, itemIndex) =>
+                    this.setState({response: itemValue},()=>this.setResponse())
+                 }>
+                     <Picker.Item label="Call Me" value="Call Me" />
+                    <Picker.Item label="I'm Here For You" value="I'm Here For You" />
+                    <Picker.Item label="I Care About You, Lunch This Week?" value="I Care About You, Lunch This Week?" />
+                 </Picker>
+                 </View>
             </View>
           );
         }
@@ -127,27 +149,6 @@ class Landing extends React.Component{
           );
         });
       };
-
-    //   displayPicker(){
-    //       return(
-    //         <View>
-    //             <Picker
-    //                 selectedValue={this.state.language}
-    //                 style={{height: 50, width: 100}}
-    //                 onValueChange={(itemValue, itemIndex) =>
-    //                 this.setState({action: itemValue})
-    //              }>
-    //                 <Picker.Item label="crying" value="crying" />
-    //                 <Picker.Item label="having a panic attack" value="having a panic attack" />
-    //                 <Picker.Item label="in a depressive episode" value="in a depressive episode" />
-    //                 <Picker.Item label="relapsing" value="relapsing" />
-    //                 <Picker.Item label="not taking care of myself" value="not taking care of themselves" />
-                    
-    //             </Picker>
-    //         </View>
-    //       );
-    //   }
-
 
       onEvent(){
 
@@ -172,8 +173,10 @@ class Landing extends React.Component{
           this.apiRepository.postEvent(reqInfo)
           .then(rep => {
             console.log(rep);
+            alert(`Message Sent: ${this.state.username} is ${this.state.action}`);
             if(rep.statusText === 'OK') {
                console.log("Event posted");
+               
             }
 
         });
@@ -218,15 +221,19 @@ class Landing extends React.Component{
 
            <View style={styles.container_2}>  
         <TouchableOpacity style={styles.button} onPress={()=>{
-            this.setState({picker_display:true})
-            // alert("Sent",`${this.state.currentUser} is ${this.state.action} ${this.state.cause}`)
+            this.setState({action_display:true})
             }}>
         <Image style={styles.logo} source={Logo}/>
         </TouchableOpacity>
-
+</View>  
+            <View style={{flex:6,alignSelf:"center",}}>
         <Picker      
                     selectedValue={this.state.language}
-                    style={{"display" : this.state.picker_display ? "block":"none",
+                    style={{"display" : this.state.action_display ? "block":"none",
+                    borderRadius:10,
+                    borderColor:"#859a9b",
+                    fontFamily:"Cochin",
+                    alignContent:"center",
                     height: 50, 
                     width: 100}}
                     onValueChange={(itemValue, itemIndex) =>
@@ -240,7 +247,7 @@ class Landing extends React.Component{
                     
                 </Picker>
 
-           </View>      
+             </View>
 
 
                 <SafeAreaView style={styles.container_3}>
@@ -257,9 +264,9 @@ class Landing extends React.Component{
         this.apiRepository.getEventList(this.state.currentAccountId)
         .then( rep => {
           this.setState({
-            erows: rep.rows
+            erows: rep.data
           })
-          console.log(rep);
+          console.log(rep.data[0]);
         });
 
         

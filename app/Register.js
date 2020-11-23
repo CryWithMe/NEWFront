@@ -48,7 +48,9 @@ class Register extends React.Component{
                <LinearGradient  colors={['#859a9b', 'white',]}>
             <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
+            <View style={{flex:6,alignSelf:"center",}}>
                 <Image style={styles.logo} source={Logo}></Image>
+                </View>
                 <Text style={styles.textStyle}>
                     Register
                 </Text>
@@ -163,8 +165,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
       },
       logo: {
-        width: 300,
-        height: 300,
+        width: 500,
+        height: 500,
         
       },
       
