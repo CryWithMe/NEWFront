@@ -55,7 +55,7 @@ class EditProfile extends React.Component{
         new_username:'',
         new_screen_name:'', 
         currentAccountId:'',
-        
+        selectedValues:[],
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -113,6 +113,8 @@ class EditProfile extends React.Component{
     }
 
     selectConditions(v,u){
+
+        
         var reqInfo = {
             accountId: this.props.route.params.currentAccountId,
             condition: u,
@@ -219,7 +221,7 @@ class EditProfile extends React.Component{
                     Conditions Info:
                 </Text>
 
-                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems.toString())}><Text style={styles.textStyle}>Save Conditions</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems)}><Text style={styles.textStyle}>Save Conditions</Text></TouchableOpacity>
                 <SafeAreaView style={styles.container_3}>
                 
                 
