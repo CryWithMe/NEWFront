@@ -174,5 +174,15 @@ export class apiRepository {
             });
     }
     
+    updateAccount(info){
+        console.log("Updating Account... API Call");
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}updateAccount`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    
 
 }
