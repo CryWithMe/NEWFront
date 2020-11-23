@@ -134,6 +134,7 @@ class Profile extends React.Component{
         );_
     }
     componentDidMount() {
+
       this.apiRepository.getUser(this.state.currentAccountId)
             .then(rep => {
                 this.setState({
@@ -143,6 +144,16 @@ class Profile extends React.Component{
                   password: rep.rows[0].password,
 
                 })
+            })
+
+        this.apiRepository.getCondition(this.props.route.params.username)
+          .then(rep => {
+            console.log(rep);
+            })
+        
+        this.apiRepository.getComfort(this.props.route.params.username)
+            .then(rep => {
+                console.log(rep);
             })
     }
 }

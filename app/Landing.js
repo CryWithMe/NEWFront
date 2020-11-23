@@ -149,7 +149,8 @@ class Landing extends React.Component{
                  <TouchableOpacity
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile', {
-                        currentAccountId: this.state.currentAccountId
+                        currentAccountId: this.state.currentAccountId,
+                        username: this.props.route.params.username
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>
@@ -158,7 +159,8 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        id: this.state.currentAccountId
+                        currentAccountId: this.state.currentAccountId
+
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>

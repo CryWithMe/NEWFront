@@ -145,6 +145,55 @@ export class apiRepository {
 
     }
 
+    getCondition(info){
+        console.log("Getting Conditions... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}condition/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        })
+    }
+
+    postComfort(info){
+        console.log("Sending comforts... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}comfort`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+
+    }
+
+    getComfort(info){
+        console.log("Getting Comforts... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}comfort/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        })
+    }
+
+    postTrigger(info){
+        console.log("Sending triggers... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}trigger`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+
+    }
+
+    getTrigger(info){
+        console.log("Getting Triggers... API Call");
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}trigger/${info}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        })
+    }
+
     doesExist(info) {
         console.log("Checking if they exist... API Call");
         return new Promise((resolve, reject) => {
