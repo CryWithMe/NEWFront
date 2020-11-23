@@ -183,6 +183,13 @@ export class apiRepository {
         });
     }
 
-    
+    updatePassword(info){
+        console.log("Updating Password... API Call");
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}changePassword`, info)
+                .then(resp => resolve(resp))
+                .catch(resp => alert(resp));
+        });
+    }
 
 }

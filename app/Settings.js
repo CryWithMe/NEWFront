@@ -67,6 +67,16 @@ class Settings extends React.Component{
         if(pass!=this.state.password && pass!=null){
             if(pass.length>=7){
             this.setState({password:pass});
+            var reqInfo = {
+                accountId: this.props.route.params.currentAccountId,
+                newPassword: pass
+            }
+            this.apiRepository.updatePassword(reqInfo)
+                .then(rep => {
+                    if (rep.statusCode == 'OK'){
+                        console.log("Password updated!");
+                    }
+                })
             Alert.alert("Confirmation","password succesfully changed!");
             }
         }
