@@ -83,7 +83,7 @@ class FriendProfile extends React.Component{
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
-                    {this.conditions_info}
+                    {this.state.conditions_info}
                     {/* {this.list()} */}
                 </Text>
                 <Text style={styles.textStyle}>

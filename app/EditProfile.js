@@ -45,9 +45,9 @@ class EditProfile extends React.Component{
         edit_screenname:false,
         screen_name:'',
         username:'',
-        triggers:'Add triggers',
+        triggers:'',
         triggers_edit:'',
-        comforts:'Add comforts',
+        comforts:'',
         comforts_edit:'',
         screenname_edit:'',
         username_edit:'',
@@ -59,6 +59,7 @@ class EditProfile extends React.Component{
         last_name:'',
         new_first_name:'',
         new_last_name:'',
+        email: '',
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -101,17 +102,27 @@ class EditProfile extends React.Component{
 
     changeScreenName(){
         //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
-        var new_screen= prompt("Type a new screen name ");
-        if(new_screen!=this.state.screen_name && new_screen!=null){
-            //if(regex.test(num)){
-            this.setState({new_screen_name:new_screen});
-            Alert.alert("Confirmation","Screen Name succesfully changed!");
-            //}
+        // var new_screen= prompt("Type a new screen name ");
+        // if(new_screen!=this.state.screen_name && new_screen!=null){
+        //     //if(regex.test(num)){
+        //     this.setState({new_screen_name:new_screen});
+        //     Alert.alert("Confirmation","Screen Name succesfully changed!");
+        //     //}
+        // }
+        var reqInfo = {
+            accountId: this.state.currentAccountId,
+            username: this.state.username,
+            email: this.state.email,
+            fname: this.state.new_first_name,
+            lname: this.state.new_last_name,
         }
-        else{
-            Alert.alert("Invalid Screen Name","username rejected");
+        this.apiRepository.updateAccount(reqInfo)
+            .then(rep => {
+                console.log(rep);
+            })
+        
+        Alert.alert("Invalid Screen Name","username rejected");
             
-        }
         return false;
     }
 
@@ -203,7 +214,7 @@ class EditProfile extends React.Component{
                 </View>
                 
                 <Text style={styles.textStyle}>
-                    Screen Name: {this.state.screen_name}
+                    Screen Name: {this.state.first_name} {this.state.last_name}
                 </Text>
 
 
@@ -226,9 +237,9 @@ class EditProfile extends React.Component{
                 ></TextInput>
                 
 
-                <TouchableOpacity onPress={()=>this.setState({first_name:this.state.new_first_name})}>
+                {/* <TouchableOpacity onPress={()=>this.setState({first_name:this.state.new_first_name})}>
                     <Text style={styles.submitStyle}>Submit</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TextInput 
                 placeholder={this.state.last_name} 
@@ -243,7 +254,14 @@ class EditProfile extends React.Component{
                 ></TextInput>
                 
 
-                <TouchableOpacity onPress={()=>this.setState({last_name:this.state.new_last_name})}>
+                <TouchableOpacity
+                    onPress={ () => {
+                        this.setState({first_name: this.state.new_first_name});
+                        this.setState({last_name: this.state.new_last_name});
+                        this.changeScreenName();
+                    }
+                        
+                }>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
 
@@ -329,9 +347,10 @@ class EditProfile extends React.Component{
                 >
                 </TextInput>
                 <TouchableOpacity
-                    onPress={
-                        ()=>this.setState({triggers:this.state.triggers_edit}),
-                        ()=> this.selectTriggers(1,this.state.triggers_edit)}>
+                    onPress={ () => {
+                        this.setState({triggers:this.state.triggers_edit});
+                        this.selectTriggers(1,this.state.triggers_edit);
+                    }}>
                      <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -356,10 +375,10 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
                 <TouchableOpacity
-                    onPress={
-                        ()=> this.setState({comforts:this.state.comforts_edit}),
-                        ()=> this.selectComforts(1, this.state.comforts_edit)
-                    }>
+                    onPress={ () => {
+                        this.setState({comforts:this.state.comforts_edit});
+                        this.selectComforts(1, this.state.comforts_edit);
+                    }}>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -377,26 +396,41 @@ class EditProfile extends React.Component{
         console.log(params.currentAccountId);
         this.setState({
         username: params.username,
-        screen_name : params.screen_name,
+        first_name: params.first_name,
+        last_name: params.last_name,
         currentAccountId : params.currentAccountId,
+        email: params.email,
         
         })
         console.log(this.state);
 
         this.apiRepository.getCondition(this.props.route.params.username)
-            .then(rep => {
-                console.log(rep);
+          .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+              })
+            }
+        
             })
         
         this.apiRepository.getComfort(this.props.route.params.username)
             .then(rep => {
-                console.log(rep);
+                for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    comforts: this.state.comforts + ' ' + rep.rows[i].condition
+                  })
+                }
             })
 
         this.apiRepository.getTrigger(this.props.route.params.username)
-            .then(rep => {
-                console.log(rep);
-            })
+          .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    triggers: this.state.triggers + ' ' + rep.rows[i].condition
+                  })
+                }
+          })
     }
 }
 const styles = StyleSheet.create({

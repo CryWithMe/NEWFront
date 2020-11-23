@@ -9,6 +9,8 @@ class Profile extends React.Component{
 
     state={
         screen_name:'',
+        first_name: '',
+        last_name: '',
         username:'',
         email: '',
         password:'',
@@ -79,7 +81,7 @@ class Profile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back, {this.state.screen_name}
+                    Welcome back, {this.state.first_name} {this.state.last_name}
                 </Text>
                 <Text style={styles.textStyle}>
                     @{this.state.username}
@@ -104,7 +106,8 @@ class Profile extends React.Component{
                   title="Manage Profile"
                   onPress= {() => this.props.navigation.navigate('Edit-Profile', {
                     username: this.state.username,
-                    screen_name: this.state.screen_name,
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
                     email: this.state.email,
                     currentAccountId: this.state.currentAccountId,
                     
@@ -134,7 +137,8 @@ class Profile extends React.Component{
       this.apiRepository.getUser(this.state.currentAccountId)
             .then(rep => {
                 this.setState({
-                  screen_name: rep.rows[0].fname + ' ' + rep.rows[0].lname,
+                  first_name: rep.rows[0].fname,
+                  last_name: rep.rows[0].lname,
                   username: rep.rows[0].username,
                   email: rep.rows[0].email,
                   password: rep.rows[0].password,
@@ -144,7 +148,6 @@ class Profile extends React.Component{
 
         this.apiRepository.getCondition(this.props.route.params.username)
           .then(rep => {
-            console.log(rep.rows[0].condition)
             for (var i = 0; i < rep.rows.length; i++){
               this.setState({
                 conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition

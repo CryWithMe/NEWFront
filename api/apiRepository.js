@@ -120,8 +120,8 @@ export class apiRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}searchAccount/${info}`, this.config)
                 .then(resp => resolve(resp))
-                .catch(resp => alert(resp));    
-            });
+                .catch(resp => window.alert("User does not exist"))
+                });
     }
     
     postToken(info){
