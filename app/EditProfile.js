@@ -4,7 +4,7 @@ import Pencil from './Images/pencil.png';
 //import MultiSelect from 'react-native-multiple-select';
 import SelectMultiple from 'react-native-select-multiple';
 import { LinearGradient } from 'expo-linear-gradient';
-import { apiRepository} from '../api/apiRepository';
+import { apiRepository} from '../api/';
 
 const conditions = [
         { label: 'Anxiety Disorders', value: '1' },
@@ -35,6 +35,7 @@ const conditions = [
 class EditProfile extends React.Component{
     
     apiRepository = new apiRepository();
+
     state={
         selectedItems:[],
         isShownPicker:false,
@@ -88,7 +89,7 @@ class EditProfile extends React.Component{
         var new_user= prompt("Type new username ");
         if(new_user!=this.state.username && new_user!=null){
             //if(regex.test(num)){
-            this.setState({new_username:new_user});
+            
             Alert.alert("Confirmation","username succesfully changed!");
             //}
         }
@@ -101,18 +102,23 @@ class EditProfile extends React.Component{
 
     changeScreenName(){
         //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
-        var new_screen= prompt("Type a new screen name ");
-        if(new_screen!=this.state.screen_name && new_screen!=null){
-            //if(regex.test(num)){
-            this.setState({new_screen_name:new_screen});
+        // var new_screen= prompt("Type a new screen name ");
+        // if(new_screen!=this.state.screen_name && new_screen!=null){
+        //     //if(regex.test(num)){
+        //     this.setState({new_screen_name:new_screen});
+            var reqInfo = {
+                accountId: this.state.currentAccountId,
+                username: this.state.username,
+                email: this.state.email,
+                fname: this.state.screenname_edit,
+                lname: this.state.screenname_edit,
+            }
+            this.apiRepository.updateAccount(reqInfo)
+                .then(rep => {
+                    console.log(rep);
+                })
             Alert.alert("Confirmation","Screen Name succesfully changed!");
-            //}
-        }
-        else{
-            Alert.alert("Invalid Screen Name","username rejected");
-            
-        }
-        return false;
+        
     }
 
     selectConditions(v,u){
@@ -185,7 +191,11 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({screenname_edit:text})}
                 ></TextInput>
 
-                <TouchableOpacity onPress={()=>this.setState({screen_name:this.state.screenname_edit})}>
+                <TouchableOpacity
+                    onPress={
+                        ()=>this.setState({screen_name:this.state.screenname_edit}),
+                        console.log(this.state.screen_name),
+                        () => this.changeScreenName()}>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -304,6 +314,7 @@ class EditProfile extends React.Component{
             </SafeAreaView>
         );_
     }
+
     componentDidMount() {
         const params = this.props.route.params;
         console.log(this.props);
@@ -311,12 +322,14 @@ class EditProfile extends React.Component{
         this.setState({
         username: params.username,
         screen_name : params.screen_name,
+        email: params.email,
         currentAccountId : params.currentAccountId,
         
         })
         console.log(this.state);
     }
 }
+
 const styles = StyleSheet.create({
     backStyle:{
         fontFamily:'Cochin',

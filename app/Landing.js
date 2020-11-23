@@ -269,6 +269,7 @@ class Landing extends React.Component{
     }
     componentDidMount() {
 
+
         this.apiRepository.getEventList(this.state.currentAccountId)
         .then( rep => {
           this.setState({
@@ -283,6 +284,8 @@ class Landing extends React.Component{
         
 
 
+
+ 
     }
 
 }

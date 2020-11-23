@@ -144,7 +144,7 @@ export class apiRepository {
         });
 
     }
-    
+
     doesExist(info) {
         console.log("Checking if they exist... API Call");
         return new Promise((resolve, reject) => {
@@ -174,6 +174,7 @@ export class apiRepository {
             });
     }
     
+
     postEvent(info){
         console.log(info);
         return new Promise((resolve, reject) => {
@@ -182,149 +183,23 @@ export class apiRepository {
                 .catch(resp => alert(resp));    
             });
     }
-//     getUser(userId) {
-//         return new Promise((resolve, reject) => {
-//             axios.get(`${this.url}/user-profile/${userId}`, this.config)
-//                 .then(x => resolve(x.data))
-//                 .catch(x => alert(x));
-//         });
-//     }
 
-//     getSearchSitter(date, user_id) {
-//         console.log("Searching for Sitters... API Call");
-//         return new Promise((resolve, reject) => {
-//             axios.get(`${this.url}/search/sitters/${user_id}/${date}`, this.config)
-//                 .then(x => resolve(x.data))
-//                 .catch(x => alert(x))
-//         });
-//     }
+    updateAccount(info){
+        console.log("Updating Account... API Call");
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}updateAccount`, info)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
 
-//     getSearchJob(date, user_id) {
-//         console.log("Searching for Jobs... API Call");
-//         return new Promise((resolve, reject) => {
-//             axios.get(`${this.url}/search/jobs/${user_id}/${date}`, this.config)
-//                 .then(x => resolve(x.data))
-//                 .catch(x => alert(x))
-//         });
-//     }
+    updatePassword(info){
+        console.log("Updating Password... API Call");
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}changePassword`, info)
+                .then(resp => resolve(resp))
+                .catch(resp => alert(resp));
+        });
+    }
 
-//     loginUser(email, password) {
-//         console.log("Login User... API Call");
-//         return new Promise((resolve, reject) => {
-//         axios
-//           .post(`${this.url}/signin`, email, password)
-//         .then(resp => resolve(resp.data))
-//         .catch(resp => alert(resp));
-//         });
-//     }
-
-//     registerUser(email, password) {
-//         console.log("Register User... API Call");
-//         return new Promise((resolve, reject) => {
-//         axios
-//           .post(`${this.url}/signup`, email, password)
-//         .then(resp => resolve(resp.data))
-//         .catch(resp => alert(resp));
-//         });
-//     }
-
-//     setAvailability(userId, availability) {
-//         console.log("set availability... API Call");
-//         return new Promise((resolve, reject) => {
-//             axios.post(`${this.url}/user/${userId}/availability`, availability)
-//             .then(resp => resolve(resp.data))
-//             .catch(resp => alert(resp));
-//         });
-//     }
-
-
-
-//   updateUser(userID, user) {
-//       console.log("Updating User... API Call");
-//       return new Promise((resolve, reject) => {
-//             axios.post(`${this.url}/user/${userID}/info2`, user)
-//             .then(x => resolve(x.data))
-//             .catch(x => alert(x));
-//       });
-//   }
-
-//   addChild(userID, child) {
-//     console.log("Adding child... API Call");
-//     return new Promise((resolve, reject) => {
-//           axios.post(`${this.url}/user/${userID}/child`, child)
-//           .then(x => resolve(x.data))
-//           .catch(x => alert(x));
-//     });
-// }
-
-
-//   getRatings(userID) {
-//       console.log("Fetching Ratings... API Call");
-//       return new Promise((resolve, rejct) => {
-//           axios.get(`${this.url}/allratings/${userID}`, this.config)
-//           .then(x => resolve(x.data))
-//           .catch(x => alert(x));
-//       });
-//   }
-
-//   getParentBookings(userID) {
-//     console.log("Fetching parent bookings... API Call");
-//     return new Promise((resolve, rejct) => {
-//         axios.get(`${this.url}/parentbookings/${userID}`)
-//         .then(x => resolve(x.data))
-//         .catch(x => alert(x));
-//     });
-// }
-
-// getSitterBookings(userID) {
-//     console.log("Fetching sitter bookings... API Call");
-//     return new Promise((resolve, rejct) => {
-//         axios.get(`${this.url}/sitterbookings/${userID}`)
-//         .then(x => resolve(x.data))
-//         .catch(x => alert(x));
-//     });
-// }
-
-//     getApplicants(booking_id) {
-//         console.log("Fetching applicants... API Call");
-//         return new Promise((resolve, rejct) => {
-//             axios.get(`${this.url}/applications/${booking_id}`)
-//             .then(x => resolve(x.data))
-//             .catch(x => alert(x));
-//         });
-//     }
-
-//   getBooking(userID) {
-//       console.log("Fetching Bookings... API Call");
-//       return new Promise((resolve, reject) => {
-//           axios.get(`${this.url}/bookings/${userID}`, this.config)
-//           .then(x => resolve(x.data))
-//           .catch(x => alert(x));
-//       });
-//   }
-  
-//   updateUserRating(user_Id, rated_id, is_child, rating, comment){
-//     console.log("Updating rating... API Call");
-//     console.log(rated_id, is_child, rating, comment);
-//     let id = user_Id;
-//     return new Promise((resolve, reject) => {
-//         axios.post(`${this.url}/${id}/rate`, rated_id, 0, 5, "comment")
-//         .then(x => resolve(x.data))
-//         .catch(x => alert(x));
-//     });
-//   }
-    
-//     blockUser(blocked_id, blocker_id) {
-//         console.log("Block user... API Call")
-//         console.log(typeof blocker_id, typeof blocker_id);
-//         return new Promise((resolve, reject) =>{
-//             axios.post(`${this.url}/${blocker_id}/block`, blocked_id, this.config)
-//             .then(x => resolve(x.data))
-//             .catch(x => alert(x));
-//         });
-//     }
-
-//     bookingRequest() {
-//         console.log("Booking... API Call")
-//     }
 }

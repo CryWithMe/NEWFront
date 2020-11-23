@@ -47,9 +47,13 @@ class FriendSearch extends React.Component{
             console.log(rep.statusText);
             if(rep.statusText == "OK"){
               console.log("Friend fround");
+              this.setState({
+                  found: 1
+              })
             }
           });
     }
+
 
     render() {
         return (
@@ -79,7 +83,14 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
-                <TouchableOpacity onClick={()=>this.addFriend()} style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}><Text style={styles.appButtonText}>Add Friend</Text></TouchableOpacity>
+                <TouchableOpacity onClick={
+                    ()=>this.addFriend()}
+                    style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}>
+                    <Text style={styles.textStyle}>{this.state.friend_name}</Text>
+                    <Text style={styles.appButtonText}>
+                        Add Friend
+                    </Text>
+                </TouchableOpacity>
             </View>
             </ScrollView>
             </LinearGradient>
