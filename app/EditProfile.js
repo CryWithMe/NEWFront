@@ -186,7 +186,13 @@ class EditProfile extends React.Component{
             <View style={styles.otherStyle}>
                 <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
-                    onPress = {() => this.props.navigation.navigate('Profile')}>
+                    onPress = {() => this.props.navigation.navigate('Profile', {
+                        username: this.state.username,
+                        screen_name: this.state.screen_name,
+                        email: this.state.email,
+                        currentAccountId: this.state.currentAccountId,
+                    }
+                    )}>
                         <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
                 <Text>        </Text>

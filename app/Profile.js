@@ -48,14 +48,6 @@ class Profile extends React.Component{
   }
 
 
-    //  deleteAccount(){
-    //   var r=confirm("Press a button!\nEither OK or Cancel.");
-    //   if(r==true){
-    //      //send api request to delete from table
-    //      alert("You selected cancel!");
-    //   }
-    //  }
-
     render() {
       const params = this.props.route.params;
       this.state.currentAccountId = params.currentAccountId;
@@ -72,7 +64,10 @@ class Profile extends React.Component{
                 <TouchableOpacity style={styles.backStyle}>
                 <TouchableOpacity
                     title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home')}
+                    onPress= {() => this.props.navigation.navigate('Home', {
+                      currentAccountId: this.state.currentAccountId,
+                      username: this.props.route.params.username
+                    })}
                 ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
                 </TouchableOpacity>
                 

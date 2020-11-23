@@ -49,6 +49,7 @@ class Login extends React.Component{
     
 
     render() {
+
         return (
             
             
@@ -63,12 +64,14 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
+                    placeholder={''}
                     autoCapitalize="none"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
                 />
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
+                    placeholder={''}
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
@@ -92,6 +95,14 @@ class Login extends React.Component{
     }
 
     componentDidMount() {
+        console.log(this.props.route.params);
+        if (this.props.route.params != undefined){
+            console.log("uo");
+            this.setState({
+                username: this.props.route.params.username,
+            })
+        }
+
         this.apiRepository.getTest()
             .then(console.log("YO"));
     }

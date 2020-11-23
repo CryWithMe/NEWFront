@@ -1,8 +1,11 @@
 import * as React from "react";
 import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { apiRepository } from '../api';
 
 class FriendProfile extends React.Component{
+
+  apiRepository = new apiRepository();
     state={
         screen_name:'',
         //username:'',
@@ -73,14 +76,15 @@ class FriendProfile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back, {this.props.route.params.screen_name}
+                  {this.props.route.params.screen_name}
                 </Text>
                 <Text style={styles.textStyle}>
                     @{this.props.route.params.username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
-                    {this.list()}
+                    {this.conditions_info}
+                    {/* {this.list()} */}
                 </Text>
                 <Text style={styles.textStyle}>
                     Triggers:
@@ -96,6 +100,39 @@ class FriendProfile extends React.Component{
             </LinearGradient>
             </SafeAreaView>
         );_
+    }
+
+    componentDidMount() {
+
+      this.apiRepository.getCondition(this.props.route.params.username)
+      .then(rep => {
+        console.log(rep.rows[0].condition)
+        for (var i = 0; i < rep.rows.length; i++){
+          this.setState({
+            conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+          })
+        }
+    
+        })
+    
+    this.apiRepository.getComfort(this.props.route.params.username)
+        .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                comforts: this.state.comforts + ' ' + rep.rows[i].condition
+              })
+            }
+        })
+
+    this.apiRepository.getTrigger(this.props.route.params.username)
+      .then(rep => {
+        for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                triggers: this.state.triggers + ' ' + rep.rows[i].condition
+              })
+            }
+      })
+
     }
 
 }

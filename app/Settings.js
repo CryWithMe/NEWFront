@@ -113,6 +113,10 @@ class Settings extends React.Component{
             <View style={styles.otherStyle}>
                 <TouchableOpacity style={styles.backStyle}
                     onPress = {() => this.props.navigation.navigate('Profile', {
+                        username: this.state.username,
+                        password: this.state.password,
+                        currentAccountId: this.state.currentAccountId,
+                        screen_name: this.state.screen_name,
                         
                     }) }>
                 <Text style={styles.textStyle}>Back</Text>
