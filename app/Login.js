@@ -63,12 +63,16 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
+                value={this.state.username}
                     autoCapitalize="none"
+                    keyboardType="phone-pad"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
                 />
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
+                    keyboardType="phone-pad"
+                    value={this.state.password}
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
             marginHorizontal:60,
     },
     inputStyle:{
-        height:40,
+        //height:40,
         borderColor: 'gray', 
         borderWidth: 3,
         marginHorizontal:60,
