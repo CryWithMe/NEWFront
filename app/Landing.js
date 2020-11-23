@@ -151,6 +151,7 @@ class Landing extends React.Component{
                     onPress= {() => this.props.navigation.navigate('Profile', {
                         currentAccountId: this.state.currentAccountId,
                         username: this.props.route.params.username
+                        
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>

@@ -47,11 +47,23 @@ class Settings extends React.Component{
     }
 
     changeEmail(){
+        console.log("fuk")
         let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
         var num= prompt("Type new email ");
-        if(num!=this.state.password && num!=null){
-            if(regex.test(num)){
-            this.setState({phone_num:num});
+        if(num!=this.state.email && num!=null){
+            if(true){
+            this.setState({email:num});
+            var reqInfo = {
+                accountId: this.props.route.params.currentAccountId,
+                username: this.props.route.params.username,
+                email: num,
+                fname: this.props.route.params.screen_name,
+                lname: this.props.route.params.screen_name
+            }
+            this.apiRepository.updateAccount(reqInfo)
+                .then(rep => {
+                    console.log(rep);
+                })
             Alert.alert("Confirmation","email succesfully changed!");
             }
         }
@@ -100,7 +112,9 @@ class Settings extends React.Component{
             <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                 <TouchableOpacity style={styles.backStyle}
-                    onPress = {() => this.props.navigation.navigate('Profile')}>
+                    onPress = {() => this.props.navigation.navigate('Profile', {
+                        
+                    }) }>
                 <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
                 <Text>        </Text>

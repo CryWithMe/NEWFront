@@ -59,7 +59,7 @@ class Profile extends React.Component{
     render() {
       const params = this.props.route.params;
       this.state.currentAccountId = params.currentAccountId;
-
+      console.log(params);
 
       const { modalVisible } = this.state;
         return (
@@ -121,6 +121,7 @@ class Profile extends React.Component{
                     username: this.state.username,
                     password: this.state.password,
                     currentAccountId: this.state.currentAccountId,
+                    screen_name: this.state.screen_name,
                   })}
                   ><Text style={styles.linkStyle}>Settings</Text></TouchableOpacity>
                   <TouchableOpacity
@@ -153,8 +154,21 @@ class Profile extends React.Component{
         
         this.apiRepository.getComfort(this.props.route.params.username)
             .then(rep => {
-                console.log(rep);
+                for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    comforts: this.state.comforts + ' ' + rep.rows[i].condition
+                  })
+                }
             })
+
+        this.apiRepository.getTrigger(this.props.route.params.username)
+          .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    triggers: this.state.triggers + ' ' + rep.rows[i].condition
+                  })
+                }
+          })
     }
 }
 
