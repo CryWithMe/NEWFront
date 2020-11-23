@@ -95,7 +95,13 @@ class FriendSearch extends React.Component{
                 onChange={e=>this.setState({friend_name: e.target.value})}
                 style={styles.inputStyle}
                 />
-                <TouchableOpacity style={styles.button} onPress={()=>this.searchAFriend()}>
+                <TouchableOpacity style={styles.button} onPress={ ()=> {
+                    this.setState({
+                        found: false
+                    })
+                    this.searchAFriend();
+                }
+                        }>
                      <Image style={styles.image} source={Search}></Image>
                 </TouchableOpacity>
             
