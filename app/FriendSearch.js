@@ -92,7 +92,7 @@ class FriendSearch extends React.Component{
                 <TextInput
                 placeholder="ex: @egg123"  
                 autoCapitalize="none"
-                onChange={e=>this.setState({friend_name: e.target.value})}
+                onChange={e=>this.setState({friend_name: e.target.value, found: false})}
                 style={styles.inputStyle}
                 />
                 <TouchableOpacity style={styles.button} onPress={ ()=> {
