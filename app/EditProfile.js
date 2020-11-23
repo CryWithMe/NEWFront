@@ -119,7 +119,7 @@ class EditProfile extends React.Component{
         let selectedValues= [];
 
         for(var j=0;j<this.state.selectedItems.length; j++){
-            selectedValues[j]=this.state.selectedItems[j].value;
+            selectedValues[j]=this.state.selectedItems[j].label;
         }
 
         var reqInfo = {

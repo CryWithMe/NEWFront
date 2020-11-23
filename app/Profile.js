@@ -12,7 +12,7 @@ class Profile extends React.Component{
         username:'',
         email: '',
         password:'',
-        conditions_info:['ADHD','Depression'],
+        conditions_info:[''],
         triggers:'',
         comforts:'',
         modalVisible:false,
@@ -59,7 +59,6 @@ class Profile extends React.Component{
     render() {
       const params = this.props.route.params;
       this.state.currentAccountId = params.currentAccountId;
-      console.log(params);
 
       const { modalVisible } = this.state;
         return (
@@ -92,7 +91,8 @@ class Profile extends React.Component{
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
-                    {this.list()}
+                    {this.state.conditions_info}
+                    {/* {this.list()} */}
                 </Text>
                 <Text style={styles.textStyle}>
                     Triggers:
@@ -149,7 +149,13 @@ class Profile extends React.Component{
 
         this.apiRepository.getCondition(this.props.route.params.username)
           .then(rep => {
-            console.log(rep);
+            console.log(rep.rows[0].condition)
+            for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+              })
+            }
+        
             })
         
         this.apiRepository.getComfort(this.props.route.params.username)
