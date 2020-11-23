@@ -55,6 +55,10 @@ class EditProfile extends React.Component{
         new_username:'',
         new_screen_name:'', 
         currentAccountId:'',
+        first_name:'',
+        last_name:'',
+        new_first_name:'',
+        new_last_name:'',
     };
    
     onSelectionsChange = (selectedItems) => {

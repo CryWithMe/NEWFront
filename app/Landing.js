@@ -47,21 +47,21 @@ class Landing extends React.Component{
     }
 
 
-    threeOptionAlertHandler = () => {
-        //function to make three option alert
-        Alert.alert(
-          //title
-          'Hello',
-          //body
-          `Send a Response ?`,
-          [
-            { text: 'Call Me', onPress: () => console.log('Call Me Was Pressed') },
-            { text: "I'm here for you", onPress: () => console.log('I love you Was Pressed') },
-            { text: 'I care about you. Lunch this week?', onPress: () => console.log('Can I get you anything Was Pressed') },
-          ],
-          { cancelable: true }
-        );
-      };
+    // threeOptionAlertHandler = () => {
+    //     //function to make three option alert
+    //     Alert.alert(
+    //       //title
+    //       'Hello',
+    //       //body
+    //       `Send a Response ?`,
+    //       [
+    //         { text: 'Call Me', onPress: () => console.log('Call Me Was Pressed') },
+    //         { text: "I'm here for you", onPress: () => console.log('I love you Was Pressed') },
+    //         { text: 'I care about you. Lunch this week?', onPress: () => console.log('Can I get you anything Was Pressed') },
+    //       ],
+    //       { cancelable: true }
+    //     );
+    //   };
 
       setModalVisible(visible) {
         this.setState({modalVisible: visible});
@@ -93,27 +93,29 @@ class Landing extends React.Component{
     eventlist = () => {
         //console.log('Friends is', this.state.erows[0]);
     
-        if(this.state.erows == undefined || this.state.erows.length==0){
+        if((this.state.erows == undefined )|| (this.state.erows.length==0)){
           return(
+
             <View style={styles.bar}>
+                <ScrollView style={styles.scrollView}> 
               <Text style={styles.textStyle}>
                 No events in the past 48 hours.
               </Text>
+              </ScrollView>
             </View>
+            
           );
         }//end of if statement
         else{
             console.log(this.state.erows.length);
-        for (var i = 0; i < this.state.erows.length; i++) {
+        for (var j = 0; j < this.state.erows.length; j++) {
           return(
+            
+                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.erows[j].username})}}>  
             <View style={styles.bar}>
-                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.erows[i].username})}}>  
-            <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.erows[i].username} is {this.state.erows[i].type}</Text>
-              <Text>{this.state.erows[i].date}</Text>
-              </View> 
-              </TouchableOpacity>
-              <View>
+              <Text style={styles.textStyle}>{this.state.erows[j].username} is {this.state.erows[j].type}</Text>
+              <Text>{this.state.erows[j].date}</Text>
+              
               <Picker      
                     selectedValue={this.state.language}
                     style={{"display" : this.state.response_display ? "block":"none",
@@ -130,8 +132,10 @@ class Landing extends React.Component{
                     <Picker.Item label="I'm Here For You" value="I'm Here For You" />
                     <Picker.Item label="I Care About You, Lunch This Week?" value="I Care About You, Lunch This Week?" />
                  </Picker>
-                 </View>
-            </View>
+             </View>  
+              </TouchableOpacity>
+        
+
           );
         }
       }//end of else statement 
@@ -193,8 +197,10 @@ class Landing extends React.Component{
         //{this.getToken()}
         const { navigation } = this.props;
         return (
+            <SafeAreaView style={styles.container}>
             <LinearGradient  colors={['#859a9b', 'white',]}
             style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
+                <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                  
                 <View style={styles.container}>
@@ -251,12 +257,14 @@ class Landing extends React.Component{
 
 
                 <SafeAreaView style={styles.container_3}>
-                <ScrollView style={styles.scroll}>
+                {/* <ScrollView style={styles.scroll}> */}
                     {this.eventlist()}
-                </ScrollView>
+                {/* </ScrollView> */}
                 </SafeAreaView>
             </View>
+            </ScrollView>
             </LinearGradient>
+            </SafeAreaView>
         );_
     }
     componentDidMount() {
@@ -266,7 +274,7 @@ class Landing extends React.Component{
           this.setState({
             erows: rep.data
           })
-          console.log(rep.data[0]);
+          console.log(rep.data);
         });
 
         
