@@ -77,7 +77,7 @@ class Settings extends React.Component{
     changePassword(){
         var pass= prompt("What would you like to change it to?");
         if(pass!=this.state.password && pass!=null){
-            if(pass.length>=7){
+            if(pass.length>=7) {
             this.setState({password:pass});
             var reqInfo = {
                 accountId: this.props.route.params.currentAccountId,
@@ -85,11 +85,11 @@ class Settings extends React.Component{
             }
             this.apiRepository.updatePassword(reqInfo)
                 .then(rep => {
-                    if (rep.statusCode == 'OK'){
-                        console.log("Password updated!");
+                    console.log(rep);
+                    if (rep.data == 'OK'){
+                        this.props.navigation.navigate('Login');
                     }
                 })
-            Alert.alert("Confirmation","password succesfully changed!");
             }
         }
         else{

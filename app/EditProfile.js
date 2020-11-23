@@ -7,19 +7,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { apiRepository} from '../api/apiRepository';
 
 const conditions = [
-        { label: 'Anxiety Disorders', value: '1' },
-        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2' },
-        { label: 'Bipolar Disorder', value: '3' },
-        { label: 'Borderline Personality Disorder (BPD)', value: '4' },
-        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5' },
-        { label: 'Early Psychosis and Psychosis', value: '6' },
-        { label: 'Eating Disorders', value: '7' },
-        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8' },
-        { label: 'Panic Disorder', value: '9' },
-        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10' },
-        { label: 'Schizoaffective Disorder', value: '11' },
-        { label: 'Schizophrenia', value: '12' },
-        { label: 'Seasonal Affective Disorder (SAD)', value: '13' },
+        { label: 'Anxiety Disorders', value: '1', link: 'https://www.nami.org/About-Mental-Illness/Mental-Health-Conditions/Anxiety-Disorders' },
+        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/ADHD' },
+        { label: 'Bipolar Disorder', value: '3', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Bipolar-Disorder'},
+        { label: 'Borderline Personality Disorder (BPD)', value: '4', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Borderline-Personality-Disorder'},
+        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Related-Conditions/Dual-Diagnosis' },
+        { label: 'Early Psychosis and Psychosis', value: '6', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Early-Psychosis-and-Psychosis' },
+        { label: 'Eating Disorders', value: '7', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Eating-Disorders' },
+        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Obsessive-compulsive-Disorder'},
+        { label: 'Panic Disorder', value: '9', link: 'https://namicobb.org/panic-disorder/' },
+        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Posttraumatic-Stress-Disorder' },
+        { label: 'Schizoaffective Disorder', value: '11', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Schizoaffective-Disorder' },
+        { label: 'Schizophrenia', value: '12', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Schizophrenia' },
+        { label: 'Seasonal Affective Disorder (SAD)', value: '13', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Depression/Major-Depressive-Disorder-with-a-Seasonal-Pattern' },
     ]
 
     const renderLabel = (label, style) => {
@@ -275,9 +275,9 @@ class EditProfile extends React.Component{
                 <Text style={styles.textStyle}>
                     Username: {this.state.username}
                 </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_username:!this.state.edit_username})}>
+                {/* <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_username:!this.state.edit_username})}>
                 <Image style={styles.image} source={Pencil}></Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
                 <View style={{"display": this.state.edit_username ? "block":"none",}}>
                 <TextInput 
