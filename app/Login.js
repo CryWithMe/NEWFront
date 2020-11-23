@@ -57,7 +57,9 @@ class Login extends React.Component{
             <ScrollView style={styles.scrollView}> 
             
             <View style={styles.otherStyle}>
+            <View style={{flex:6,alignSelf:"center",}}>
             <Image style={styles.logo} source={Logo}></Image>
+            </View>
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
@@ -148,8 +150,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
       },
       logo: {
-        width: 300,
-        height: 300,
+        width: 500,
+        height: 500,
       },
       
   }
