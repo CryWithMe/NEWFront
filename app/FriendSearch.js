@@ -35,6 +35,24 @@ class FriendSearch extends React.Component{
         });
     }
 
+    sendRequest(u) {
+        console.log(this.props.route.params.currentAccountId);
+      var reqInfo = {
+        username: u,
+        accountId: this.props.route.params.currentAccountId
+      }
+
+      this.apiRepository.sendFriendRequest(reqInfo)
+        .then(rep => {
+          if(rep.statusText == "OK"){
+            console.log("Friend Request Sent");
+          }
+        })
+        this.props.navigation.navigate('Friends', {
+            currentAccountId: this.state.currentAccountId
+        })
+    }
+
     showNames(){
         if(this.state.value!=-1){
             return this.state.namelist[this.state.value];
@@ -83,8 +101,8 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
-                <TouchableOpacity onClick={
-                    ()=>this.addFriend()}
+                <TouchableOpacity onPress={
+                    ()=>this.sendRequest(this.state.friend_name)}
                     style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}>
                     <Text style={styles.textStyle}>{this.state.friend_name}</Text>
                     <Text style={styles.appButtonText}>

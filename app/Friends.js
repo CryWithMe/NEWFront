@@ -44,7 +44,7 @@ class Friends extends React.Component{
     sendRequest(u) {
       var reqInfo = {
         username: u,
-        accountId: this.state.accountId,
+        accountId: this.props.route.params.currentAccountId,
       }
 
       this.apiRepository.sendFriendRequest(reqInfo)
@@ -58,7 +58,7 @@ class Friends extends React.Component{
     delFriend(u) {
       var reqInfo = {
         username: u,
-        accountId: this.state.accountId,
+        accountId: this.props.route.params.currentAccountId,
       }
 
       this.apiRepository.deleteFriend(reqInfo)
@@ -72,7 +72,7 @@ class Friends extends React.Component{
     acceptFriend(u) {
       var reqInfo = {
         username: u,
-        accountId: this.state.accountId,
+        accountId: this.props.route.params.currentAccountId,
       }
 
       this.apiRepository.acceptFriendRequest(reqInfo)
@@ -81,12 +81,15 @@ class Friends extends React.Component{
             console.log("Friend Accepted");
           }
         })
+      this.props.navigation.navigate('Friends', {
+          currentAccountId: this.state.currentAccountId
+      })
     }
 
     denyFriend(u) {
       var reqInfo = {
         username: u,
-        accountId: this.state.accountId,
+        accountId: this.props.route.params.currentAccountId,
       }
 
       this.apiRepository.denyFriendRequest(reqInfo)
@@ -96,7 +99,9 @@ class Friends extends React.Component{
           }
         })
       
-      this.props.navigation.navigate('Friends')
+        this.props.navigation.navigate('Friends', {
+          currentAccountId: this.state.currentAccountId
+      })
 
   }
 
@@ -143,7 +148,8 @@ class Friends extends React.Component{
                           ()=> this.setState({username:this.state.frows[i].fname}),
                           ()=>this.props.navigation.navigate('FriendProfile', {
                             username: this.state.frows[i].username.toString(),
-                            screen_name: this.state.frows[i].fname.toString()
+                            screen_name: this.state.frows[i].fname.toString(),
+                            
                           
                           
                         },  
@@ -238,7 +244,9 @@ class Friends extends React.Component{
                 <TouchableOpacity style={styles.linkStyle}>
                 <TouchableOpacity 
                     title="Add Friends"
-                    onPress= {() => this.props.navigation.navigate('FriendSearch')}
+                    onPress= {() => this.props.navigation.navigate('FriendSearch', {
+                      currentAccountId: this.props.route.params.currentAccountId
+                    })}
                 ><Text style={styles.textStyle}>Add Friends</Text></TouchableOpacity>
                 </TouchableOpacity>
 
@@ -258,7 +266,7 @@ class Friends extends React.Component{
     componentDidMount(){
       
       //console.log(this.state.info);
-      this.apiRepository.getFriendList(this.state.accountId)
+      this.apiRepository.getFriendList(this.props.route.params.currentAccountId)
           .then( rep => {
             
             this.setState({
@@ -267,7 +275,7 @@ class Friends extends React.Component{
             console.log(rep);
           });
       
-      this.apiRepository.getFriendRequests(this.state.accountId)
+      this.apiRepository.getFriendRequests(this.props.route.params.currentAccountId)
 
       .then( rep => {
             

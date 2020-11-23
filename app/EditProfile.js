@@ -135,6 +135,40 @@ class EditProfile extends React.Component{
           });
     }
 
+    selectComforts(v,u){
+        var reqInfo = {
+            accountId: this.props.route.params.currentAccountId,
+            comfort: u,
+          }
+
+        console.log(v);
+        console.log(u);
+        this.apiRepository.postComfort(reqInfo)
+        .then(rep => {
+            console.log(rep.statusText);
+            if(rep.statusText == "OK"){
+              console.log("Comforts loaded");
+            }
+          });
+    }
+
+    selectTriggers(v,u){
+        var reqInfo = {
+            accountId: this.props.route.params.currentAccountId,
+            trigger: u,
+          }
+
+        console.log(v);
+        console.log(u);
+        this.apiRepository.postTrigger(reqInfo)
+        .then(rep => {
+            console.log(rep.statusText);
+            if(rep.statusText == "OK"){
+              console.log("Triggers loaded");
+            }
+          });
+    }
+
     render() {
         
 
@@ -270,7 +304,10 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({triggers_edit:text})}
                 >
                 </TextInput>
-                <TouchableOpacity onPress={()=>this.setState({triggers:this.state.triggers_edit})}>
+                <TouchableOpacity
+                    onPress={
+                        ()=>this.setState({triggers:this.state.triggers_edit}),
+                        ()=> this.selectTriggers(1,this.state.triggers_edit)}>
                      <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -294,7 +331,11 @@ class EditProfile extends React.Component{
                     borderRadius:10,}}
                 onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
-                <TouchableOpacity onPress={()=>this.setState({comforts:this.state.comforts_edit})}>
+                <TouchableOpacity
+                    onPress={
+                        ()=> this.setState({comforts:this.state.comforts_edit}),
+                        ()=> this.selectComforts(1, this.state.comforts_edit)
+                    }>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -307,6 +348,7 @@ class EditProfile extends React.Component{
     }
 
     componentDidMount() {
+
         const params = this.props.route.params;
         console.log(this.props);
         console.log(params.currentAccountId);
@@ -317,6 +359,21 @@ class EditProfile extends React.Component{
         currentAccountId : params.currentAccountId,
         })
         console.log(this.state);
+
+        this.apiRepository.getCondition(this.props.route.params.username)
+            .then(rep => {
+                console.log(rep);
+            })
+        
+        this.apiRepository.getComfort(this.props.route.params.username)
+            .then(rep => {
+                console.log(rep);
+            })
+
+        this.apiRepository.getTrigger(this.props.route.params.username)
+            .then(rep => {
+                console.log(rep);
+            })
     }
 }
 
