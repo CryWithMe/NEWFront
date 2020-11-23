@@ -259,11 +259,11 @@ class Landing extends React.Component{
              </View>
 
 
-                <SafeAreaView style={styles.container_3}>
+                {/* <SafeAreaView style={styles.container_3}> */}
                 {/* <ScrollView style={styles.scroll}> */}
                     {this.eventlist()}
                 {/* </ScrollView> */}
-                </SafeAreaView>
+                {/* </SafeAreaView> */}
             </View>
             </ScrollView>
             </LinearGradient>
