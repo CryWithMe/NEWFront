@@ -108,13 +108,12 @@ class Landing extends React.Component{
         }//end of if statement
         else{
             console.log(this.state.erows.length);
-        for (var j = 0; j < this.state.erows.length; j++) {
+            return this.state.erows.map(element => {
           return(
-            
-                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.erows[j].username})}}>  
+                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.element.username})}}>  
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.erows[j].username} is {this.state.erows[j].type}</Text>
-              <Text>{this.state.erows[j].date}</Text>
+              <Text style={styles.textStyle}>{element.username} is {element.type}</Text>
+              <Text>{element.date}</Text>
               
               <Picker      
                     selectedValue={this.state.language}
@@ -134,10 +133,8 @@ class Landing extends React.Component{
                  </Picker>
              </View>  
               </TouchableOpacity>
-        
-
           );
-        }
+                });
       }//end of else statement 
       };
 
@@ -208,9 +205,7 @@ class Landing extends React.Component{
                  <TouchableOpacity
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile', {
-                        currentAccountId: this.state.currentAccountId,
-                        username: this.props.route.params.username
-                        
+                        currentAccountId: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>
@@ -219,8 +214,7 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        currentAccountId: this.state.currentAccountId
-
+                        id: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>
@@ -384,5 +378,12 @@ const styles = StyleSheet.create({
     fontStyle:{
         fontFamily:'Cochin',
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
   });
 export default Landing; 

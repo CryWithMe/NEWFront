@@ -170,6 +170,13 @@ const styles = StyleSheet.create({
         
       },
       
+      container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
       
   });
 

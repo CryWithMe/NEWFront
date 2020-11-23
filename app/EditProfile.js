@@ -484,6 +484,13 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         textTransform: "uppercase" 
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
 
   });
 export default EditProfile; 
