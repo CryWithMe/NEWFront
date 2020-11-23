@@ -205,7 +205,8 @@ class Landing extends React.Component{
                  <TouchableOpacity
                     style={styles.profileButton}
                     onPress= {() => this.props.navigation.navigate('Profile', {
-                        currentAccountId: this.state.currentAccountId
+                        currentAccountId: this.state.currentAccountId,
+                        username: this.state.username,
                     })}
                 >
                 <Text style={styles.fontStyle}>Profile</Text>

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { apiRepository} from '../api/apiRepository';
 import { CurrentRenderContext } from "@react-navigation/native";
-
+import Home from './Images/home.png';
 class Friends extends React.Component{
 
   apiRepository = new apiRepository();
@@ -232,8 +232,9 @@ class Friends extends React.Component{
             <TouchableOpacity
                     title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
-                ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
-               </TouchableOpacity>
+                ><Text style={{fontFamily:"Cochin"}}>Back</Text>
+            </TouchableOpacity>
+           </TouchableOpacity>
 
                 <Text style={styles.titleStyle}>
                     Friends
@@ -438,6 +439,9 @@ nonbar:{
     scrollView: {
       marginHorizontal: 20,
     },
+
+    
+
   });
 export default Friends; 
 

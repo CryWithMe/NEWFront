@@ -4,6 +4,7 @@ import Pencil from './Images/pencil.png';
 //import MultiSelect from 'react-native-multiple-select';
 import SelectMultiple from 'react-native-select-multiple';
 import { LinearGradient } from 'expo-linear-gradient';
+import Home from './Images/home.png';
 import { apiRepository} from '../api/apiRepository';
 
 const conditions = [
@@ -189,6 +190,11 @@ class EditProfile extends React.Component{
                     onPress = {() => this.props.navigation.navigate('Profile')}>
                         <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    title="Back"
+                    onPress= {() => this.props.navigation.navigate('Home')}
+                ><Image style={styles.icon} source={Home}></Image>
+          </TouchableOpacity>
                 <Text>        </Text>
                 <Text style={styles.textStyle}>
                     Edit Your Profile
@@ -490,6 +496,11 @@ const styles = StyleSheet.create({
       },
       scrollView: {
         marginHorizontal: 20,
+      },
+
+      icon:{
+        width:50,
+        height:50,
       },
 
   });

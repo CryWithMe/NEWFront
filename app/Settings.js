@@ -1,7 +1,8 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, Modal,ScrollView} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TouchableOpacity, Modal,ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {apiRepository} from '../api';
+import Home from './Images/home.png';
 
 class Settings extends React.Component{
     apiRepository = new apiRepository();
@@ -117,6 +118,11 @@ class Settings extends React.Component{
                     }) }>
                 <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    title="Back"
+                    onPress= {() => this.props.navigation.navigate('Home')}
+                ><Image style={styles.icon} source={Home}></Image>
+          </TouchableOpacity>
                 <Text>        </Text>
                 <Text style={styles.titleStyle}>
                     Settings
@@ -226,6 +232,10 @@ const styles = StyleSheet.create({
       },
       scrollView: {
         marginHorizontal: 20,
+      },
+      icon:{
+        width:50,
+        height:50,
       },
   });
 export default Settings; 
