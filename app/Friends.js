@@ -126,7 +126,7 @@ class Friends extends React.Component{
           return(
             <View style={styles.bar}>
               <Text style={styles.textStyle}>
-                No friend's currently added. Add some friends above!
+                No friends currently added. Add some friends above!
               </Text>
             </View>
           );

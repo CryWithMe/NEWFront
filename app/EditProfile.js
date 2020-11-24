@@ -224,6 +224,7 @@ class EditProfile extends React.Component{
                 </TouchableOpacity>
                 
                 <View style={{"display": this.state.edit_screenname? "block":"none",}}>
+                    <Text style={styles.textStyle} >First Name </Text>
                 <TextInput 
                 placeholder={this.state.first_name} 
                 style={{
@@ -240,6 +241,9 @@ class EditProfile extends React.Component{
                 {/* <TouchableOpacity onPress={()=>this.setState({first_name:this.state.new_first_name})}>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity> */}
+
+                </TouchableOpacity>
+                <Text style={styles.textStyle} >Last Name </Text>
 
                 <TextInput 
                 placeholder={this.state.last_name} 
@@ -520,6 +524,13 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         textTransform: "uppercase" 
     },
+    container: {
+        flex: 1,
+       // marginTop: Constants.statusBarHeight,
+      },
+      scrollView: {
+        marginHorizontal: 20,
+      },
 
   });
 export default EditProfile; 
