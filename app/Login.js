@@ -32,7 +32,6 @@ class Login extends React.Component{
         console.log(this.state);
         this.apiRepository.login(this.state)
             .then(rep => {
-                console.log(rep);
                 if(rep.statusText === 'OK') {
                     this.props.navigation.navigate("Home", {
                         username: this.state.username,
@@ -49,6 +48,8 @@ class Login extends React.Component{
     
 
     render() {
+        
+
         return (
             
             
@@ -63,12 +64,14 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
+                    placeholder={''}
                     autoCapitalize="none"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
                 />
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
+                    placeholder={''}
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
@@ -92,6 +95,12 @@ class Login extends React.Component{
     }
 
     componentDidMount() {
+        if (this.props.route.params != undefined){
+            this.setState({
+                username: this.props.route.params.username,
+            })
+        }
+
         this.apiRepository.getTest()
             .then(console.log("YO"));
     }
