@@ -132,11 +132,11 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-        for (var i = 0; i < this.state.frows.length; i++) {
+          return this.state.erows.map(element => {
           return(
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.frows[i].fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{this.state.frows[i].username.toString()})</Text>
+              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
                    <View style={{
                      fontSize: 18,
                      fontFamily:'Cochin',
@@ -145,10 +145,10 @@ class Friends extends React.Component{
                       <TouchableOpacity
                         style={styles.profileButton}
                         onPress= {
-                          ()=> this.setState({username:this.state.frows[i].fname}),
+                          ()=> this.setState({username:element.fname}),
                           ()=>this.props.navigation.navigate('FriendProfile', {
-                            username: this.state.frows[i].username.toString(),
-                            screen_name: this.state.frows[i].fname.toString(),
+                            username: element.username.toString(),
+                            screen_name: element.fname.toString(),
                             
                           
                           
@@ -159,12 +159,12 @@ class Friends extends React.Component{
                 </TouchableOpacity>
                  
                 </View>
-                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(this.state.frows[i].username)}>
+                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(element.username)}>
                    <Text style={styles.removeTextStyle}>X</Text>
                  </TouchableOpacity>
             </View>
           );
-        }
+          });
       }//end of else statement 
       };
       
@@ -181,11 +181,11 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-        for (var i = 0; i < this.state.prows.length; i++) {
+          return this.state.erows.map(element => {
           return(
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.prows[i].fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{this.state.prows[i].username.toString()})</Text>
+              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
                    <View style={{
                      fontSize: 18,
                      fontFamily:'Cochin',
@@ -194,8 +194,8 @@ class Friends extends React.Component{
                       <TouchableOpacity
                         style={styles.profileButton}
                         onPress= {
-                          () =>this.setState({username:this.state.prows[i].fname}),
-                          () => this.acceptFriend(this.state.prows[i].username.toString())
+                          () =>this.setState({username:element.fname}),
+                          () => this.acceptFriend(element.username.toString())
                           }
                       >
                 <Text style={styles.textStyle}>Add Friend</Text>
@@ -205,13 +205,13 @@ class Friends extends React.Component{
                 <TouchableOpacity
                   style={styles.removeButton}
                   onPress={
-                      ()=>this.denyFriend(this.state.prows[i].username.toString())
+                      ()=>this.denyFriend(element.username.toString())
                       }>
                    <Text style={styles.textStyle}>Deny</Text>
                  </TouchableOpacity>
             </View>
           );
-        }
+        });
       }//end of else statement 
       };
 
