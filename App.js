@@ -42,7 +42,7 @@ const myTheme = {
   // });
 
  
-class App extends React.Component{
+export default class App extends React.Component{
 
 
   apiRepository = new apiRepository();
@@ -128,4 +128,4 @@ class App extends React.Component{
 
   
 
-}export default App;
+}//export default App;

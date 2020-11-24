@@ -3,6 +3,7 @@ import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Alert, 
 import Search from './Images/icons8-search-48.png';
 import { LinearGradient } from 'expo-linear-gradient';
 import { apiRepository} from '../api/apiRepository';
+import Home from './Images/home.png';
 
 class FriendSearch extends React.Component{
     
@@ -85,6 +86,12 @@ class FriendSearch extends React.Component{
                     onPress= {() => this.props.navigation.navigate('Friends')}>
                   <Text style={styles.textStyle}>Back</Text>      
                 </TouchableOpacity>
+                <TouchableOpacity
+                    title="Back"
+                    onPress= {() => this.props.navigation.navigate('Home')}
+                ><Image style={styles.icon} source={Home}></Image>
+          </TouchableOpacity>
+          
                 <Text style={styles.textStyle}>
                     Search for Friends
                 </Text>
@@ -192,6 +199,10 @@ const styles = StyleSheet.create({
       },
       scrollView: {
         marginHorizontal: 20,
+      },
+      icon:{
+        width:50,
+        height:50,
       },
   });
 export default FriendSearch; 

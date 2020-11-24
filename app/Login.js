@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 import Logo from './Images/login_logo.png';
 
-class Login extends React.Component{
+export default class Login extends React.Component{
 
     apiRepository = new apiRepository();
 
@@ -18,7 +18,7 @@ class Login extends React.Component{
         id: '',
     };
 
-    onSubmit(){
+    onSubmit = () => {
     
     try{
         let token;
@@ -64,7 +64,9 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
+
                     placeholder={''}
+
                     autoCapitalize="none"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
@@ -72,13 +74,14 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
                     placeholder={''}
+
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ password: e.target.value })}
                 />
-                <TouchableOpacity title="Login" style={styles.buttonStyle} onPress={()=> this.onSubmit()}>
+                <TouchableOpacity title="Login" style={styles.buttonStyle} onPress={()=>this.onSubmit()}>
                     <Text style={styles.appButtonText}>Login</Text>
                     </TouchableOpacity>
                 <Text style={styles.textStyle}>Don't Have an Account Yet?</Text>
@@ -165,4 +168,4 @@ const styles = StyleSheet.create({
       
   }
   );
-export default Login; 
+//export default Login; 

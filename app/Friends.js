@@ -1,9 +1,9 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { apiRepository} from '../api/apiRepository';
 import { CurrentRenderContext } from "@react-navigation/native";
-
+import Home from './Images/home.png';
 class Friends extends React.Component{
 
   apiRepository = new apiRepository();
@@ -132,13 +132,12 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-          console.log(this.state.frows.length)
-        for (var i = 0; i < this.state.frows.length; i++) {
-          console.log(i);
+          return this.state.erows.map(element => {
+
           return(
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.frows[i].fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{this.state.frows[i].username.toString()})</Text>
+              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
                    <View style={{
                      fontSize: 18,
                      fontFamily:'Cochin',
@@ -157,12 +156,12 @@ class Friends extends React.Component{
                 </TouchableOpacity>
                  
                 </View>
-                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(this.state.frows[i].username)}>
+                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(element.username)}>
                    <Text style={styles.removeTextStyle}>X</Text>
                  </TouchableOpacity>
             </View>
           );
-        }
+          });
       }//end of else statement 
       };
       
@@ -179,11 +178,11 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-        for (var i = 0; i < this.state.prows.length; i++) {
+          return this.state.erows.map(element => {
           return(
             <View style={styles.bar}>
-              <Text style={styles.textStyle}>{this.state.prows[i].fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{this.state.prows[i].username.toString()})</Text>
+              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
                    <View style={{
                      fontSize: 18,
                      fontFamily:'Cochin',
@@ -191,6 +190,7 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
+
                         onPress= { ()=> {
                           this.setState({username:this.state.prows[i].fname});
                           this.acceptFriend(this.state.prows[i].username.toString());
@@ -202,13 +202,13 @@ class Friends extends React.Component{
                 <TouchableOpacity
                   style={styles.removeButton}
                   onPress={
-                      ()=>this.denyFriend(this.state.prows[i].username.toString())
+                      ()=>this.denyFriend(element.username.toString())
                       }>
                    <Text style={styles.textStyle}>Deny</Text>
                  </TouchableOpacity>
             </View>
           );
-        }
+        });
       }//end of else statement 
       };
 
@@ -229,8 +229,9 @@ class Friends extends React.Component{
             <TouchableOpacity
                     title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
-                ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
-               </TouchableOpacity>
+                ><Text style={{fontFamily:"Cochin"}}>Back</Text>
+            </TouchableOpacity>
+           </TouchableOpacity>
 
                 <Text style={styles.titleStyle}>
                     Friends
@@ -434,6 +435,9 @@ nonbar:{
     scrollView: {
       marginHorizontal: 20,
     },
+
+    
+
   });
 export default Friends; 
 

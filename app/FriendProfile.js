@@ -1,7 +1,9 @@
 import * as React from "react";
-import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, Modal, Image, TouchableOpacity, TouchableHighlight, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Home from './Images/home.png';
 import { apiRepository } from '../api';
+
 
 class FriendProfile extends React.Component{
 
@@ -67,12 +69,14 @@ class FriendProfile extends React.Component{
                     onPress= {() => this.props.navigation.navigate('Friends')}
                 ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    title="Back"
+                    onPress= {() => this.props.navigation.navigate('Home')}
+                ><Image style={styles.icon} source={Home}></Image>
+          </TouchableOpacity>
                 
                 <View></View>
-                <Text style={styles.titleStyle}>
-                    
-                </Text>
-                <Text>                </Text>
+
                 </View>
             
                 <Text style={styles.textStyle}>
@@ -82,9 +86,22 @@ class FriendProfile extends React.Component{
                     @{this.props.route.params.username}
                 </Text>
                 <Text style={styles.textStyle}>
+                  
                     Conditions Info:
-                    {this.state.conditions_info}
-                    {/* {this.list()} */}
+                    <View style={{flex:6,alignSelf:"center",}}>
+                     {this.state.conditions_info}
+                    {/*this.list()*/}
+                    </View>
+                    <View style={{flex:6,alignSelf:"center",}}>   </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
+                </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+               </View>
+
+                    
+
                 </Text>
                 <Text style={styles.textStyle}>
                     Triggers:
@@ -258,5 +275,25 @@ const styles = StyleSheet.create({
       scrollView: {
         marginHorizontal: 20,
       },
+      icon:{
+        width:50,
+        height:50,
+      },
+      hyperLink: {
+        borderWidth:4,
+        backgroundColor:"rgba(255, 255, 255, 0.53)",
+        borderColor:"white",
+        margin:10,
+        marginHorizontal:60,
+        borderRadius:20,
+        padding:8,
+        fontSize: 20,
+        fontFamily:'Cochin',
+        textAlign:'center',
+        alignContent:"stretch",
+        alignSelf:"stretch",
+        fontStyle:'italic',
+      },
+
   });
 export default FriendProfile; 
