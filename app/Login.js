@@ -32,7 +32,6 @@ class Login extends React.Component{
         console.log(this.state);
         this.apiRepository.login(this.state)
             .then(rep => {
-                console.log(rep);
                 if(rep.statusText === 'OK') {
                     this.props.navigation.navigate("Home", {
                         username: this.state.username,
@@ -97,7 +96,6 @@ class Login extends React.Component{
     componentDidMount() {
         console.log(this.props.route.params);
         if (this.props.route.params != undefined){
-            console.log("uo");
             this.setState({
                 username: this.props.route.params.username,
             })

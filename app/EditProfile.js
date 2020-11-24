@@ -392,8 +392,6 @@ class EditProfile extends React.Component{
     componentDidMount() {
 
         const params = this.props.route.params;
-        console.log(this.props);
-        console.log(params.currentAccountId);
         this.setState({
         username: params.username,
         first_name: params.first_name,
@@ -402,7 +400,6 @@ class EditProfile extends React.Component{
         email: params.email,
         
         })
-        console.log(this.state);
 
         this.apiRepository.getCondition(this.props.route.params.username)
           .then(rep => {

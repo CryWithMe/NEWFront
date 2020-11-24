@@ -16,7 +16,6 @@ class Settings extends React.Component{
         
     };
     deleteAccount(){
-        console.log(this.state.currentAccountId);
         var r=confirm("Press a button!\nEither OK or Cancel.");
         if(r==true){
             var body = {
@@ -47,7 +46,6 @@ class Settings extends React.Component{
     }
 
     changeEmail(){
-        console.log("fuk")
         let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
         var num= prompt("Type new email ");
         if(num!=this.state.email && num!=null){
@@ -85,7 +83,6 @@ class Settings extends React.Component{
             }
             this.apiRepository.updatePassword(reqInfo)
                 .then(rep => {
-                    console.log(rep);
                     if (rep.data == 'OK'){
                         this.props.navigation.navigate('Login');
                     }
@@ -100,11 +97,9 @@ class Settings extends React.Component{
     }
     render() {
         const params = this.props.route.params;
-        console.log(params);
         this.state.currentAccountId = params.currentAccountId;
         this.state.password = params.password;
         this.state.email = params.email;
-        console.log(this.state);
         
         return (
             <SafeAreaView style={styles.container_4}>
@@ -172,13 +167,11 @@ class Settings extends React.Component{
     }
     componentDidMount() {
         const params = this.props.route.params;
-        console.log(params);
         this.setState({
             currentAccountId: params.currentAccountId,
             password: params.password,
             email: params.email,
         })
-        console.log(this.state);
     }
 }
 

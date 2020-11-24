@@ -281,14 +281,6 @@ class Landing extends React.Component{
           console.log(rep.data);
         });
 
-        
-        
-
-        
-
-
-
- 
     }
 
 }
