@@ -33,11 +33,13 @@ class Register extends React.Component{
         else {
             this.apiRepository.registerUser(this.state)
                 .then(rep => {
-                    if(rep === "OK"){
+                    console.log(rep);
+                    if(rep.data === "OK"){
                         console.log('Great Success!');
                         this.props.navigation.navigate('Login');
                     }
                 })
+            this.props.navigation.navigate('Login');
         }
 
 
@@ -101,7 +103,7 @@ class Register extends React.Component{
                  <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={ ()=> {
                     
                      this.onSubmit();
-                     this.props.navigation.navigate('Login');
+                     //this.props.navigation.navigate('Login');
                     }}>
 
                  <Text style={styles.appButtonText}>Register</Text>

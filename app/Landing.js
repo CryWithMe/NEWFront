@@ -204,7 +204,9 @@ class Landing extends React.Component{
             <View style={{flex:6,alignSelf:"right",}}>
               <TouchableOpacity
               onPress= {() => this.props.navigation.navigate('Response', {
-                currentAccountId: this.state.currentAccountId,})}>
+                currentAccountId: this.state.currentAccountId,
+                username: this.state.username
+                })}>
                 <Image 
                 source={Heart} 
                 style={styles.logo2}
@@ -375,7 +377,7 @@ const styles = StyleSheet.create({
         borderWidth:4,
         borderColor:"#859a9b",
         //flex:1,
-        marginTop: Constants.statusBarHeight,
+        //marginTop: Constants.statusBarHeight,
     },
     textStyle: {
       fontSize: 30,
