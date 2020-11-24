@@ -248,7 +248,7 @@ class EditProfile extends React.Component{
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity> */}
 
-                </TouchableOpacity>
+
                 <Text style={styles.textStyle} >Last Name </Text>
 
                 <TextInput 

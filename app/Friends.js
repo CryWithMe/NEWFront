@@ -120,8 +120,6 @@ class Friends extends React.Component{
 
 
       friendlist = () => {
-        console.log('Friends is', this.state.frows[0]);
-        console.log('Pending is', this.state.prows);
         if(this.state.frows.length==0){
           return(
             <View style={styles.bar}>
@@ -132,7 +130,7 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-          return this.state.erows.map(element => {
+          return this.state.frows.map(element => {
 
           return(
             <View style={styles.bar}>
@@ -146,10 +144,10 @@ class Friends extends React.Component{
                       <TouchableOpacity
                         style={styles.profileButton}
                         onPress= { ()=> {
-                          this.setState({username:this.state.frows[i].fname});
+                          this.setState({username:element.fname});
                           this.props.navigation.navigate('FriendProfile', {
-                            username: this.state.frows[i].username.toString(),
-                            screen_name: this.state.frows[i].fname.toString()
+                            username: element.username.toString(),
+                            screen_name: element.fname.toString() + ' ' + element.lname.toString(),
                           });
                         }}>
                 <Text style={styles.textStyle}>Profile</Text>
@@ -166,8 +164,6 @@ class Friends extends React.Component{
       };
       
       requestlist = () => {
-        console.log('Friends is', this.state.frows[0]);
-        console.log('Pending is', this.state.prows[0]);
         if(this.state.prows.length==0){
           return(
             <View style={styles.bar}>
@@ -178,7 +174,7 @@ class Friends extends React.Component{
           );
         }//end of if statement
         else{
-          return this.state.erows.map(element => {
+          return this.state.prows.map(element => {
           return(
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.fname.toString()}</Text>
@@ -192,8 +188,8 @@ class Friends extends React.Component{
                         style={styles.profileButton}
 
                         onPress= { ()=> {
-                          this.setState({username:this.state.prows[i].fname});
-                          this.acceptFriend(this.state.prows[i].username.toString());
+                          this.setState({username: element.fname});
+                          this.acceptFriend(element.username.toString());
                         }}>
                 <Text style={styles.textStyle}>Add Friend</Text>
                 </TouchableOpacity>

@@ -19,9 +19,6 @@ class FriendProfile extends React.Component{
     };
 
 
-    componentDidMount(){
-
-    }
 
  setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });

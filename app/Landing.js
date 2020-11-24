@@ -215,7 +215,7 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        id: this.state.currentAccountId
+                        currentAccountId: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>
