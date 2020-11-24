@@ -82,22 +82,24 @@ class FriendSearch extends React.Component{
             <LinearGradient  colors={['#859a9b', 'white',]}>
          <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
+            <View style={styles.bar}>
                  <TouchableOpacity style={styles.backStyle} title="back"
                     onPress= {() => this.props.navigation.navigate('Friends')}>
                   <Text style={styles.textStyle}>Back</Text>      
                 </TouchableOpacity>
+            
                 <TouchableOpacity
                     title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
                 ><Image style={styles.icon} source={Home}></Image>
           </TouchableOpacity>
-          
+          </View>
                 <Text style={styles.textStyle}>
                     Search for Friends
                 </Text>
                 <View style={styles.bar}>
                 <TextInput
-                placeholder="ex: @egg123"  
+                placeholder="ex: mark123"  
                 autoCapitalize="none"
                 onChange={e=>this.setState({friend_name: e.target.value, found: false})}
                 style={styles.inputStyle}
@@ -116,10 +118,11 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
+                <Text style={styles.textStyle}>{this.state.display_name}</Text>
                 <TouchableOpacity onPress={
                     ()=>this.sendRequest(this.state.friend_name)}
                     style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}>
-                    <Text style={styles.textStyle}>{this.state.display_name}</Text>
+                    
                     <Text style={styles.appButtonText}>
                         Add Friend
                     </Text>
@@ -201,8 +204,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
       },
       icon:{
+        marginTop:10,
         width:50,
         height:50,
+        alignContent:"right",
       },
   });
 export default FriendSearch; 

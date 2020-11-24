@@ -9,7 +9,7 @@ import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Picker} from '@react-native-picker/picker';
-
+import Heart from './Images/heart.png';
 
 class Landing extends React.Component{
 
@@ -200,6 +200,9 @@ class Landing extends React.Component{
                 <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
                  
+            <View style={{flex:6,alignSelf:"right",}}>
+                <Image source={Heart} style={styles.logo2}></Image>
+              </View>
                 <View style={styles.container}>
                   
                  <TouchableOpacity
@@ -215,7 +218,7 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        currentAccountId: this.state.currentAccountId
+                        id: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>
@@ -339,6 +342,11 @@ const styles = StyleSheet.create({
         height: 300,
       },
       
+      logo2:{
+        width:50,
+        height:50,
+      },
+
     container:{
         
         //justifyContent:'space-evenly',

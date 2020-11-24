@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, View, Modal, Image, TouchableOpacity, TouchableHighlight, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, Modal, Image, TouchableOpacity, TouchableHighlight, Linking, SafeAreaView, ScrollView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Home from './Images/home.png';
 import { apiRepository } from '../api';
@@ -66,16 +66,14 @@ class FriendProfile extends React.Component{
                     onPress= {() => this.props.navigation.navigate('Friends')}
                 ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
                 </TouchableOpacity>
-                <TouchableOpacity
+                </View>
+
+            <TouchableOpacity
                     title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
                 ><Image style={styles.icon} source={Home}></Image>
           </TouchableOpacity>
-                
-                <View></View>
 
-                </View>
-            
                 <Text style={styles.textStyle}>
                   {this.props.route.params.screen_name}
                 </Text>
@@ -94,7 +92,10 @@ class FriendProfile extends React.Component{
                 <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
                 </View>
                 <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+                <Text style={styles.hyperLink}
+                  onPress={() => {
+                    Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/');
+                  }}>Click here.</Text> 
                </View>
 
                     
@@ -277,12 +278,13 @@ const styles = StyleSheet.create({
         height:50,
       },
       hyperLink: {
-        borderWidth:4,
-        backgroundColor:"rgba(255, 255, 255, 0.53)",
-        borderColor:"white",
-        margin:10,
+        flex:6,
+        // borderWidth:4,
+        // backgroundColor:"rgba(255, 255, 255, 0.53)",
+        // borderColor:"white",
+        // margin:10,
         marginHorizontal:60,
-        borderRadius:20,
+        // borderRadius:20,
         padding:8,
         fontSize: 20,
         fontFamily:'Cochin',
