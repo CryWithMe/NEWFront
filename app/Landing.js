@@ -110,7 +110,7 @@ class Landing extends React.Component{
             console.log(this.state.erows.length);
             return this.state.erows.map(element => {
           return(
-                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:this.state.element.username})}}>  
+                <TouchableOpacity onPress={()=>{this.setState({response_display:true,friend_in_need:element.username})}}>  
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.username} is {element.type}</Text>
               <Text>{element.date}</Text>
@@ -127,6 +127,7 @@ class Landing extends React.Component{
                     onValueChange={(itemValue, itemIndex) =>
                     this.setState({response: itemValue},()=>this.setResponse())
                  }>
+                     <Picker.Item label="" value="" />
                      <Picker.Item label="Call Me" value="Call Me" />
                     <Picker.Item label="I'm Here For You" value="I'm Here For You" />
                     <Picker.Item label="I Care About You, Lunch This Week?" value="I Care About You, Lunch This Week?" />
@@ -201,7 +202,15 @@ class Landing extends React.Component{
             <View style={styles.otherStyle}>
                  
             <View style={{flex:6,alignSelf:"right",}}>
-                <Image source={Heart} style={styles.logo2}></Image>
+              <TouchableOpacity
+              onPress= {() => this.props.navigation.navigate('Response', {
+                currentAccountId: this.state.currentAccountId,})}>
+                <Image 
+                source={Heart} 
+                style={styles.logo2}
+                
+                ></Image>
+                </TouchableOpacity>
               </View>
                 <View style={styles.container}>
                   
@@ -218,7 +227,7 @@ class Landing extends React.Component{
                 <TouchableOpacity
                     style={styles.friendButton}
                     onPress ={() => this.props.navigation.navigate('Friends', {
-                        id: this.state.currentAccountId
+                        currentAccountId: this.state.currentAccountId
                     })}
                 >
                 <Text style={styles.fontStyle}>Friends</Text>
@@ -246,6 +255,7 @@ class Landing extends React.Component{
                     onValueChange={(itemValue, itemIndex) =>
                     this.setState({action: itemValue},()=>this.onEvent())
                  }>
+                    <Picker.Item label="" value="" />
                     <Picker.Item label="crying" value="crying" />
                     <Picker.Item label="having a panic attack" value="having a panic attack" />
                     <Picker.Item label="in a depressive episode" value="in a depressive episode" />
@@ -387,4 +397,4 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
       },
   });
-export default Landing; 
+  export default Landing; 

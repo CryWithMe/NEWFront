@@ -81,9 +81,7 @@ class Friends extends React.Component{
             console.log("Friend Accepted");
           }
         })
-      this.props.navigation.navigate('Friends', {
-          currentAccountId: this.state.currentAccountId
-      })
+      
     }
 
     denyFriend(u) {
@@ -190,6 +188,11 @@ class Friends extends React.Component{
                         onPress= { ()=> {
                           this.setState({username: element.fname});
                           this.acceptFriend(element.username.toString());
+                          this.props.navigation.navigate('FriendProfile', {
+                            currentAccountId: this.props.route.params.currentAccountId,
+                            username: element.username.toString(),
+                            screen_name: element.fname.toString() + ' ' + element.lname.toString(),
+                        })
                         }}>
                 <Text style={styles.textStyle}>Add Friend</Text>
                 </TouchableOpacity>

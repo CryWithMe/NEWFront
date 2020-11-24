@@ -19,6 +19,7 @@ import FriendSearch from './app/FriendSearch.js';
 import Settings from './app/Settings.js';
 import EditProfile from './app/EditProfile.js';
 import FriendProfile from './app/FriendProfile.js'
+import Response from './app/Responses.js';
 
 const Stack = createStackNavigator(); 
 
@@ -120,6 +121,7 @@ export default class App extends React.Component{
 <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
 <Stack.Screen name="Edit-Profile" component={EditProfile} options={{ headerShown: false }}/>
 <Stack.Screen name="FriendProfile" component={FriendProfile} options={{ headerShown: false }}/>
+<Stack.Screen name="Response" component={Response} options={{ headerShown: false }}/>
 </Stack.Navigator>
       </NavigationContainer>
     

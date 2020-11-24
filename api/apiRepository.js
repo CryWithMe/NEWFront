@@ -213,6 +213,16 @@ export class apiRepository {
             });
     }
 
+    getResponseList(info){
+        console.log("Search for response list... API Call");
+        console.log(info);
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}eventResponses/${info}`, this.config)
+                .then(resp => resolve(resp))
+                .catch(resp => alert(resp));    
+            });
+    }
+
     getEventList(info){
         console.log("Search for eventlist... API Call");
         console.log(info);
