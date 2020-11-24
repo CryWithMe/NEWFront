@@ -48,6 +48,7 @@ class Login extends React.Component{
     
 
     render() {
+        
 
         return (
             
@@ -94,7 +95,6 @@ class Login extends React.Component{
     }
 
     componentDidMount() {
-        console.log(this.props.route.params);
         if (this.props.route.params != undefined){
             this.setState({
                 username: this.props.route.params.username,
