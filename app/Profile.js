@@ -9,10 +9,12 @@ class Profile extends React.Component{
 
     state={
         screen_name:'',
+        first_name: '',
+        last_name: '',
         username:'',
         email: '',
         password:'',
-        conditions_info:['ADHD','Depression'],
+        conditions_info:[''],
         triggers:'',
         comforts:'',
         modalVisible:false,
@@ -48,18 +50,9 @@ class Profile extends React.Component{
   }
 
 
-    //  deleteAccount(){
-    //   var r=confirm("Press a button!\nEither OK or Cancel.");
-    //   if(r==true){
-    //      //send api request to delete from table
-    //      alert("You selected cancel!");
-    //   }
-    //  }
-
     render() {
       const params = this.props.route.params;
       this.state.currentAccountId = params.currentAccountId;
-      console.log(params);
 
       const { modalVisible } = this.state;
         return (
@@ -73,7 +66,10 @@ class Profile extends React.Component{
                 <TouchableOpacity style={styles.backStyle}>
                 <TouchableOpacity
                     title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home')}
+                    onPress= {() => this.props.navigation.navigate('Home', {
+                      currentAccountId: this.state.currentAccountId,
+                      username: this.props.route.params.username
+                    })}
                 ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
                 </TouchableOpacity>
                 
@@ -85,14 +81,15 @@ class Profile extends React.Component{
                 </View>
             
                 <Text style={styles.textStyle}>
-                    Welcome back, {this.state.screen_name}
+                    Welcome back, {this.state.first_name} {this.state.last_name}
                 </Text>
                 <Text style={styles.textStyle}>
                     @{this.state.username}
                 </Text>
                 <Text style={styles.textStyle}>
                     Conditions Info:
-                    {this.list()}
+                  {this.state.conditions_info}
+                    {/* this.list()*/}
                 
                     <View style={{flex:6,alignSelf:"center",}}>
                 <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
@@ -100,6 +97,7 @@ class Profile extends React.Component{
                 <View style={{flex:6,alignSelf:"center",}}>
                 <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
                </View>
+
                 </Text>
                 
                 <Text style={styles.textStyle}>
@@ -117,7 +115,8 @@ class Profile extends React.Component{
                   title="Manage Profile"
                   onPress= {() => this.props.navigation.navigate('Edit-Profile', {
                     username: this.state.username,
-                    screen_name: this.state.screen_name,
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
                     email: this.state.email,
                     currentAccountId: this.state.currentAccountId,
                     
@@ -147,7 +146,8 @@ class Profile extends React.Component{
       this.apiRepository.getUser(this.state.currentAccountId)
             .then(rep => {
                 this.setState({
-                  screen_name: rep.rows[0].fname + ' ' + rep.rows[0].lname,
+                  first_name: rep.rows[0].fname,
+                  last_name: rep.rows[0].lname,
                   username: rep.rows[0].username,
                   email: rep.rows[0].email,
                   password: rep.rows[0].password,
@@ -157,7 +157,12 @@ class Profile extends React.Component{
 
         this.apiRepository.getCondition(this.props.route.params.username)
           .then(rep => {
-            console.log(rep);
+            for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+              })
+            }
+        
             })
         
         this.apiRepository.getComfort(this.props.route.params.username)

@@ -8,19 +8,19 @@ import Home from './Images/home.png';
 import { apiRepository} from '../api/apiRepository';
 
 const conditions = [
-        { label: 'Anxiety Disorders', value: '1' },
-        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2' },
-        { label: 'Bipolar Disorder', value: '3' },
-        { label: 'Borderline Personality Disorder (BPD)', value: '4' },
-        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5' },
-        { label: 'Early Psychosis and Psychosis', value: '6' },
-        { label: 'Eating Disorders', value: '7' },
-        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8' },
-        { label: 'Panic Disorder', value: '9' },
-        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10' },
-        { label: 'Schizoaffective Disorder', value: '11' },
-        { label: 'Schizophrenia', value: '12' },
-        { label: 'Seasonal Affective Disorder (SAD)', value: '13' },
+        { label: 'Anxiety Disorders', value: '1', link: 'https://www.nami.org/About-Mental-Illness/Mental-Health-Conditions/Anxiety-Disorders' },
+        { label: 'Attention Deficit Hyperactivity Disorder (ADHD)', value: '2', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/ADHD' },
+        { label: 'Bipolar Disorder', value: '3', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Bipolar-Disorder'},
+        { label: 'Borderline Personality Disorder (BPD)', value: '4', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Borderline-Personality-Disorder'},
+        { label: 'Dual Diagnosis/Co-Occurring Disorders', value: '5', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Related-Conditions/Dual-Diagnosis' },
+        { label: 'Early Psychosis and Psychosis', value: '6', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Early-Psychosis-and-Psychosis' },
+        { label: 'Eating Disorders', value: '7', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Eating-Disorders' },
+        { label: 'Obsessive-Compulsive Disorder (OCD)', value: '8', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Obsessive-compulsive-Disorder'},
+        { label: 'Panic Disorder', value: '9', link: 'https://namicobb.org/panic-disorder/' },
+        { label: 'Posttraumatic Stress Disorder (PTSD)', value: '10', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Posttraumatic-Stress-Disorder' },
+        { label: 'Schizoaffective Disorder', value: '11', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Schizoaffective-Disorder' },
+        { label: 'Schizophrenia', value: '12', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Schizophrenia' },
+        { label: 'Seasonal Affective Disorder (SAD)', value: '13', link: 'https://www.nami.org/Learn-More/Mental-Health-Conditions/Depression/Major-Depressive-Disorder-with-a-Seasonal-Pattern' },
     ]
 
     const renderLabel = (label, style) => {
@@ -46,9 +46,9 @@ class EditProfile extends React.Component{
         edit_screenname:false,
         screen_name:'',
         username:'',
-        triggers:'Add triggers',
+        triggers:'',
         triggers_edit:'',
-        comforts:'Add comforts',
+        comforts:'',
         comforts_edit:'',
         screenname_edit:'',
         username_edit:'',
@@ -60,6 +60,7 @@ class EditProfile extends React.Component{
         last_name:'',
         new_first_name:'',
         new_last_name:'',
+        email: '',
     };
    
     onSelectionsChange = (selectedItems) => {
@@ -102,17 +103,27 @@ class EditProfile extends React.Component{
 
     changeScreenName(){
         //let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
-        var new_screen= prompt("Type a new screen name ");
-        if(new_screen!=this.state.screen_name && new_screen!=null){
-            //if(regex.test(num)){
-            this.setState({new_screen_name:new_screen});
-            Alert.alert("Confirmation","Screen Name succesfully changed!");
-            //}
+        // var new_screen= prompt("Type a new screen name ");
+        // if(new_screen!=this.state.screen_name && new_screen!=null){
+        //     //if(regex.test(num)){
+        //     this.setState({new_screen_name:new_screen});
+        //     Alert.alert("Confirmation","Screen Name succesfully changed!");
+        //     //}
+        // }
+        var reqInfo = {
+            accountId: this.state.currentAccountId,
+            username: this.state.username,
+            email: this.state.email,
+            fname: this.state.new_first_name,
+            lname: this.state.new_last_name,
         }
-        else{
-            Alert.alert("Invalid Screen Name","username rejected");
+        this.apiRepository.updateAccount(reqInfo)
+            .then(rep => {
+                console.log(rep);
+            })
+        
+        Alert.alert("Invalid Screen Name","username rejected");
             
-        }
         return false;
     }
 
@@ -120,7 +131,7 @@ class EditProfile extends React.Component{
         let selectedValues= [];
 
         for(var j=0;j<this.state.selectedItems.length; j++){
-            selectedValues[j]=this.state.selectedItems[j].value;
+            selectedValues[j]=this.state.selectedItems[j].label;
         }
 
         var reqInfo = {
@@ -187,7 +198,13 @@ class EditProfile extends React.Component{
             <View style={styles.otherStyle}>
                 <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
-                    onPress = {() => this.props.navigation.navigate('Profile')}>
+                    onPress = {() => this.props.navigation.navigate('Profile', {
+                        username: this.state.username,
+                        screen_name: this.state.screen_name,
+                        email: this.state.email,
+                        currentAccountId: this.state.currentAccountId,
+                    }
+                    )}>
                         <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -203,7 +220,7 @@ class EditProfile extends React.Component{
                 </View>
                 
                 <Text style={styles.textStyle}>
-                    Screen Name: {this.state.screen_name}
+                    Screen Name: {this.state.first_name} {this.state.last_name}
                 </Text>
 
 
@@ -227,10 +244,13 @@ class EditProfile extends React.Component{
                 ></TextInput>
                 
 
-                <TouchableOpacity onPress={()=>this.setState({first_name:this.state.new_first_name})}>
+                {/* <TouchableOpacity onPress={()=>this.setState({first_name:this.state.new_first_name})}>
                     <Text style={styles.submitStyle}>Submit</Text>
+                </TouchableOpacity> */}
+
                 </TouchableOpacity>
                 <Text style={styles.textStyle} >Last Name </Text>
+
                 <TextInput 
                 placeholder={this.state.last_name} 
                 style={{
@@ -244,7 +264,14 @@ class EditProfile extends React.Component{
                 ></TextInput>
                 
 
-                <TouchableOpacity onPress={()=>this.setState({last_name:this.state.new_last_name})}>
+                <TouchableOpacity
+                    onPress={ () => {
+                        this.setState({first_name: this.state.new_first_name});
+                        this.setState({last_name: this.state.new_last_name});
+                        this.changeScreenName();
+                    }
+                        
+                }>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
 
@@ -258,9 +285,9 @@ class EditProfile extends React.Component{
                 <Text style={styles.textStyle}>
                     Username: {this.state.username}
                 </Text>
-                <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_username:!this.state.edit_username})}>
+                {/* <TouchableOpacity style={styles.button} onPress={()=>this.setState({edit_username:!this.state.edit_username})}>
                 <Image style={styles.image} source={Pencil}></Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
                 <View style={{"display": this.state.edit_username ? "block":"none",}}>
                 <TextInput 
@@ -330,9 +357,10 @@ class EditProfile extends React.Component{
                 >
                 </TextInput>
                 <TouchableOpacity
-                    onPress={
-                        ()=>this.setState({triggers:this.state.triggers_edit}),
-                        ()=> this.selectTriggers(1,this.state.triggers_edit)}>
+                    onPress={ () => {
+                        this.setState({triggers:this.state.triggers_edit});
+                        this.selectTriggers(1,this.state.triggers_edit);
+                    }}>
                      <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -357,10 +385,10 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
                 <TouchableOpacity
-                    onPress={
-                        ()=> this.setState({comforts:this.state.comforts_edit}),
-                        ()=> this.selectComforts(1, this.state.comforts_edit)
-                    }>
+                    onPress={ () => {
+                        this.setState({comforts:this.state.comforts_edit});
+                        this.selectComforts(1, this.state.comforts_edit);
+                    }}>
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity>
                 </View>
@@ -374,30 +402,42 @@ class EditProfile extends React.Component{
     componentDidMount() {
 
         const params = this.props.route.params;
-        console.log(this.props);
-        console.log(params.currentAccountId);
         this.setState({
         username: params.username,
-        screen_name : params.screen_name,
+        first_name: params.first_name,
+        last_name: params.last_name,
         currentAccountId : params.currentAccountId,
+        email: params.email,
         
         })
-        console.log(this.state);
 
         this.apiRepository.getCondition(this.props.route.params.username)
-            .then(rep => {
-                console.log(rep);
+          .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+              this.setState({
+                conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+              })
+            }
+        
             })
         
         this.apiRepository.getComfort(this.props.route.params.username)
             .then(rep => {
-                console.log(rep);
+                for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    comforts: this.state.comforts + ' ' + rep.rows[i].condition
+                  })
+                }
             })
 
         this.apiRepository.getTrigger(this.props.route.params.username)
-            .then(rep => {
-                console.log(rep);
-            })
+          .then(rep => {
+            for (var i = 0; i < rep.rows.length; i++){
+                  this.setState({
+                    triggers: this.state.triggers + ' ' + rep.rows[i].condition
+                  })
+                }
+          })
     }
 }
 const styles = StyleSheet.create({

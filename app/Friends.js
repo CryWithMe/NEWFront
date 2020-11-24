@@ -133,6 +133,7 @@ class Friends extends React.Component{
         }//end of if statement
         else{
           return this.state.erows.map(element => {
+
           return(
             <View style={styles.bar}>
               <Text style={styles.textStyle}>{element.fname.toString()}</Text>
@@ -144,17 +145,13 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {
-                          ()=> this.setState({username:element.fname}),
-                          ()=>this.props.navigation.navigate('FriendProfile', {
-                            username: element.username.toString(),
-                            screen_name: element.fname.toString(),
-                            
-                          
-                          
-                        },  
-                        )}
-                      >
+                        onPress= { ()=> {
+                          this.setState({username:this.state.frows[i].fname});
+                          this.props.navigation.navigate('FriendProfile', {
+                            username: this.state.frows[i].username.toString(),
+                            screen_name: this.state.frows[i].fname.toString()
+                          });
+                        }}>
                 <Text style={styles.textStyle}>Profile</Text>
                 </TouchableOpacity>
                  
@@ -193,11 +190,11 @@ class Friends extends React.Component{
                        
                       <TouchableOpacity
                         style={styles.profileButton}
-                        onPress= {
-                          () =>this.setState({username:element.fname}),
-                          () => this.acceptFriend(element.username.toString())
-                          }
-                      >
+
+                        onPress= { ()=> {
+                          this.setState({username:this.state.prows[i].fname});
+                          this.acceptFriend(this.state.prows[i].username.toString());
+                        }}>
                 <Text style={styles.textStyle}>Add Friend</Text>
                 </TouchableOpacity>
                  
@@ -284,7 +281,6 @@ class Friends extends React.Component{
         this.setState({
           prows: rep.rows
         })
-        console.log(this.state.rows);
       });
 
       

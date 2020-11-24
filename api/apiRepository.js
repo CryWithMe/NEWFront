@@ -19,7 +19,7 @@ export class apiRepository {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}createAccount`, body)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp));
+            .catch(resp => window.alert("Oops! That username is already taken!"));
         });
     }
 
@@ -28,7 +28,7 @@ export class apiRepository {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}login`, info)
             .then(resp => resolve(resp))
-            .catch(resp => alert(resp));
+            .catch(resp => window.alert("Oops! Wrong Username or Password"));
         });
     }
 
@@ -120,8 +120,8 @@ export class apiRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}searchAccount/${info}`, this.config)
                 .then(resp => resolve(resp))
-                .catch(resp => alert(resp));    
-            });
+                .catch(resp => window.alert("User does not exist"))
+                });
     }
     
     postToken(info){

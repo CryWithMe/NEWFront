@@ -17,7 +17,6 @@ class Settings extends React.Component{
         
     };
     deleteAccount(){
-        console.log(this.state.currentAccountId);
         var r=confirm("Press a button!\nEither OK or Cancel.");
         if(r==true){
             var body = {
@@ -48,7 +47,6 @@ class Settings extends React.Component{
     }
 
     changeEmail(){
-        console.log("fuk")
         let regex= RegExp("/^([^.])(\w[.]{0,1})+[^.]@(?:[a-zA-z]+\.)+[a-zA-z]{2,}$");
         var num= prompt("Type new email ");
         if(num!=this.state.email && num!=null){
@@ -78,7 +76,7 @@ class Settings extends React.Component{
     changePassword(){
         var pass= prompt("What would you like to change it to?");
         if(pass!=this.state.password && pass!=null){
-            if(pass.length>=7){
+            if(pass.length>=7) {
             this.setState({password:pass});
             var reqInfo = {
                 accountId: this.props.route.params.currentAccountId,
@@ -86,11 +84,10 @@ class Settings extends React.Component{
             }
             this.apiRepository.updatePassword(reqInfo)
                 .then(rep => {
-                    if (rep.statusCode == 'OK'){
-                        console.log("Password updated!");
+                    if (rep.data == 'OK'){
+                        this.props.navigation.navigate('Login');
                     }
                 })
-            Alert.alert("Confirmation","password succesfully changed!");
             }
         }
         else{
@@ -101,11 +98,9 @@ class Settings extends React.Component{
     }
     render() {
         const params = this.props.route.params;
-        console.log(params);
         this.state.currentAccountId = params.currentAccountId;
         this.state.password = params.password;
         this.state.email = params.email;
-        console.log(this.state);
         
         return (
             <SafeAreaView style={styles.container_4}>
@@ -114,6 +109,10 @@ class Settings extends React.Component{
             <View style={styles.otherStyle}>
                 <TouchableOpacity style={styles.backStyle}
                     onPress = {() => this.props.navigation.navigate('Profile', {
+                        username: this.state.username,
+                        password: this.state.password,
+                        currentAccountId: this.state.currentAccountId,
+                        screen_name: this.state.screen_name,
                         
                     }) }>
                 <Text style={styles.textStyle}>Back</Text>
@@ -174,13 +173,11 @@ class Settings extends React.Component{
     }
     componentDidMount() {
         const params = this.props.route.params;
-        console.log(params);
         this.setState({
             currentAccountId: params.currentAccountId,
             password: params.password,
             email: params.email,
         })
-        console.log(this.state);
     }
 }
 
