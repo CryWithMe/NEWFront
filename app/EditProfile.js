@@ -251,6 +251,7 @@ class EditProfile extends React.Component{
                 </TouchableOpacity> */}
 
             
+
                 <Text style={styles.textStyle} >Last Name </Text>
 
                 <TextInput 

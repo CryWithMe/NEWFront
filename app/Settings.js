@@ -222,6 +222,10 @@ const styles = StyleSheet.create({
       padding:10,
       
     },
+    bar:{
+
+    },
+    
     otherStyle: {
       //justifyContent: 'center',
       //backgroundColor: 'linear-gradient(#95afb4,white)',
