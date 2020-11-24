@@ -207,17 +207,19 @@ class EditProfile extends React.Component{
                     )}>
                         <Text style={styles.textStyle}>Back</Text>
                 </TouchableOpacity>
+                
                 <TouchableOpacity
                     title="Back"
                     onPress= {() => this.props.navigation.navigate('Home')}
                 ><Image style={styles.icon} source={Home}></Image>
           </TouchableOpacity>
-                <Text>        </Text>
+</View>
+                <View style={{flex:6,alignSelf:"center",flexDirection:"row"}}>
                 <Text style={styles.textStyle}>
                     Edit Your Profile
                 </Text>
-                <Text>        </Text>
                 </View>
+                
                 
                 <Text style={styles.textStyle}>
                     Screen Name: {this.state.first_name} {this.state.last_name}
@@ -248,7 +250,7 @@ class EditProfile extends React.Component{
                     <Text style={styles.submitStyle}>Submit</Text>
                 </TouchableOpacity> */}
 
-                </TouchableOpacity>
+            
                 <Text style={styles.textStyle} >Last Name </Text>
 
                 <TextInput 

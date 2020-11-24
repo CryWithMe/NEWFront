@@ -107,6 +107,7 @@ class Settings extends React.Component{
                <LinearGradient  colors={['#859a9b', 'white',]}>
             <ScrollView style={styles.scrollView}> 
             <View style={styles.otherStyle}>
+        <View style={styles.bar}>
                 <TouchableOpacity style={styles.backStyle}
                     onPress = {() => this.props.navigation.navigate('Profile', {
                         username: this.state.username,
@@ -122,11 +123,13 @@ class Settings extends React.Component{
                     onPress= {() => this.props.navigation.navigate('Home')}
                 ><Image style={styles.icon} source={Home}></Image>
           </TouchableOpacity>
-                <Text>        </Text>
+          </View>
+
+          <View style={{flex:6,alignSelf:"center",flexDirection:"row"}}>
                 <Text style={styles.titleStyle}>
                     Settings
                 </Text>
-                
+           </View>     
                 <Text style={styles.textStyle}>
                     Contact Info
                 </Text>
