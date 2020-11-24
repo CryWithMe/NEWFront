@@ -1,6 +1,6 @@
 import * as React from "react";
 import { apiRepository} from '../api/apiRepository';
-import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, SafeAreaView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, Modal, TouchableOpacity, TouchableHighlight, Linking, SafeAreaView, Text, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 class Profile extends React.Component{
@@ -93,7 +93,15 @@ class Profile extends React.Component{
                 <Text style={styles.textStyle}>
                     Conditions Info:
                     {this.list()}
+                
+                    <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
+                </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+               </View>
                 </Text>
+                
                 <Text style={styles.textStyle}>
                     Triggers:
                     {this.state.triggers}
@@ -277,6 +285,23 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center"
       },
+      hyperLink: {
+        flex:6,
+        // borderWidth:4,
+        // backgroundColor:"rgba(255, 255, 255, 0.53)",
+        // borderColor:"white",
+        // margin:10,
+        marginHorizontal:60,
+        // borderRadius:20,
+        padding:8,
+        fontSize: 20,
+        fontFamily:'Cochin',
+        textAlign:'center',
+        alignContent:"stretch",
+        alignSelf:"stretch",
+        fontStyle:'italic',
+      },
+
       
   });
 export default Profile; 

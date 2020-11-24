@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 import Logo from './Images/login_logo.png';
 
-class Login extends React.Component{
+export default class Login extends React.Component{
 
     apiRepository = new apiRepository();
 
@@ -18,7 +18,7 @@ class Login extends React.Component{
         id: '',
     };
 
-    onSubmit(){
+    onSubmit = () => {
     
     try{
         let token;
@@ -63,23 +63,22 @@ class Login extends React.Component{
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
-                value={this.state.username}
+                //value={this.state.username}
                     autoCapitalize="none"
-                    keyboardType="phone-pad"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
                 />
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
-                    keyboardType="phone-pad"
-                    value={this.state.password}
+                   
+                    //value={this.state.password}
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ password: e.target.value })}
                 />
-                <TouchableOpacity title="Login" style={styles.buttonStyle} onPress={()=> this.onSubmit()}>
+                <TouchableOpacity title="Login" style={styles.buttonStyle} onPress={()=>this.onSubmit()}>
                     <Text style={styles.appButtonText}>Login</Text>
                     </TouchableOpacity>
                 <Text style={styles.textStyle}>Don't Have an Account Yet?</Text>
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
             marginHorizontal:60,
     },
     inputStyle:{
-        //height:40,
+        height:40,
         borderColor: 'gray', 
         borderWidth: 3,
         marginHorizontal:60,
@@ -160,4 +159,4 @@ const styles = StyleSheet.create({
       
   }
   );
-export default Login; 
+//export default Login; 

@@ -82,8 +82,18 @@ class FriendProfile extends React.Component{
                     @{this.props.route.params.username}
                 </Text>
                 <Text style={styles.textStyle}>
+                  
                     Conditions Info:
+                    <View style={{flex:6,alignSelf:"center",}}>   
                     {this.list()}
+                    </View>
+                    <View style={{flex:6,alignSelf:"center",}}>   </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
+                </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+               </View>
                 </Text>
                 <Text style={styles.textStyle}>
                     Triggers:
@@ -228,5 +238,21 @@ const styles = StyleSheet.create({
         width:50,
         height:50,
       },
+      hyperLink: {
+        borderWidth:4,
+        backgroundColor:"rgba(255, 255, 255, 0.53)",
+        borderColor:"white",
+        margin:10,
+        marginHorizontal:60,
+        borderRadius:20,
+        padding:8,
+        fontSize: 20,
+        fontFamily:'Cochin',
+        textAlign:'center',
+        alignContent:"stretch",
+        alignSelf:"stretch",
+        fontStyle:'italic',
+      },
+
   });
 export default FriendProfile; 
