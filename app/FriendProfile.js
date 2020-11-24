@@ -92,7 +92,10 @@ class FriendProfile extends React.Component{
                 <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
                 </View>
                 <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+                <Text style={styles.hyperLink}
+                  onPress={() => {
+                    Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/');
+                  }}>Click here.</Text> 
                </View>
 
                     

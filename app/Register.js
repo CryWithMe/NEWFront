@@ -35,6 +35,7 @@ class Register extends React.Component{
                 .then(rep => {
                     if(rep === "OK"){
                         console.log('Great Success!');
+                        this.props.navigation.navigate('Login');
                     }
                 })
         }
@@ -97,7 +98,11 @@ class Register extends React.Component{
                     onChange={ e => this.setState({ lname: e.target.value })}
                 />
 
-                 <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={()=>this.onSubmit()}>
+                 <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={ ()=> {
+                    
+                     this.onSubmit();
+                     this.props.navigation.navigate('Login');
+                    }}>
 
                  <Text style={styles.appButtonText}>Register</Text>
                 </TouchableOpacity>

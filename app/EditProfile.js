@@ -268,6 +268,7 @@ class EditProfile extends React.Component{
                 
 
                 <TouchableOpacity
+                style={styles.opacityStyle}
                     onPress={ () => {
                         this.setState({first_name: this.state.new_first_name});
                         this.setState({last_name: this.state.new_last_name});
@@ -319,7 +320,7 @@ class EditProfile extends React.Component{
                     Conditions Info:
                 </Text>
 
-                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems)}><Text style={styles.textStyle}>Save Conditions</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacityStyle} onPress={()=>this.selectConditions(this.state.currentAccountId, this.state.selectedItems)}><Text style={styles.submitStyle}>Save Conditions</Text></TouchableOpacity>
                 <SafeAreaView style={styles.container_3}>
                 
                 
@@ -360,6 +361,7 @@ class EditProfile extends React.Component{
                 >
                 </TextInput>
                 <TouchableOpacity
+                    style={styles.opacityStyle}
                     onPress={ () => {
                         this.setState({triggers:this.state.triggers_edit});
                         this.selectTriggers(1,this.state.triggers_edit);
@@ -388,6 +390,7 @@ class EditProfile extends React.Component{
                 onChangeText={text => this.setState({comforts_edit:text})}
                 ></TextInput>
                 <TouchableOpacity
+                style={styles.opacityStyle}
                     onPress={ () => {
                         this.setState({comforts:this.state.comforts_edit});
                         this.selectComforts(1, this.state.comforts_edit);
@@ -528,7 +531,7 @@ const styles = StyleSheet.create({
     submitStyle:{
         fontSize: 18,
         fontFamily:'Cochin',
-        color: "#859a9b",
+        color: "white",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase" 

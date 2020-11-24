@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TouchableOpacity, Modal,ScrollView} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TextInput, TouchableOpacity, Modal,ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {apiRepository} from '../api';
 import Home from './Images/home.png';
@@ -14,6 +14,8 @@ class Settings extends React.Component{
         send_alerts:true,
         receive_alerts:true,
         currentAccountId: '',
+        edit_password:false, 
+        new_password:'',
         
     };
     deleteAccount(){
@@ -73,11 +75,12 @@ class Settings extends React.Component{
         return false;
     }
 
-    changePassword(){
-        var pass= prompt("What would you like to change it to?");
+    changePassword(u){
+        // var pass= prompt("What would you like to change it to?");
+        var pass=u;
         if(pass!=this.state.password && pass!=null){
             if(pass.length>=7) {
-            this.setState({password:pass});
+            //this.setState({password:this.state.password});
             var reqInfo = {
                 accountId: this.props.route.params.currentAccountId,
                 newPassword: pass
@@ -148,11 +151,40 @@ class Settings extends React.Component{
                 </Text>
                 <View style={styles.container}>
                 <TouchableOpacity
-                onPress={()=> {this.changePassword()}}>
+                onPress={()=>this.setState({edit_password:!this.state.edit_password})}>
                 <Text style={styles.textStyle}>
                     Change Password
                 </Text>
                 </TouchableOpacity>
+
+                <View style={{"display": this.state.edit_password? "block":"none",}}>
+                    <Text style={styles.textStyle} >New Password </Text>
+                <TextInput 
+                //placeholder={this.state.first_name}
+                 secureTextEntry={true}
+                style={{
+                    //"display": this.state.edit_comforts ? "block":"none",
+                    fontSize: 20,
+                    fontFamily:'Cochin',
+                    
+                    borderWidth:2,
+                    borderColor:'#859a9b',
+                    borderRadius:10,}}
+                onChangeText={text => this.setState({new_password:text})}
+                ></TextInput>
+
+            <TouchableOpacity
+                style={styles.opacityStyle}
+                    onPress={ () => {
+                        this.setState({password: this.state.new_password});
+                        this.changePassword(this.state.password);
+                    }
+                        
+                }>
+                    <Text style={styles.submitStyle}>Submit</Text>
+                </TouchableOpacity>
+                </View> 
+
                 <TouchableOpacity
                     title="Delete Account"
                     onPress= {() => {this.deleteAccount()}}
@@ -225,7 +257,7 @@ const styles = StyleSheet.create({
     bar:{
 
     },
-    
+
     otherStyle: {
       //justifyContent: 'center',
       //backgroundColor: 'linear-gradient(#95afb4,white)',
@@ -241,5 +273,20 @@ const styles = StyleSheet.create({
         width:50,
         height:50,
       },
+      submitStyle:{
+        fontSize: 18,
+        fontFamily:'Cochin',
+        color: "white",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase" 
+    },
+    opacityStyle:{
+        borderRadius:10, 
+        padding:2,
+        margin:4,
+        backgroundColor:"#859a9b",
+        marginHorizontal:60,
+    },
   });
 export default Settings; 

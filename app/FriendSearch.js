@@ -118,10 +118,11 @@ class FriendSearch extends React.Component{
                 <Text style={styles.names}>
                 {this.showNames()}
                 </Text>
+                <Text style={styles.textStyle}>{this.state.display_name}</Text>
                 <TouchableOpacity onPress={
                     ()=>this.sendRequest(this.state.friend_name)}
                     style={{'backgroundColor':"#abcdcf" ,'display':this.state.found ? "block": "none", "border-radius":10, padding:2,marginHorizontal:80,textAlign:"Center",}}>
-                    <Text style={styles.textStyle}>{this.state.display_name}</Text>
+                    
                     <Text style={styles.appButtonText}>
                         Add Friend
                     </Text>
