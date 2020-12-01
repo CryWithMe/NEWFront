@@ -2,10 +2,7 @@ import * as React from "react";
 
 import { StyleSheet, Button, View, SafeAreaView, Text, Image, TextInput, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import Constants from 'expo-constants';
 import Logo from './Images/login_logo.png';
 
 export default class Login extends React.Component{

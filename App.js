@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';

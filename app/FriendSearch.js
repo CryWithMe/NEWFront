@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         width:50,
         height:50,
-        alignContent:"right",
+        //alignContent:"right",
       },
   });
 export default FriendSearch; 

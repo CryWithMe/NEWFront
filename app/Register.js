@@ -1,8 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Image, TextInput, ScrollView, Alert } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import Logo from './Images/login_logo.png';
 

@@ -1,15 +1,9 @@
 import * as React from "react";
 import { apiRepository} from '../api/apiRepository';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, TouchableOpacity, Image, Button, View, Linking, SafeAreaView, ScrollView, Text,TouchableHighlight, Alert } from 'react-native';
-import Logo from './Images/Logo.png';
-import Friends from "./Friends";
-import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
-import {Picker} from '@react-native-picker/picker';
-import Heart from './Images/heart.png';
+
 
 class Response extends React.Component{
 
