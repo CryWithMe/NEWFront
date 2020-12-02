@@ -7,190 +7,180 @@ class Profile extends React.Component{
 
   apiRepository = new apiRepository();
 
-    state={
-        screen_name:'',
-        first_name: '',
-        last_name: '',
-        username:'',
-        email: '',
-        password:'',
-        conditions_info:[''],
-        triggers:'',
-        comforts:'',
-        modalVisible:false,
-        currentAccountId: '',
-    };
+  state={
+    screen_name:'',
+    first_name: '',
+    last_name: '',
+    username:'',
+    email: '',
+    password:'',
+    conditions_info:[''],
+    triggers:'',
+    comforts:'',
+    modalVisible:false,
+    currentAccountId: '',
+  };
 
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  }// end setModal
 
- setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
-      }
-
-
-    list = () => {
-        return this.state.conditions_info.map(element => {
-          return (
-            
-              <Text style={styles.descriptionStyle}>
-                  {element}
-                </Text>
-              
-          );
-        });
-      };
+  list = () => {
+    return this.state.conditions_info.map(element => {
+      return (
+        <Text style={styles.descriptionStyle}>
+          {element}
+        </Text>
+      );
+    });
+  };// end list
   
-  onLogout(){
+  onLogout() {
     console.log("Logging User Out");
     this.props.navigation.navigate("Login", {
       username: '',
       password: '',
       id: ''
-    })
-                
+    })            
+  } // end onLogout()
+
+  render() {
+    const params = this.props.route.params;
+    this.state.currentAccountId = params.currentAccountId;
+    const { modalVisible } = this.state;
+
+    return (
+      <LinearGradient  colors={['#859a9b', 'white',]}
+        style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}
+      >
+        <View style={styles.otherStyle}>
+          <View style={styles.bar}>
+            <TouchableOpacity style={styles.backStyle}>
+              <TouchableOpacity
+                title="Back"
+                onPress= {() => this.props.navigation.navigate('Home', {
+                  currentAccountId: this.state.currentAccountId,
+                  username: this.props.route.params.username
+                })}
+              >
+                <Text style={{fontFamily:"Cochin"}}>Back</Text>
+              </TouchableOpacity>
+            </TouchableOpacity>
+            <View>
+            </View>
+            <Text style={styles.titleStyle}></Text>
+            <Text>                </Text>
+          </View>
+          <Text style={styles.textStyle}>
+            Welcome back, {this.state.first_name} {this.state.last_name}
+          </Text>
+          <Text style={styles.textStyle}>
+            @{this.state.username}
+          </Text>
+          <Text style={styles.textStyle}>
+            Conditions Info:
+            {this.state.conditions_info}
+            <View style={{flex:6,alignSelf:"center",}}>
+              <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
+            </View>
+            <View style={{flex:6,alignSelf:"center",}}>
+              <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
+            </View>
+          </Text>
+          <Text style={styles.textStyle}>
+            Triggers:
+            {this.state.triggers}
+          </Text>
+          <Text style={styles.textStyle}>
+            Comforts:
+            {this.state.comforts}
+          </Text>
+          <View style={styles.textStyle}>
+            <TouchableOpacity
+              title="Manage Profile"
+              onPress= {() => this.props.navigation.navigate('Edit-Profile', {
+              username: this.state.username,
+              first_name: this.state.first_name,
+              last_name: this.state.last_name,
+              email: this.state.email,
+              currentAccountId: this.state.currentAccountId,  
+              })}
+            >
+              <Text style={styles.linkStyle}>Manage Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="Settings"
+              onPress= {() => this.props.navigation.navigate('Settings', {
+                username: this.state.username,
+                password: this.state.password,
+                currentAccountId: this.state.currentAccountId,
+                screen_name: this.state.screen_name,
+              })}
+            >
+              <Text style={styles.linkStyle}>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="Logout"
+              onPress= {() => this.onLogout() }
+            >
+              <Text style={styles.linkStyle}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </LinearGradient>
+    );
+  }// end render
+
+  componentDidMount() {
+    
+    this.apiRepository.getUser(this.state.currentAccountId)
+      .then(rep => {
+        this.setState({
+          first_name: rep.rows[0].fname,
+          last_name: rep.rows[0].lname,
+          username: rep.rows[0].username,
+          email: rep.rows[0].email,
+          password: rep.rows[0].password,
+        })
+      })
+
+    this.apiRepository.getCondition(this.props.route.params.username)
+      .then(rep => {
+        for (var i = 0; i < rep.rows.length; i++){
+          this.setState({
+            conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
+            })
+          }
+        })
+
+    this.apiRepository.getComfort(this.props.route.params.username)
+      .then(rep => {
+        for (var i = 0; i < rep.rows.length; i++){
+          this.setState({
+            comforts: this.state.comforts + ' ' + rep.rows[i].condition
+          })
+        }
+      })
+
+    this.apiRepository.getTrigger(this.props.route.params.username)
+      .then(rep => {
+        for (var i = 0; i < rep.rows.length; i++){
+          this.setState({
+            triggers: this.state.triggers + ' ' + rep.rows[i].condition
+          })
+        }
+      })
+
   }
 
+}// end Profile
 
-    render() {
-      const params = this.props.route.params;
-      this.state.currentAccountId = params.currentAccountId;
-
-      const { modalVisible } = this.state;
-        return (
-          <LinearGradient  colors={['#859a9b', 'white',]}
-            style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
-            <View style={styles.otherStyle}>
-                
-
-                <View style={styles.bar}>
-
-                <TouchableOpacity style={styles.backStyle}>
-                <TouchableOpacity
-                    title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home', {
-                      currentAccountId: this.state.currentAccountId,
-                      username: this.props.route.params.username
-                    })}
-                ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
-                </TouchableOpacity>
-                
-                <View></View>
-                <Text style={styles.titleStyle}>
-                    
-                </Text>
-                <Text>                </Text>
-                </View>
-            
-                <Text style={styles.textStyle}>
-                    Welcome back, {this.state.first_name} {this.state.last_name}
-                </Text>
-                <Text style={styles.textStyle}>
-                    @{this.state.username}
-                </Text>
-                <Text style={styles.textStyle}>
-                    Conditions Info:
-                  {this.state.conditions_info}
-                    {/* this.list()*/}
-                
-                    <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
-                </View>
-                <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink} onPress={() => Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/')}>Click here.</Text> 
-               </View>
-
-                </Text>
-                
-                <Text style={styles.textStyle}>
-                    Triggers:
-                    {this.state.triggers}
-                </Text>
-
-                <Text style={styles.textStyle}>
-                    Comforts:
-                    {this.state.comforts}
-                </Text>
-
-                <View style={styles.textStyle}>
-                <TouchableOpacity
-                  title="Manage Profile"
-                  onPress= {() => this.props.navigation.navigate('Edit-Profile', {
-                    username: this.state.username,
-                    first_name: this.state.first_name,
-                    last_name: this.state.last_name,
-                    email: this.state.email,
-                    currentAccountId: this.state.currentAccountId,
-                    
-                  })}
-                ><Text style={styles.linkStyle}>Manage Profile</Text></TouchableOpacity>
-                <TouchableOpacity
-                  title="Settings"
-                  onPress= {() => this.props.navigation.navigate('Settings', {
-                    username: this.state.username,
-                    password: this.state.password,
-                    currentAccountId: this.state.currentAccountId,
-                    screen_name: this.state.screen_name,
-                  })}
-                  ><Text style={styles.linkStyle}>Settings</Text></TouchableOpacity>
-                  <TouchableOpacity
-                  title="Logout"
-                  onPress= {() => this.onLogout() }
-                  ><Text style={styles.linkStyle}>Logout</Text></TouchableOpacity>
-
-                </View>
-            </View>
-           </LinearGradient>
-        );_
-    }
-    componentDidMount() {
-
-      this.apiRepository.getUser(this.state.currentAccountId)
-            .then(rep => {
-                this.setState({
-                  first_name: rep.rows[0].fname,
-                  last_name: rep.rows[0].lname,
-                  username: rep.rows[0].username,
-                  email: rep.rows[0].email,
-                  password: rep.rows[0].password,
-
-                })
-            })
-
-        this.apiRepository.getCondition(this.props.route.params.username)
-          .then(rep => {
-            for (var i = 0; i < rep.rows.length; i++){
-              this.setState({
-                conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
-              })
-            }
-        
-            })
-        
-        this.apiRepository.getComfort(this.props.route.params.username)
-            .then(rep => {
-                for (var i = 0; i < rep.rows.length; i++){
-                  this.setState({
-                    comforts: this.state.comforts + ' ' + rep.rows[i].condition
-                  })
-                }
-            })
-
-        this.apiRepository.getTrigger(this.props.route.params.username)
-          .then(rep => {
-            for (var i = 0; i < rep.rows.length; i++){
-                  this.setState({
-                    triggers: this.state.triggers + ' ' + rep.rows[i].condition
-                  })
-                }
-          })
-    }
-}
-
+// CSS
 const styles = StyleSheet.create({
     titleStyle:{
         fontSize: 20,
       fontFamily:'Cochin',
       textAlign:"center",
-      //justifyContent:"center",
       alignContent:"center",
     },
 
@@ -215,7 +205,6 @@ const styles = StyleSheet.create({
     bar:{
         marginTop:20,
         padding:10,
-        //justifyContent:"space-between",
         flexDirection: 'row', 
         flexWrap:'nowrap',
     },
@@ -239,7 +228,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
       fontFamily:'Cochin',
     textAlign:'center',
-      //backgroundColor: 'linear-gradient(#95afb4,white)',
     },
     descriptionStyle: {
         padding:8,
@@ -270,7 +258,6 @@ const styles = StyleSheet.create({
     },
     centeredView: {
       flex: 1,
-      //justifyContent: "center",
       alignItems: "center",
       marginTop: 22
     },
@@ -292,12 +279,7 @@ const styles = StyleSheet.create({
       },
       hyperLink: {
         flex:6,
-        // borderWidth:4,
-        // backgroundColor:"rgba(255, 255, 255, 0.53)",
-        // borderColor:"white",
-        // margin:10,
         marginHorizontal:60,
-        // borderRadius:20,
         padding:8,
         fontSize: 20,
         fontFamily:'Cochin',

@@ -1,12 +1,11 @@
 import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, TouchableOpacity, Text, Image, TextInput, ScrollView, Alert } from 'react-native';
 import { apiRepository} from '../api/apiRepository';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import Logo from './Images/login_logo.png';
 
 class Register extends React.Component{
-
+    
     apiRepository = new apiRepository();
 
     state={
@@ -21,8 +20,7 @@ class Register extends React.Component{
     };
 
     onSubmit(){
-        console.log(this.state);
-
+        // Error handles for mismatched passwords and unfilled forms
         if(this.state.password!=this.state.pass_confirm){
             window.alert("Oops! you're passwords don't match!");
         }
@@ -32,7 +30,6 @@ class Register extends React.Component{
         else {
             this.apiRepository.registerUser(this.state)
                 .then(rep => {
-                    console.log(rep);
                     if(rep.data === "OK"){
                         console.log('Great Success!');
                         this.props.navigation.navigate('Login');
@@ -40,18 +37,17 @@ class Register extends React.Component{
                 })
             this.props.navigation.navigate('Login');
         }
+    }// end onSubmit()
 
-
-
-    }
     render() {
         return (
             <SafeAreaView style={styles.container}>
-               <LinearGradient  colors={['#859a9b', 'white',]}>
+            <LinearGradient  colors={['#859a9b', 'white',]}>
             <ScrollView style={styles.scrollView}> 
+
             <View style={styles.otherStyle}>
-            <View style={{flex:6,alignSelf:"center",}}>
-                <Image style={styles.logo} source={Logo}></Image>
+                <View style={{flex:6,alignSelf:"center",}}>
+                    <Image style={styles.logo} source={Logo}></Image>
                 </View>
                 <Text style={styles.textStyle}>
                     Register
@@ -62,9 +58,7 @@ class Register extends React.Component{
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ email: e.target.value })}
                 />
-
                 <Text style={styles.textStyle}>UserName</Text>
-
                 <TextInput
                     autoCapitalize="none"
                     style={styles.inputStyle}
@@ -78,14 +72,13 @@ class Register extends React.Component{
                     secureTextEntry={true}
                     onChange={ e => this.setState({ password: e.target.value })}
                 />
-                 <Text style={styles.textStyle}>Confirm Password</Text>
+                <Text style={styles.textStyle}>Confirm Password</Text>
                 <TextInput
                     autoCapitalize="none"
                     secureTextEntry={true}
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ pass_confirm: e.target.value })}
                 />
-
                 <Text style={styles.textStyle}>First Name</Text>
                 <TextInput
                     autoCapitalize="none"
@@ -98,27 +91,27 @@ class Register extends React.Component{
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ lname: e.target.value })}
                 />
-
-                 <TouchableOpacity title="Register" style={styles.buttonStyle} onPress={ ()=> {
-                    
-                     this.onSubmit();
-                     //this.props.navigation.navigate('Login');
-                    }}>
-
-                 <Text style={styles.appButtonText}>Register</Text>
+                <TouchableOpacity
+                    title="Register"
+                    style={styles.buttonStyle}
+                    onPress={ ()=> { this.onSubmit(); }}
+                >
+                    <Text style={styles.appButtonText}>Register</Text>
                 </TouchableOpacity>
-
                 <Text style={styles.textStyle}>Already have an account?</Text>
                 <TouchableOpacity title="Login" onPress={()=>this.props.navigation.navigate('Login')}>
                     <Text style={styles.router}>Login</Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
             </View>
+
             </ScrollView>
             </LinearGradient>
             </SafeAreaView>
         );_
-    }
-}
+    } // end render
+}// end Register
+
+// CSS
 const styles = StyleSheet.create({
     inputStyle:{
         height: 40, 
@@ -153,7 +146,6 @@ const styles = StyleSheet.create({
     otherStyle: {
         marginVertical:80,
         flex:4,
-      //backgroundColor: "#859a9b",
      
     },
     router:{
@@ -165,7 +157,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-       // marginTop: Constants.statusBarHeight,
       },
       scrollView: {
         marginHorizontal: 20,
@@ -178,7 +169,6 @@ const styles = StyleSheet.create({
       
       container: {
         flex: 1,
-       // marginTop: Constants.statusBarHeight,
       },
       scrollView: {
         marginHorizontal: 20,

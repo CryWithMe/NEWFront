@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export class apiRepository {
-    //url = "http://localhost:3003";
-    url = "http://3.14.51.76/";
+    url = "http://3.14.51.76/"; // API
 
 
     getTest() {
@@ -116,7 +115,6 @@ export class apiRepository {
 
     searchAccount(info) {
         console.log("Search for an account... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}searchAccount/${info}`, this.config)
                 .then(resp => resolve(resp))
@@ -126,7 +124,6 @@ export class apiRepository {
     
     postToken(info){
         console.log("Sending token... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}token`, info)
                 .then(resp => resolve(resp.data))
@@ -136,7 +133,6 @@ export class apiRepository {
 
     postCondition(info){
         console.log("Sending conditions... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}condition`, info)
                 .then(resp => resolve(resp.data))
@@ -156,7 +152,6 @@ export class apiRepository {
 
     postComfort(info){
         console.log("Sending comforts... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}comfort`, info)
                 .then(resp => resolve(resp.data))
@@ -176,7 +171,6 @@ export class apiRepository {
 
     postTrigger(info){
         console.log("Sending triggers... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}trigger`, info)
                 .then(resp => resolve(resp.data))
@@ -215,7 +209,6 @@ export class apiRepository {
 
     getResponseList(info){
         console.log("Search for response list... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}eventResponses/${info}`, this.config)
                 .then(resp => resolve(resp))
@@ -225,7 +218,6 @@ export class apiRepository {
 
     getEventList(info){
         console.log("Search for eventlist... API Call");
-        console.log(info);
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}eventList/${info}`, this.config)
                 .then(resp => resolve(resp))

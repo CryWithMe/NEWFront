@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Logo from './Images/login_logo.png';
 
 export default class Login extends React.Component{
-
     apiRepository = new apiRepository();
 
     state={
@@ -16,17 +15,16 @@ export default class Login extends React.Component{
     };
 
     onSubmit = () => {
-    
-    try{
-        let token;
-        token = (Notifications.getExpoPushTokenAsync()).data;
-        this.apiRepository.postToken(this.state.currentAccountId, token);
-    
-    }catch(err){
-        console.log("Cannot get push token/api key, likely in web" );
-    }
-    
-        console.log(this.state);
+    // In iOS platform this enables push notifications via tokens
+        try{
+            let token;
+            token = (Notifications.getExpoPushTokenAsync()).data;
+            this.apiRepository.postToken(this.state.currentAccountId, token);
+        
+        } catch(err){
+            console.log("Cannot get push token/api key, likely in web" );
+        }
+        
         this.apiRepository.login(this.state)
             .then(rep => {
                 if(rep.statusText === 'OK') {
@@ -34,36 +32,26 @@ export default class Login extends React.Component{
                         username: this.state.username,
                         password: this.state.password,
                         id: rep.data
-            })}
-
+                    })
+                }
             });
-      
-      
     }
 
 
-    
-
     render() {
-        
-
         return (
-            
-            
-           <SafeAreaView style={styles.container}>
-               <LinearGradient  colors={['#859a9b', 'white',]}>
+            <SafeAreaView style={styles.container}>
+            <LinearGradient  colors={['#859a9b', 'white',]}>
             <ScrollView style={styles.scrollView}> 
             
             <View style={styles.otherStyle}>
-            <View style={{flex:6,alignSelf:"center",}}>
-            <Image style={styles.logo} source={Logo}></Image>
-            </View>
+                <View style={{flex:6,alignSelf:"center",}}>
+                    <Image style={styles.logo} source={Logo}></Image>
+                </View>
                 <Text style={styles.textStyle}>Login</Text>
                 <Text style={styles.textStyle}>Username</Text>
                 <TextInput
-
                     placeholder={''}
-
                     autoCapitalize="none"
                     style={styles.inputStyle}
                     onChange={ e => this.setState({ username: e.target.value })}
@@ -71,7 +59,6 @@ export default class Login extends React.Component{
                 <Text style={styles.textStyle}>Password</Text>
                 <TextInput
                     placeholder={''}
-
                     secureTextEntry={true}
                     autoCapitalize="none"
                     secureTextEntry={true}
@@ -80,32 +67,27 @@ export default class Login extends React.Component{
                 />
                 <TouchableOpacity title="Login" style={styles.buttonStyle} onPress={()=>this.onSubmit()}>
                     <Text style={styles.appButtonText}>Login</Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
                 <Text style={styles.textStyle}>Don't Have an Account Yet?</Text>
                 <TouchableOpacity title="Register" onPress={()=>this.props.navigation.navigate('Register')}>
                     <Text style={styles.router}>Register</Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
             </View>
+
             </ScrollView>
             </LinearGradient>
             </SafeAreaView>
-            
-            
-        );_
-    }
+        );
+    } // end render
 
     componentDidMount() {
-        if (this.props.route.params != undefined){
-            this.setState({
-                username: this.props.route.params.username,
-            })
-        }
-
         this.apiRepository.getTest()
-            .then(console.log("YO"));
+            .then(console.log("Server Connected"));
     }
-}
+    
+}// end Login
 
+// CSS 
 const styles = StyleSheet.create({
 
     appButtonText: {
