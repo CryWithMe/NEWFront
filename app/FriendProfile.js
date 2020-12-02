@@ -8,135 +8,118 @@ import { apiRepository } from '../api';
 class FriendProfile extends React.Component{
 
   apiRepository = new apiRepository();
-    state={
-        screen_name:'',
-        //username:'',
-        conditions_info:['ADHD','Depression'],
-        triggers:'',
-        comforts:'',
-        modalVisible:false,
-        friend_account:false,
-    };
+
+  state= {
+    screen_name:'',
+    conditions_info:['ADHD','Depression'],
+    triggers:'',
+    comforts:'',
+    modalVisible:false,
+    friend_account:false,
+  };
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  }
 
 
+  list = () => {
+    return this.state.conditions_info.map(element => {
+      return (
+        <Text style={styles.descriptionStyle}>
+          {element}
+        </Text>
+      );
+    });
+  }; // end list
 
- setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
-      }
+  render() {
+    const params = this.props.route.params;
+    var username = params.username;
+    const { modalVisible } = this.state;
+    return (
+      <SafeAreaView style={styles.container}>
+      <LinearGradient  colors={['#859a9b', 'white',]}>
+      <ScrollView style={styles.scrollView}>
 
-
-    list = () => {
-        return this.state.conditions_info.map(element => {
-          return (
-            
-              <Text style={styles.descriptionStyle}>
-                  {element}
-                </Text>
-              
-          );
-        });
-      };
-
-    //  deleteAccount(){
-    //   var r=confirm("Press a button!\nEither OK or Cancel.");
-    //   if(r==true){
-    //      //send api request to delete from table
-    //      alert("You selected cancel!");
-    //   }
-    //  }
-
-    render() {
-      const params = this.props.route.params;
-        var username = params.username;
-        
-
-      const { modalVisible } = this.state;
-        return (
-          <SafeAreaView style={styles.container}>
-          <LinearGradient  colors={['#859a9b', 'white',]}>
-       <ScrollView style={styles.scrollView}> 
-            <View style={styles.otherStyle}>
-                
-
-                <View style={styles.bar}>
-
-                <TouchableOpacity style={styles.backStyle}>
-                <TouchableOpacity
-                    title="Back"
-                    onPress= {() => this.props.navigation.navigate('Friends')}
-                ><Text style={{fontFamily:"Cochin"}}>Back</Text></TouchableOpacity>
-                </TouchableOpacity>
-                </View>
-
+      <View style={styles.otherStyle}>
+        <View style={styles.bar}>
+          <TouchableOpacity style={styles.backStyle}>
             <TouchableOpacity
-                    title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home')}
-                ><Image style={styles.icon} source={Home}></Image>
+              title="Back"
+              onPress= {() => this.props.navigation.navigate('Friends')}
+            >
+              <Text style={{fontFamily:"Cochin"}}>
+                  Back
+              </Text>
+            </TouchableOpacity>
           </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          title="Back"
+          onPress= {() => this.props.navigation.navigate('Home')}
+        >
+          <Image style={styles.icon} source={Home}></Image>
+        </TouchableOpacity>
+        <Text style={styles.textStyle}>
+          {this.props.route.params.screen_name}
+        </Text>
+        <Text style={styles.textStyle}>
+          @{this.props.route.params.username}
+        </Text>
+        <Text style={styles.textStyle}>
+          Conditions Info:
+          <View style={{flex:6,alignSelf:"center",}}>
+            {this.state.conditions_info}
+          </View>
+          <View style={{flex:6,alignSelf:"center",}}>
+          </View>
+          <View style={{flex:6,alignSelf:"center",}}>
+            <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
+          </View>
+          <View style={{flex:6,alignSelf:"center",}}>
+            <Text
+              style={styles.hyperLink}
+              onPress={() => { Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/');}}
+            >
+              Click here.
+            </Text> 
+          </View>
+        </Text>
+        <Text style={styles.textStyle}>
+          Triggers:
+          {this.state.triggers}
+        </Text>
+        <Text style={styles.textStyle}>
+          Comforts:
+          {this.state.comforts}
+        </Text>
+      </View>
 
-                <Text style={styles.textStyle}>
-                  {this.props.route.params.screen_name}
-                </Text>
-                <Text style={styles.textStyle}>
-                    @{this.props.route.params.username}
-                </Text>
-                <Text style={styles.textStyle}>
-                  
-                    Conditions Info:
-                    <View style={{flex:6,alignSelf:"center",}}>
-                     {this.state.conditions_info}
-                    {/*this.list()*/}
-                    </View>
-                    <View style={{flex:6,alignSelf:"center",}}>   </View>
-                <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink}>Want to learn more about these conditions?</Text>
-                </View>
-                <View style={{flex:6,alignSelf:"center",}}>
-                <Text style={styles.hyperLink}
-                  onPress={() => {
-                    Linking.openURL('https://www.namigreenvillesc.org/list-of-mental-illnesses/');
-                  }}>Click here.</Text> 
-               </View>
+      </ScrollView>
+      </LinearGradient>
+      </SafeAreaView>
+    );
+  }// end render
 
-                    
+  componentDidMount() {
 
-                </Text>
-                <Text style={styles.textStyle}>
-                    Triggers:
-                    {this.state.triggers}
-                </Text>
-
-                <Text style={styles.textStyle}>
-                    Comforts:
-                    {this.state.comforts}
-                </Text>
-            </View>
-            </ScrollView>
-            </LinearGradient>
-            </SafeAreaView>
-        );_
-    }
-
-    componentDidMount() {
-
-      this.apiRepository.getCondition(this.props.route.params.username)
+    this.apiRepository.getCondition(this.props.route.params.username)
       .then(rep => {
-        console.log(rep.rows[0].condition)
         for (var i = 0; i < rep.rows.length; i++){
           this.setState({
             conditions_info: this.state.conditions_info + ' ' + rep.rows[i].condition
           })
         }
-    
-        })
+      })
     
     this.apiRepository.getComfort(this.props.route.params.username)
-        .then(rep => {
-            for (var i = 0; i < rep.rows.length; i++){
-              this.setState({
-                comforts: this.state.comforts + ' ' + rep.rows[i].condition
-              })
-            }
+      .then(rep => {
+        for (var i = 0; i < rep.rows.length; i++){
+          this.setState({
+            comforts: this.state.comforts + ' ' + rep.rows[i].condition
+            })
+          }
         })
 
     this.apiRepository.getTrigger(this.props.route.params.username)
