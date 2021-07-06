@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert,Vibration, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
@@ -19,6 +18,7 @@ import FriendSearch from './app/FriendSearch.js';
 import Settings from './app/Settings.js';
 import EditProfile from './app/EditProfile.js';
 import FriendProfile from './app/FriendProfile.js'
+import Response from './app/Responses.js';
 
 const Stack = createStackNavigator(); 
 
@@ -120,6 +120,7 @@ export default class App extends React.Component{
 <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
 <Stack.Screen name="Edit-Profile" component={EditProfile} options={{ headerShown: false }}/>
 <Stack.Screen name="FriendProfile" component={FriendProfile} options={{ headerShown: false }}/>
+<Stack.Screen name="Response" component={Response} options={{ headerShown: false }}/>
 </Stack.Navigator>
       </NavigationContainer>
     

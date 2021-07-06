@@ -2,310 +2,257 @@ import * as React from "react";
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TouchableOpacity, ViewPagerAndroid, ScrollView} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { apiRepository} from '../api/apiRepository';
-import { CurrentRenderContext } from "@react-navigation/native";
-import Home from './Images/home.png';
+
 class Friends extends React.Component{
 
   apiRepository = new apiRepository();
 
-    state = {
-        friend_account:true, 
-        textMessage:'',
-        username:'',
-        // will be part of a list
-      //   array:[
-      //     {
-      //     name:'Melissa',
-      //     alreadyFriend:true,
-      //     },
-      //   {
-      //     name:'Tyler',
-      //     alreadyFriend:false,
-      //   },
-      // {
-      //     name:'Chris',
-      //     alreadyFriend:false,
-      // },
-      // {
-      //     name:'Hannah',
-      //     alreadyFriend:true,
-      // },
+  state = {
+    friend_account:true, 
+    textMessage:'',
+    username:'',
+    accountId: '',
+    frows: [],
+    prows: [],
+  };
 
-      //   ],
-      
-      accountId: '',
-      frows: [],
-      prows: [],
+  sendRequest(u) {
 
-      
-
-    };
-
-    sendRequest(u) {
-      var reqInfo = {
-        username: u,
-        accountId: this.props.route.params.currentAccountId,
-      }
-
-      this.apiRepository.sendFriendRequest(reqInfo)
-        .then(rep => {
-          if(rep.statusText == "OK"){
-            console.log("Friend Request Sent");
-          }
-        })
+    var reqInfo = {
+      username: u,
+      accountId: this.props.route.params.currentAccountId,
     }
 
-    delFriend(u) {
-      var reqInfo = {
-        username: u,
-        accountId: this.props.route.params.currentAccountId,
-      }
-
-      this.apiRepository.deleteFriend(reqInfo)
-        .then(rep => {
-          if(rep.statusText == "OK"){
-            console.log("Friend Deleted");
-          }
-        })
-    }
-
-    acceptFriend(u) {
-      var reqInfo = {
-        username: u,
-        accountId: this.props.route.params.currentAccountId,
-      }
-
-      this.apiRepository.acceptFriendRequest(reqInfo)
-        .then(rep => {
-          if(rep.statusText == "OK"){
-            console.log("Friend Accepted");
-          }
-        })
-      this.props.navigation.navigate('Friends', {
-          currentAccountId: this.state.currentAccountId
+    this.apiRepository.sendFriendRequest(reqInfo)
+      .then(rep => {
+        if(rep.statusText == "OK"){
+          console.log("Friend Request Sent");
+        }
       })
+
+  }// end sendRequest()
+
+  delFriend(u) {
+    var reqInfo = {
+      username: u,
+      accountId: this.props.route.params.currentAccountId,
     }
 
-    denyFriend(u) {
-      var reqInfo = {
-        username: u,
-        accountId: this.props.route.params.currentAccountId,
-      }
+    this.apiRepository.deleteFriend(reqInfo)
+      .then(rep => {
+        if(rep.statusText == "OK"){
+          console.log("Friend Deleted");
+        }
+     })
+  }// end delFriend
 
-      this.apiRepository.denyFriendRequest(reqInfo)
-        .then(rep => {
-          if(rep.statusText == "OK"){
-            console.log("Friend Denied");
-          }
-        })
-      
-        this.props.navigation.navigate('Friends', {
-          currentAccountId: this.state.currentAccountId
+  acceptFriend(u) {
+    var reqInfo = {
+      username: u,
+      accountId: this.props.route.params.currentAccountId,
+    }
+
+    this.apiRepository.acceptFriendRequest(reqInfo)
+      .then(rep => {
+        if(rep.statusText == "OK"){
+          console.log("Friend Accepted");
+        }
       })
+  }// end acceptFriend
+
+  denyFriend(u) {
+    var reqInfo = {
+      username: u,
+      accountId: this.props.route.params.currentAccountId,
+    }
+
+    this.apiRepository.denyFriendRequest(reqInfo)
+      .then(rep => {
+        if(rep.statusText == "OK"){
+          console.log("Friend Denied");
+        }
+      })
+
+    this.props.navigation.navigate('Friends', {
+      currentAccountId: this.state.currentAccountId
+    })
+
+  }// end denyFriend
+
+  goToProfile() {
+    return <Redirect to={`/Profile/${this.state.profileName}`}/>
+  }// end goToProfile
+
+  changeColor = () => {
+    let key = 2;
+    this.setState(prevState => ({
+      todoItems: prevState.todoItems.map(
+        el => el.key === key? { ...el, alreadyFriend: true }: el
+      )
+    }))
+  }; // ????
+
+
+  friendlist = () => {
+    if(this.state.frows.length==0){
+      return(
+        <View style={styles.bar}>
+          <Text style={styles.textStyle}>
+            No friends currently added. Add some friends above!
+          </Text>
+        </View>
+      );
+    }//end of if statement
+    else {
+      return this.state.frows.map(element => {
+        return(
+          <View style={styles.bar}>
+            <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+            <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
+            <View style={{
+              fontSize: 18,
+              fontFamily:'Cochin',
+              color: "#859a9b",}}
+            >
+              <TouchableOpacity
+                style={styles.profileButton}
+                onPress= { ()=> {
+                  this.setState({username:element.fname});
+                  this.props.navigation.navigate('FriendProfile', {
+                    username: element.username.toString(),
+                    screen_name: element.fname.toString() + ' ' + element.lname.toString(),
+                  });
+                }}
+              >
+                <Text style={styles.textStyle}>Profile</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(element.username)}>
+              <Text style={styles.removeTextStyle}>X</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      });
+    }//end of else statement 
+  };// end friendsList()
+      
+  requestlist = () => {
+    if(this.state.prows.length==0){
+      return(
+        <View style={styles.bar}>
+          <Text style={styles.textStyle}>
+            No new friend requests
+          </Text>
+        </View>
+      );
+    }//end of if statement
+    else {
+      return this.state.prows.map(element => {
+        return(
+          <View style={styles.bar}>
+            <Text style={styles.textStyle}>{element.fname.toString()}</Text>
+            <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
+            <View style={{
+              fontSize: 18,
+              fontFamily:'Cochin',
+              color: "#859a9b",}}
+            >
+              <TouchableOpacity
+                style={styles.profileButton}
+                onPress= { ()=> {
+                  this.setState({username: element.fname});
+                  this.acceptFriend(element.username.toString());
+                  this.props.navigation.navigate('FriendProfile', {
+                    currentAccountId: this.props.route.params.currentAccountId,
+                    username: element.username.toString(),
+                    screen_name: element.fname.toString() + ' ' + element.lname.toString(),
+                  })
+                }}
+              >
+                <Text style={styles.textStyle}>Add Friend</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              style={styles.removeButton}
+              onPress={ ()=>this.denyFriend(element.username.toString())}
+            >
+              <Text style={styles.textStyle}>Deny</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      });
+    }//end of else statement 
+  };// endRequestList()
+
+  render() {
+    const params = this.props.route.params;
+    this.state.accountId = params.id;
+    return (
+      <SafeAreaView style={styles.container}>
+      <LinearGradient  colors={['#859a9b', 'white',]}>
+      <ScrollView style={styles.scrollView}> 
+
+      <View style={styles.otherStyle}>
+        <TouchableOpacity style={styles.backStyle}>
+          <TouchableOpacity
+            title="Back"
+            onPress= {() => this.props.navigation.navigate('Home')}
+          >
+            <Text style={{fontFamily:"Cochin"}}>
+              Back
+            </Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+        <Text style={styles.titleStyle}>
+          Friends
+        </Text>
+        <View className="form-group">
+          <TouchableOpacity style={styles.linkStyle}>
+            <TouchableOpacity 
+              title="Add Friends"
+              onPress= {() => this.props.navigation.navigate('FriendSearch', {
+                currentAccountId: this.props.route.params.currentAccountId
+              })}
+            >
+              <Text style={styles.textStyle}>
+                  Add Friends
+              </Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+          <View style={styles.nonbar}>
+            {this.friendlist()}
+            {this.requestlist()}
+          </View>
+        </View>
+      </View>
+
+      </ScrollView>
+      </LinearGradient>
+      </SafeAreaView>
+    );_
+  }// end render
+
+  componentDidMount(){
+
+      this.apiRepository.getFriendList(this.props.route.params.currentAccountId)
+        .then( rep => {
+          this.setState({
+            frows: rep.rows
+          })
+        });
+      
+      this.apiRepository.getFriendRequests(this.props.route.params.currentAccountId)
+        .then( rep => {     
+          this.setState({
+            prows: rep.rows
+          })
+        });
 
   }
 
-    goToProfile(){
-        return <Redirect to={`/Profile/${this.state.profileName}`}/>
-    }
+}// end Friends
 
-    changeColor = () => {
-      let key = 2;
-  this.setState(prevState => ({
-  todoItems: prevState.todoItems.map(
-    el => el.key === key? { ...el, alreadyFriend: true }: el
-  )
-}))
-};
-
-
-      friendlist = () => {
-        if(this.state.frows.length==0){
-          return(
-            <View style={styles.bar}>
-              <Text style={styles.textStyle}>
-                No friends currently added. Add some friends above!
-              </Text>
-            </View>
-          );
-        }//end of if statement
-        else{
-          return this.state.frows.map(element => {
-
-          return(
-            <View style={styles.bar}>
-              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
-                   <View style={{
-                     fontSize: 18,
-                     fontFamily:'Cochin',
-                     color: "#859a9b",}}>
-                       
-                      <TouchableOpacity
-                        style={styles.profileButton}
-                        onPress= { ()=> {
-                          this.setState({username:element.fname});
-                          this.props.navigation.navigate('FriendProfile', {
-                            username: element.username.toString(),
-                            screen_name: element.fname.toString() + ' ' + element.lname.toString(),
-                          });
-                        }}>
-                <Text style={styles.textStyle}>Profile</Text>
-                </TouchableOpacity>
-                 
-                </View>
-                <TouchableOpacity style={styles.removeButton} onPress={()=>this.delFriend(element.username)}>
-                   <Text style={styles.removeTextStyle}>X</Text>
-                 </TouchableOpacity>
-            </View>
-          );
-          });
-      }//end of else statement 
-      };
-      
-      requestlist = () => {
-        if(this.state.prows.length==0){
-          return(
-            <View style={styles.bar}>
-              <Text style={styles.textStyle}>
-                No new friend requests
-              </Text>
-            </View>
-          );
-        }//end of if statement
-        else{
-          return this.state.prows.map(element => {
-          return(
-            <View style={styles.bar}>
-              <Text style={styles.textStyle}>{element.fname.toString()}</Text>
-              <Text style={styles.subtitleStyle}>(@{element.username.toString()})</Text>
-                   <View style={{
-                     fontSize: 18,
-                     fontFamily:'Cochin',
-                     color: "#859a9b",}}>
-                       
-                      <TouchableOpacity
-                        style={styles.profileButton}
-
-                        onPress= { ()=> {
-                          this.setState({username: element.fname});
-                          this.acceptFriend(element.username.toString());
-                        }}>
-                <Text style={styles.textStyle}>Add Friend</Text>
-                </TouchableOpacity>
-                 
-                </View>
-                <TouchableOpacity
-                  style={styles.removeButton}
-                  onPress={
-                      ()=>this.denyFriend(element.username.toString())
-                      }>
-                   <Text style={styles.textStyle}>Deny</Text>
-                 </TouchableOpacity>
-            </View>
-          );
-        });
-      }//end of else statement 
-      };
-
-    render() {
-
-      const params = this.props.route.params;
-        this.state.accountId = params.id;
-
-        console.log('Object is', this.state.frows[0]);
-
-        return (
-          <SafeAreaView style={styles.container}>
-          <LinearGradient  colors={['#859a9b', 'white',]}>
-       <ScrollView style={styles.scrollView}> 
-            <View style={styles.otherStyle}>
-
-            <TouchableOpacity style={styles.backStyle}>
-            <TouchableOpacity
-                    title="Back"
-                    onPress= {() => this.props.navigation.navigate('Home')}
-                ><Text style={{fontFamily:"Cochin"}}>Back</Text>
-            </TouchableOpacity>
-           </TouchableOpacity>
-
-                <Text style={styles.titleStyle}>
-                    Friends
-                </Text>
-               
-                <View className="form-group">
-
-                <TouchableOpacity style={styles.linkStyle}>
-                <TouchableOpacity 
-                    title="Add Friends"
-                    onPress= {() => this.props.navigation.navigate('FriendSearch', {
-                      currentAccountId: this.props.route.params.currentAccountId
-                    })}
-                ><Text style={styles.textStyle}>Add Friends</Text></TouchableOpacity>
-                </TouchableOpacity>
-
-                <View style={styles.nonbar}>
-
-               {this.friendlist()}
-               {this.requestlist()}
-
-                </View>
-            </View>
-            </View>
-            </ScrollView>
-            </LinearGradient>
-            </SafeAreaView>
-        );_
-    }
-    componentDidMount(){
-      
-      //console.log(this.state.info);
-      this.apiRepository.getFriendList(this.props.route.params.currentAccountId)
-          .then( rep => {
-            
-            this.setState({
-              frows: rep.rows
-            })
-            console.log(rep);
-          });
-      
-      this.apiRepository.getFriendRequests(this.props.route.params.currentAccountId)
-
-      .then( rep => {
-            
-        console.log(rep.rows);
-        this.setState({
-          prows: rep.rows
-        })
-      });
-
-      
-      //this.apiRepository.denyFriendRequest(this.state.accountId,this.state.username);
-      // .then( rep => {
-            
-      //   console.log(rep.rows);
-      //   this.setState({
-      //     prows: rep.rows
-      //   })
-      //   console.log(this.state.rows);
-      // });
-
-      // this.apiRepository.deleteFriend(this.delFriend('b'))
-      //   .then(rep => {
-      //     console.log("goodbye!");
-      //   })
-      
-
-  //     this.apiRepository.sendFriendRequest(this.sendRequest('b'))
-  //       .then( rep => {
-  //           console.log(rep);
-  //       });
-
-   }
-
-}
-
-
+// CSS
 const styles = StyleSheet.create({
 
   backStyle:{
@@ -317,7 +264,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowRadius: 10,
         shadowOpacity: 0.35,
-        marginRight:450,
+        marginRight:400,
+        flexDirection:"row",
         textAlign:"center",
   },
 
@@ -332,7 +280,6 @@ const styles = StyleSheet.create({
   removeButton:{
 
     fontSize: 18,
-    //fontFamily:'Cochin',
     backgroundColor: "#859a9b",
     borderRadius:10,
     color:"white",
@@ -340,7 +287,6 @@ const styles = StyleSheet.create({
     padding:2,
   },
   removeTextStyle: {
-   // padding:6,
     fontSize: 20,
     fontWeight:"bold",
     color:"white",
@@ -363,7 +309,6 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.35,
         marginHorizontal:160,
-        //justifyContent:"center",
         textAlign:"center", 
   },
 
@@ -376,10 +321,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     textTransform: "uppercase"
   },
-
-  // addButton:{
-  //   color:'gray,'
-  // },
 
   titleStyle:{
     borderWidth:4,
@@ -420,13 +361,10 @@ nonbar:{
       fontFamily:'Cochin',
     },
     otherStyle: {
-      //justifyContent: 'center',
-      //backgroundColor: "#859a9b",
-      //backgroundColor: 'linear-gradient(#95afb4,white)',
+
     },
     container: {
       flex: 1,
-     // marginTop: Constants.statusBarHeight,
     },
     scrollView: {
       marginHorizontal: 20,
